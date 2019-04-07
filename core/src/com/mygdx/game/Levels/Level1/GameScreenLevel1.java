@@ -15,11 +15,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Player.Player;
 
+import static com.mygdx.game.MyGame.PPM;
+
 public class GameScreenLevel1 implements Screen {
 
     MyGame game;
-
-    private float PPM = 100;
 
     private Player player;
 
@@ -53,6 +53,8 @@ public class GameScreenLevel1 implements Screen {
         new WorldCreatorLevel1(world, map);
 
         player = new Player(world);
+
+        world.setContactListener(new WorldContactListener());
     }
 
     @Override
@@ -67,7 +69,9 @@ public class GameScreenLevel1 implements Screen {
             player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+            if(WorldContactListener.isGrounded  == true) {
+                player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+            }
         }
     }
 
@@ -102,7 +106,6 @@ public class GameScreenLevel1 implements Screen {
 
         @Override
         public void pause () {
-
         }
 
         @Override

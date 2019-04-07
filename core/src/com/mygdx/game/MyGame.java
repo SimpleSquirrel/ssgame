@@ -8,6 +8,7 @@ import com.mygdx.game.Screens.MenuScreen;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
+	public final  static float PPM = 100;
 
 	public void create() {
 		Assets.load();

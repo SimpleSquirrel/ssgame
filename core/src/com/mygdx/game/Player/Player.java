@@ -1,12 +1,14 @@
 package com.mygdx.game.Player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+
+import static com.mygdx.game.MyGame.PPM;
 
 public class Player extends Sprite {
     public World world;
     public Body b2body;
-    public float PPM = 100;
 
     public Player(World world){
         this.world = world;
@@ -25,5 +27,10 @@ public class Player extends Sprite {
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
+        EdgeShape boots = new EdgeShape();
+        boots.set(new Vector2(-14/PPM, -30/PPM), new Vector2(14/PPM, -30/PPM));
+        fdef.shape = boots;
+        fdef.isSensor = true;
+        b2body.createFixture(fdef).setUserData("boots");
     }
 }
