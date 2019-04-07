@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Player.Player;
+import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.ExitScreen;
 
 import static com.mygdx.game.MyGame.PPM;
 
@@ -72,6 +74,13 @@ public class GameScreenLevel1 implements Screen {
             if(WorldContactListener.isGrounded  == true) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
             }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            this.pause();
+            game.setScreen(new ExitScreen(game));
+        }
+        if(player.b2body.getPosition().y<-10 ){
+            game.setScreen(new DeathScreen(game));
         }
     }
 

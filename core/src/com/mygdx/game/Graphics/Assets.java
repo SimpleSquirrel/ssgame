@@ -62,6 +62,32 @@ public class Assets {
     public static Sprite spriteMC;
     public static Texture texturePie;
     public static Sprite spritePie;
+    //DeathScreen
+
+    // Sprites
+    public static Sprite spriteDeathScreenBack;
+    public static Sprite spriteDeathScreenDaActive;
+    public static Sprite spriteDeathScreenDaInActive;
+    public static Sprite spriteDeathScreenTosheDa;
+    public static Sprite spriteDeathScreenNoInActive;
+
+    // textures
+    public static Texture textureDeathScreenBack;
+    public static Texture textureDeathScreenDaActive;
+    public static Texture textureDeathScreenDaInActive;
+    public static Texture textureDeathScreenTosheDa;
+    public static Texture textureDeathScreenNoInactive;
+    //ExitScreen
+    //Sprites
+    public static Sprite spriteNoActive;
+    public static Sprite spriteExitScreenBack;
+    //Textures
+    public static Texture textureNoActive;
+    public static Texture textureExitScreenBack;
+    //New Game Screen
+    //BackGround
+    public static Sprite spriteNewGameScreenBack;
+    public static Texture textureNewGameScreenBack;
 
 
 
@@ -197,5 +223,41 @@ public class Assets {
 
         texturePie = new Texture(Gdx.files.internal("Game/Pie.png"));
         spritePie = new Sprite(texturePie);
+
+        textureDeathScreenBack = new Texture(Gdx.files.internal("DeathScreen/Back.png"));
+        textureDeathScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDeathScreenBack = new Sprite(textureDeathScreenBack);
+        //spriteDeathScreenBack.flip(false, true);
+        //Bootom DA
+        //Active
+        textureDeathScreenDaActive= new Texture(Gdx.files.internal("DeathScreen/DaActive.png"));
+        textureDeathScreenDaActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDeathScreenDaActive = new Sprite(textureDeathScreenDaActive);
+        //InActive
+        textureDeathScreenDaInActive= new Texture(Gdx.files.internal("DeathScreen/DaInActive.png"));
+        textureDeathScreenDaInActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDeathScreenDaInActive = new Sprite(textureDeathScreenDaInActive);
+        //Bottom TosheDa
+        textureDeathScreenTosheDa= new Texture(Gdx.files.internal("DeathScreen/TosheDa.png"));
+        textureDeathScreenTosheDa.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDeathScreenTosheDa = new Sprite(textureDeathScreenTosheDa);
+        //Bottom No Inactive
+        textureDeathScreenNoInactive= new Texture(Gdx.files.internal("DeathScreen/NoInactive.png"));
+        textureDeathScreenNoInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDeathScreenNoInActive = new Sprite(textureDeathScreenNoInactive);
+        // ExitScreen
+        //bottom NO Active
+        textureNoActive= new Texture(Gdx.files.internal("ExitScreen/NoActive.png"));
+        textureNoActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteNoActive = new Sprite(textureNoActive);
+        //BackGround
+        textureExitScreenBack= new Texture(Gdx.files.internal("ExitScreen/Back.png"));
+        textureExitScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteExitScreenBack = new Sprite(textureExitScreenBack);
+        //newGameScreen
+        //Background
+        textureNewGameScreenBack= new Texture(Gdx.files.internal("NewGameScreen/Back.png"));
+        textureNewGameScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteNewGameScreenBack = new Sprite(textureNewGameScreenBack);
     }
 }
