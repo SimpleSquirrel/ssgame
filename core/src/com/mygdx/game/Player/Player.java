@@ -1,4 +1,4 @@
-package Player;
+package com.mygdx.game.Player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
