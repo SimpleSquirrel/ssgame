@@ -1,0 +1,13 @@
+Static:
+MenuScreen
+PreferencesScreen
+LoadingScreen
+PauseScreen
+ExitScreen
+DeathScreen
+
+Dynamic:
+GameScreen
+FamiliarScreen
+WeaponScreen
+SkillScreen
