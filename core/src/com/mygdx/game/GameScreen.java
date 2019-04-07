@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+<<<<<<< HEAD
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -76,10 +77,23 @@ public class GameScreen implements Screen {
         world.step(1/60f, 6, 2);
         camera.update();
         renderer.setView(camera);
+=======
+import com.badlogic.gdx.Screen;
+
+public class GameScreen implements Screen {
+    private MainClass game;
+    public GameScreen(MainClass game){
+        this.game = game;
+    }
+    @Override
+    public void show() {
+
+>>>>>>> 9300740b22894359a395e197f8c5295c4c970de7
     }
 
     @Override
     public void render(float delta) {
+<<<<<<< HEAD
         update(delta);
         Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
@@ -92,11 +106,18 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.end();
+=======
+
+>>>>>>> 9300740b22894359a395e197f8c5295c4c970de7
     }
 
     @Override
     public void resize(int width, int height) {
+<<<<<<< HEAD
         viewPort.update(width, height);
+=======
+
+>>>>>>> 9300740b22894359a395e197f8c5295c4c970de7
     }
 
     @Override
@@ -116,9 +137,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+<<<<<<< HEAD
         map.dispose();
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
+=======
+
+>>>>>>> 9300740b22894359a395e197f8c5295c4c970de7
     }
 }
