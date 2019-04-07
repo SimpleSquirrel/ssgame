@@ -1,9 +1,12 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Levels.Level1.GameScreenLevel1;
+import com.mygdx.game.MyGame;
 
 public class MenuScreen implements Screen {
 
@@ -37,7 +40,7 @@ public class MenuScreen implements Screen {
             if(Gdx.input.getX() < 550 + 250 && Gdx.input.getX() > 550 && Gdx.input.getY() < 50 + 150 && Gdx.input.getY() > 50) { //setting bounds of NewGameButton
                 game.batch.draw(Assets.spriteNewGameButtonActive, 550, 50, 500, 150); //Drawing Active NewGameButton
                 if (Gdx.input.isTouched()) { //creating an event
-                    game.setScreen(new GameScreen(game)); //changing screen
+                    game.setScreen(new GameScreenLevel1(game)); //changing screen
                     this.dispose();
                 }
             }
@@ -48,7 +51,7 @@ public class MenuScreen implements Screen {
                 game.batch.draw(Assets.spriteContinueGameButtonActive, 550, 250, 500, 150);
                 if (Gdx.input.isTouched()) {
                     this.dispose();
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreenLevel1(game));
                 }
             }
             else{

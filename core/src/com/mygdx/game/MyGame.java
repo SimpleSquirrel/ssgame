@@ -2,9 +2,9 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Screens.MenuScreen;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;

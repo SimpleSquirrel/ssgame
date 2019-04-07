@@ -6,9 +6,7 @@ import org.robovm.apple.uikit.UIApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 <<<<<<< HEAD
-import com.mygdx.game.MyGame;
 =======
-import com.mygdx.game.MainClass;
 >>>>>>> 9300740b22894359a395e197f8c5295c4c970de7
 
 public class IOSLauncher extends IOSApplication.Delegate {

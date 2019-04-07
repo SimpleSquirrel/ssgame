@@ -1,8 +1,8 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Screen;
 
-public class FamiliarScreen implements Screen {
+public class SkillScreen implements Screen {
     @Override
     public void show() {
 

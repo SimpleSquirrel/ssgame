@@ -1,9 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.MyGame;
 
 public class PreferencesScreen implements Screen {
     MyGame game;
