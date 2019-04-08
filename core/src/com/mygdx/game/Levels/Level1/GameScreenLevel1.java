@@ -12,10 +12,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.Objects.Floor;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
-import com.mygdx.game.Screens.ExitScreen;
+import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.MyGame.PPM;
 
@@ -24,6 +26,8 @@ public class GameScreenLevel1 implements Screen {
     MyGame game;
 
     private Player player;
+
+    boolean isPaused;
 
     OrthographicCamera camera;
 
@@ -37,6 +41,7 @@ public class GameScreenLevel1 implements Screen {
 
     public GameScreenLevel1(MyGame game) {
         this.game = game;
+
 
         camera = new OrthographicCamera();
 
@@ -71,13 +76,13 @@ public class GameScreenLevel1 implements Screen {
             player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(WorldContactListener.isGrounded  == true) {
+            if(Floor.isGrounded  == true) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+                Floor.isGrounded = false;
             }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            this.pause();
-            game.setScreen(new ExitScreen(game));
+            isPaused = true;
         }
         if(player.b2body.getPosition().y<-10 ){
             game.setScreen(new DeathScreen(game));
@@ -87,6 +92,7 @@ public class GameScreenLevel1 implements Screen {
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
+        player.update(dt);
         camera.update();
         renderer.setView(camera);
 
@@ -94,18 +100,47 @@ public class GameScreenLevel1 implements Screen {
 
         @Override
         public void render ( float delta){
-            update(delta);
-            Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
+            if(isPaused){
+                game.batch.begin(); //start of rendering
+                game.batch.draw(Assets.spriteExitScreenBack, 0, 0);
+                if(Gdx.input.getX() < 250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900 - 200 - 250  && Gdx.input.getY() < 900 - 300) { //setting bounds of NewGameButton
+                    game.batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 300, 150); //Drawing Active
+                    if (Gdx.input.isTouched()) { //creating an event
+                        this.dispose();
+                        game.setScreen(new MenuScreen(game)); //changing screen
+                    }
+                }
+                else{
+                    game.batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150);
+                }
+                if(Gdx.input.getX() <650 + 300 && Gdx.input.getX() > 650 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
+                    game.batch.draw(Assets.spriteNoActive, 750, 200, 300, 150); //Drawing Active
+                    if (Gdx.input.isTouched()) { //creating an event
+                        Gdx.graphics.setContinuousRendering(false);
+                        isPaused = false;
+                    }
+                }
+                else{
+                    game.batch.draw(Assets.spriteDeathScreenNoInActive, 750, 200, 300, 150);
+                }
+                game.batch.end(); //ending of rendering
+            }
+            else {
+                Gdx.graphics.requestRendering();
+                update(delta);
+                Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
 
-            renderer.render();
+                renderer.render();
 
-            b2dr.render(world, camera.combined);
+                b2dr.render(world, camera.combined);
 
-            camera.update();
-            game.batch.setProjectionMatrix(camera.combined);
-            game.batch.begin();
-            game.batch.end();
+                camera.update();
+                game.batch.setProjectionMatrix(camera.combined);
+                game.batch.begin();
+                player.draw(game.batch);
+                game.batch.end();
+            }
         }
 
         @Override
@@ -119,7 +154,6 @@ public class GameScreenLevel1 implements Screen {
 
         @Override
         public void resume () {
-
         }
 
         @Override
