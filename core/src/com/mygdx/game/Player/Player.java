@@ -117,7 +117,7 @@ public class Player extends Sprite {
         fdef.shape = shape;
         b2body.createFixture(fdef);
         EdgeShape boots = new EdgeShape();
-        boots.set(new Vector2(-14/PPM, -30/PPM), new Vector2(14/PPM, -30/PPM));
+        boots.set(new Vector2(-13/PPM, -30/PPM), new Vector2(13/PPM, -30/PPM));
         fdef.shape = boots;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("boots");

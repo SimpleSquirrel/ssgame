@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,7 +14,7 @@ public class DeathScreen implements Screen {
     MyGame game;    //MyGame constructor
     OrthographicCamera camera; //Creating a camera
     SpriteBatch batch;
-    public DeathScreen(MyGame game){ //constructor
+     public DeathScreen(MyGame game){ //constructor
         this.game = game;
 
         camera = new OrthographicCamera(); //Initialising camera
@@ -45,6 +46,10 @@ public class DeathScreen implements Screen {
                 game.setScreen(new GameScreenLevel1(game)); //changing screen
             }
         }
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            this.dispose();
+            game.setScreen(new GameScreenLevel1(game)); //changing screen
+        }
         else{
             batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150);
         }
@@ -54,6 +59,10 @@ public class DeathScreen implements Screen {
                 this.dispose();
                 game.setScreen(new GameScreenLevel1(game)); //changing screen
             }
+        }
+        else if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            this.dispose();
+            game.setScreen(new MenuScreen(game)); //changing screen
         }
         else{
             batch.draw(Assets.spriteDeathScreenNoInActive, 750, 200, 300, 150);
