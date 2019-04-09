@@ -52,6 +52,7 @@ public class ExitScreen implements Screen {
             if (Gdx.input.isTouched()) { //creating an even
 
                 this.dispose();
+                GameScreenLevel1.isPaused=false;
             }
         }
         else{
