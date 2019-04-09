@@ -1,0 +1,54 @@
+Robot.png
+size: 40, 490
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Run1
+  rotate: false
+  xy: 0, 0
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+Run2
+  rotate: false
+  xy: 0, 70
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+Run3
+  rotate: false
+  xy: 0, 140
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+Run4
+  rotate: false
+  xy: 0, 210
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+Run5
+  rotate: false
+  xy: 0, 280
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+Sword0
+  rotate: false
+  xy: 0, 350
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+Sword1
+  rotate: false
+  xy: 0, 420
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1

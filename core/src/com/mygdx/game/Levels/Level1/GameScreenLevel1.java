@@ -15,13 +15,16 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.bullet.collision.ContactListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.Objects.Floor;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Screens.ExitScreen;
 import com.mygdx.game.Objects.Bullet;
 
 import java.util.ArrayList;
+import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.MyGame.PPM;
 
@@ -34,6 +37,8 @@ public class GameScreenLevel1 implements Screen {
     MyGame game;
 
     private Player player;
+
+    boolean isPaused;
 
     OrthographicCamera camera;
 
@@ -52,6 +57,7 @@ public class GameScreenLevel1 implements Screen {
         shootTimer=0;
 
         this.game = game;
+
 
         camera = new OrthographicCamera();
 
@@ -86,13 +92,13 @@ public class GameScreenLevel1 implements Screen {
             player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(WorldContactListener.isGrounded  == true) {
+            if(Floor.isGrounded  == true) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+                Floor.isGrounded = false;
             }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            this.pause();
-            game.setScreen(new ExitScreen(game));
+            isPaused = true;
         }
         if(player.b2body.getPosition().y<-10 ){
             game.setScreen(new DeathScreen(game));
@@ -127,11 +133,48 @@ public class GameScreenLevel1 implements Screen {
             update(delta);
             Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
+            if(isPaused){
+                game.batch.begin(); //start of rendering
+                game.batch.draw(Assets.spriteExitScreenBack, 0, 0);
+                if(Gdx.input.getX() < 250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900 - 200 - 250  && Gdx.input.getY() < 900 - 300) { //setting bounds of NewGameButton
+                    game.batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 300, 150); //Drawing Active
+                    if (Gdx.input.isTouched()) { //creating an event
+                        this.dispose();
+                        game.setScreen(new MenuScreen(game)); //changing screen
+                    }
+                }
+                else{
+                    game.batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150);
+                }
+                if(Gdx.input.getX() <650 + 300 && Gdx.input.getX() > 650 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
+                    game.batch.draw(Assets.spriteNoActive, 750, 200, 300, 150); //Drawing Active
+                    if (Gdx.input.isTouched()) { //creating an event
+                        Gdx.graphics.setContinuousRendering(false);
+                        isPaused = false;
+                    }
+                }
+                else{
+                    game.batch.draw(Assets.spriteDeathScreenNoInActive, 750, 200, 300, 150);
+                }
+                game.batch.end(); //ending of rendering
+            }
+            else {
+                Gdx.graphics.requestRendering();
+                update(delta);
+                Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
 
-            renderer.render();
+                renderer.render();
 
-            b2dr.render(world, camera.combined);
+                b2dr.render(world, camera.combined);
 
+                camera.update();
+                game.batch.setProjectionMatrix(camera.combined);
+                game.batch.begin();
+                game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
+                game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
+                game.batch.end();
+            }
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
             game.batch.begin();
