@@ -88,6 +88,7 @@ public class Assets {
     //BackGround
     public static Sprite spriteNewGameScreenBack;
     public static Texture textureNewGameScreenBack;
+    //Bullet
 
 
 
@@ -259,5 +260,7 @@ public class Assets {
         textureNewGameScreenBack= new Texture(Gdx.files.internal("NewGameScreen/Back.png"));
         textureNewGameScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteNewGameScreenBack = new Sprite(textureNewGameScreenBack);
+        // Bullet
+
     }
 }
