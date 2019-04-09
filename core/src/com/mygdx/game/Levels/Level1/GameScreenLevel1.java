@@ -38,7 +38,7 @@ public class GameScreenLevel1 implements Screen {
 
     private Player player;
 
-    boolean isPaused;
+    public static boolean isPaused;
 
     OrthographicCamera camera;
 
@@ -85,23 +85,32 @@ public class GameScreenLevel1 implements Screen {
     }
 
     public void input(float dt) {
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
-            player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
-            player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(Floor.isGrounded  == true) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
-                Floor.isGrounded = false;
+        if(!isPaused) {
+
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
+                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                if (Floor.isGrounded == true) {
+                    player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+                    Floor.isGrounded = false;
+                }
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                isPaused = !isPaused;
+
+            }
+            if (player.b2body.getPosition().y < -10) {
+                game.setScreen(new DeathScreen(game));
             }
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            isPaused = true;
-        }
-        if(player.b2body.getPosition().y<-10 ){
-            game.setScreen(new DeathScreen(game));
+        else{
+             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                isPaused = !isPaused;
+             }
         }
     }
 
@@ -115,50 +124,54 @@ public class GameScreenLevel1 implements Screen {
 
         @Override
         public void render ( float delta){
-            //add Bullet
-            shootTimer+=delta;
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)&& shootTimer>=BULLET_WAIT_TIME) {
-                bullets.add(new Bullet (player.b2body.getPosition().x, player.b2body.getPosition().y));
-                shootTimer=0;
-            }
-            ArrayList<Bullet> bulletsToRemove =new ArrayList<Bullet>();
-            for(Bullet bullet:bullets){
-                bullet.update(delta);
-                if(bullet.remove){
-                    bulletsToRemove.add(bullet);
-                }
-                bullets.removeAll(bulletsToRemove);
-            }
 
-            update(delta);
+
             Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
             if(isPaused){
                 game.batch.begin(); //start of rendering
-                game.batch.draw(Assets.spriteExitScreenBack, 0, 0);
-                if(Gdx.input.getX() < 250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900 - 200 - 250  && Gdx.input.getY() < 900 - 300) { //setting bounds of NewGameButton
-                    game.batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 300, 150); //Drawing Active
+                game.batch.draw(Assets.spriteExitScreenBack, 0, 0,Assets.spriteExitScreenBack.getWidth()/PPM,Assets.spriteExitScreenBack.getHeight()/PPM);
+                if(Gdx.input.getX() <250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
+                    game.batch.draw(Assets.spriteDeathScreenDaActive, 300/PPM, 200/PPM, 300/PPM, 150/PPM); //Drawing Active
                     if (Gdx.input.isTouched()) { //creating an event
                         this.dispose();
                         game.setScreen(new MenuScreen(game)); //changing screen
+                        isPaused=false;
                     }
                 }
                 else{
-                    game.batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150);
+                    game.batch.draw(Assets.spriteDeathScreenDaInActive, 300/PPM, 200/PPM, 300/PPM, 150/PPM);
                 }
                 if(Gdx.input.getX() <650 + 300 && Gdx.input.getX() > 650 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
-                    game.batch.draw(Assets.spriteNoActive, 750, 200, 300, 150); //Drawing Active
-                    if (Gdx.input.isTouched()) { //creating an event
-                        Gdx.graphics.setContinuousRendering(false);
-                        isPaused = false;
+                    game.batch.draw(Assets.spriteNoActive, 750/PPM, 200/PPM, 300/PPM, 150/PPM); //Drawing Active
+                    if (Gdx.input.isTouched()) { //creating an even
+
+                        GameScreenLevel1.isPaused=false;
                     }
                 }
                 else{
-                    game.batch.draw(Assets.spriteDeathScreenNoInActive, 750, 200, 300, 150);
+                    game.batch.draw(Assets.spriteDeathScreenNoInActive, 750/PPM, 200/PPM, 300/PPM, 150/PPM);
                 }
                 game.batch.end(); //ending of rendering
+
+
             }
             else {
+                //add Bullet
+                shootTimer+=delta;
+                if (Gdx.input.isKeyPressed(Input.Keys.SPACE)&& shootTimer>=BULLET_WAIT_TIME) {
+                    bullets.add(new Bullet (player.b2body.getPosition().x, player.b2body.getPosition().y));
+                    shootTimer=0;
+                }
+                ArrayList<Bullet> bulletsToRemove =new ArrayList<Bullet>();
+                for(Bullet bullet:bullets){
+                    bullet.update(delta);
+                    if(bullet.remove){
+                        bulletsToRemove.add(bullet);
+                    }
+                    bullets.removeAll(bulletsToRemove);
+                }
+
                 Gdx.graphics.requestRendering();
                 update(delta);
                 Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
@@ -173,15 +186,13 @@ public class GameScreenLevel1 implements Screen {
                 game.batch.begin();
                 game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
+                for(Bullet bullet :bullets){
+                    bullet.render(game.batch);
+                }
                 game.batch.end();
+
             }
-            camera.update();
-            game.batch.setProjectionMatrix(camera.combined);
-            game.batch.begin();
-            for(Bullet bullet :bullets){
-                bullet.render(game.batch);
-            }
-            game.batch.end();
+
         }
 
         @Override

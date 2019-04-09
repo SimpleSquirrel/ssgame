@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Player.Player;
 
 
 import static com.mygdx.game.MyGame.PPM;
@@ -26,14 +27,21 @@ public class Bullet implements ContactListener {
     }
 
     public void update(float deltatime) {
-        x += BULLET_SPEED * deltatime;
-        if (x >= Gdx.graphics.getWidth() ) {
-        remove=true;
+        if (Player.runningRight) {
+            x += BULLET_SPEED * deltatime;
+            if (x >= Gdx.graphics.getWidth()) {
+                remove = true;
+            }
+        }
+        else if(!Player.runningRight){
+             x -= BULLET_SPEED * deltatime;
+             if (x <=-20) {
+                remove = true;
+             }
         }
     }
     public void render(SpriteBatch batch){
         batch.draw(bullet,x,y,10/PPM ,5/PPM );
-
     }
 
 

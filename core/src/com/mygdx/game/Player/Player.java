@@ -20,7 +20,7 @@ public class Player extends Sprite {
     private Animation robotHit;
     private TextureAtlas atlas;
     private float stateTimer;
-    private boolean runningRight;
+    public static boolean runningRight;
     public Sprite spriteRobotStand;
     public Sprite spriteRobotRun1;
     public Sprite spriteRobotRun2;

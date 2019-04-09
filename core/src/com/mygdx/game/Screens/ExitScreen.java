@@ -50,8 +50,9 @@ public class ExitScreen implements Screen {
         if(Gdx.input.getX() <650 + 300 && Gdx.input.getX() > 650 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
             batch.draw(Assets.spriteNoActive, 750, 200, 300, 150); //Drawing Active
             if (Gdx.input.isTouched()) { //creating an even
-                game.setScreen(new GameScreenLevel1(game));
+
                 this.dispose();
+                GameScreenLevel1.isPaused=false;
             }
         }
         else{
