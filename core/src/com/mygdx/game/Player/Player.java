@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import static com.mygdx.game.MyGame.PPM;
+import com.mygdx.game.Levels.Level1.GameScreenLevel1;
+import com.mygdx.game.MyGame;
+
+import static com.mygdx.game.MyGame.*;
 
 public class Player extends Sprite {
     public enum State { RUNNING, FALLING, JUMPING, STANDING};
@@ -30,7 +33,7 @@ public class Player extends Sprite {
     public Sprite spriteRobotHit0;
     public Sprite spriteRobotHit1;
 
-    public Player(World world){
+    public Player(GameScreenLevel1 level1){
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");
         spriteRobotRun1 = atlas.createSprite("Run1");
@@ -57,7 +60,7 @@ public class Player extends Sprite {
         frames.add(spriteRobotHit1);
         robotHit = new Animation(0.2f, frames);
         frames.clear();
-        this.world = world;
+        this.world = level1.getWorld();
         definePlayer();
     }
 
@@ -172,9 +175,10 @@ public class Player extends Sprite {
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 30/PPM);
-
+        fdef.filter.categoryBits = PLAYER_BIT;
+        fdef.filter.categoryBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
         fdef.shape = shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(this);
         EdgeShape boots = new EdgeShape();
         boots.set(new Vector2(-13/PPM, -30/PPM), new Vector2(13/PPM, -30/PPM));
         fdef.shape = boots;

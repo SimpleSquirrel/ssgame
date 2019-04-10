@@ -13,27 +13,29 @@ import com.mygdx.game.Objects.Walls;
 
 
 public class WorldCreatorLevel1 {
-    public WorldCreatorLevel1(World world, TiledMap map){
+    public WorldCreatorLevel1(GameScreenLevel1 level1){
+        World world = level1.getWorld();
+        TiledMap map = level1.getMap();
 
         for(MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Chest(world, map, rect);
+            new Chest(level1, rect);
         }
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Ground(world, map, rect);
+            new Ground(level1, rect);
         }
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Floor(world, map, rect);
+            new Floor(level1, rect);
         }
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Walls(world, map, rect);
+            new Walls(level1, rect);
         }
     }
 }

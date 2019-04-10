@@ -2,40 +2,60 @@ package com.mygdx.game.Objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Levels.Level1.GameScreenLevel1;
+import com.mygdx.game.Levels.Level1.WorldContactListener;
+import com.mygdx.game.MyGame;
+import com.mygdx.game.Player.Player;
 
-import static com.mygdx.game.MyGame.PPM;
+import static com.mygdx.game.MyGame.*;
+import static com.mygdx.game.Player.Player.runningRight;
 
-public class Bullet extends Sprite{
+public class Bullet extends Sprite {
     public Body bulletBody;
     private Texture textureBullet;
     private Sprite spriteBullet;
     public World world;
-    public Bullet(World world, float x, float y, float check){
+    private boolean setToDelete;
+    public boolean deleted;
+
+    public Bullet(World world, float x, float y, float check) {
         textureBullet = new Texture("Bullets/Bullet.png");
         spriteBullet = new Sprite(textureBullet);
-        setBounds(0, 0, 32/PPM, 64/PPM);
+        setBounds(getX(), getY(), 4 / PPM, 2 / PPM);
         this.world = world;
+        setToDelete = false;
+        deleted = false;
         createBullet(x, y, check);
     }
-    public Sprite getSpriteBullet(float delta){
-        Sprite sprite;
-        sprite = spriteBullet;
-        return sprite;
+    public void update(){
+        if(setToDelete && !deleted){
+            world.destroyBody(bulletBody);
+            deleted = true;
+        }
+        else if(!setToDelete && !deleted) {
+            setPosition(bulletBody.getPosition().x - 2 / PPM, bulletBody.getPosition().y - 2 / PPM);
+            setRegion(spriteBullet);
+        }
     }
-    public void createBullet(float x, float y, float check){
+
+    public void createBullet(float x, float y, float check) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(x + check/PPM, y + (float) 9/PPM);
-        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.position.set(x + check / PPM, y + (float) 2/ PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
         bulletBody = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(2/PPM,1/PPM);
+        shape.setAsBox(2 / PPM, 1 / PPM);
+        fdef.filter.categoryBits = BULLET_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
         fdef.shape = shape;
-        bulletBody.createFixture(fdef);
+        bulletBody.createFixture(fdef).setUserData(this);
+        bulletBody.setGravityScale(0);
     }
     public void deleteBullet(){
-
+        setToDelete = true;
     }
 }

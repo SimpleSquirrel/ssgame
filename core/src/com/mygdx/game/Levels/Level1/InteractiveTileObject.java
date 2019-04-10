@@ -13,14 +13,13 @@ import static com.mygdx.game.MyGame.PPM;
 public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
-    protected TiledMapTile tile;
     protected Rectangle rectangle;
     protected Body body;
     protected Fixture fixture;
 
-    public InteractiveTileObject(World world, TiledMap map, Rectangle rectangle){
-        this.world = world;
-        this.map = map;
+    public InteractiveTileObject(GameScreenLevel1 level1, Rectangle rectangle){
+        this.world = level1.getWorld();
+        this.map = level1.getMap();
         this.rectangle = rectangle;
 
         BodyDef bdef = new BodyDef();

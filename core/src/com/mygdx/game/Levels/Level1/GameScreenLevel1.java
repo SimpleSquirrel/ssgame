@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Floor;
@@ -37,7 +38,7 @@ public class GameScreenLevel1 implements Screen {
     private Bullet bullet;
 
     public static boolean isPaused;
-    boolean isShot;
+    private boolean isShot;
 
     OrthographicCamera camera;
 
@@ -49,6 +50,7 @@ public class GameScreenLevel1 implements Screen {
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
     private final static float  BULLET_WAIT_TIME= 1f;
+    private Cannon cannon;
 
     public GameScreenLevel1(MyGame game) {
 
@@ -72,9 +74,10 @@ public class GameScreenLevel1 implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        new WorldCreatorLevel1(world, map);
+        new WorldCreatorLevel1(this);
 
-        player = new Player(world);
+        player = new Player(this);
+        cannon = new Cannon(this, (32*7)/PPM, 0);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -109,13 +112,13 @@ public class GameScreenLevel1 implements Screen {
                 if (player.runningRight) {
                     if (!isShot) {
                         bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 18);
-                        bullet.bulletBody.setLinearVelocity(new Vector2(2f, 0));
+                        bullet.bulletBody.setLinearVelocity(new Vector2(4f, 0));
                         isShot = true;
                     }
                 } else {
                     if (!isShot) {
                         bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -18);
-                        bullet.bulletBody.setLinearVelocity(new Vector2(-2f, 0));
+                        bullet.bulletBody.setLinearVelocity(new Vector2(-4f, 0));
                         isShot = true;
                     }
                 }
@@ -130,6 +133,18 @@ public class GameScreenLevel1 implements Screen {
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
+        if(isShot) {
+            bullet.update();
+            if(bullet.bulletBody.getPosition().x > 1600/PPM || bullet.bulletBody.getPosition().x < 0){
+                world.destroyBody(bullet.bulletBody);
+                isShot = false;
+            }
+            else if(bullet.deleted){
+                isShot = false;
+                bullet.deleted = false;
+            }
+        }
+        cannon.update();
         camera.update();
         renderer.setView(camera);
 
@@ -181,11 +196,9 @@ public class GameScreenLevel1 implements Screen {
                 game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 if(isShot) {
-                    game.batch.draw(bullet.getSpriteBullet(delta), bullet.bulletBody.getPosition().x - 2/PPM, bullet.bulletBody.getPosition().y - 2/PPM, 8/PPM, 4/PPM);
-                    if(bullet.bulletBody.getPosition().x > 1600/PPM || bullet.bulletBody.getPosition().x < 0){
-                        isShot = false;
-                    }
+                    bullet.draw(game.batch);
                 }
+                cannon.draw(game.batch);
                 game.batch.end();
             }
         }
@@ -193,6 +206,13 @@ public class GameScreenLevel1 implements Screen {
         @Override
         public void resize ( int width, int height){
             viewPort.update(width, height);
+        }
+
+        public TiledMap getMap(){
+            return map;
+        }
+        public  World getWorld(){
+            return world;
         }
 
         @Override
