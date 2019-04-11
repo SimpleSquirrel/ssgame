@@ -7,7 +7,6 @@ import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Screens.MenuScreen;
 
 public class MyGame extends Game {
-	public enum BodyData {PLAYER, BULLET, GROUND, ENEMY}
 	public SpriteBatch batch;
 
 	public static final short NOTHING_BIT = 0;
@@ -15,6 +14,9 @@ public class MyGame extends Game {
 	public static final short PLAYER_BIT = 2;
 	public static final short BULLET_BIT = 4;
 	public static final short ENEMY_BIT = 8;
+	public static final short CHEST_BIT = 16;
+	public static final short FLOOR_BIT = 32;
+	public static final short SENSOR_BIT = 64;
 
 	public final  static float PPM = 100;
 

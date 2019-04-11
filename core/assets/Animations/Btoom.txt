@@ -1,0 +1,26 @@
+Btoom.png
+size: 108, 42
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Btoom1
+  rotate: false
+  xy: 0, 0
+  size: 36, 42
+  orig: 36, 42
+  offset: 0, 0
+  index: -1
+Btoom2
+  rotate: false
+  xy: 36, 0
+  size: 36, 42
+  orig: 36, 42
+  offset: 0, 0
+  index: -1
+Btoom3
+  rotate: false
+  xy: 72, 0
+  size: 36, 42
+  orig: 36, 42
+  offset: 0, 0
+  index: -1

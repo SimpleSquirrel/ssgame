@@ -3,18 +3,20 @@ package com.mygdx.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
-import com.mygdx.game.MyGame;
+import com.mygdx.game.Objects.Bullet;
 
 import static com.mygdx.game.MyGame.*;
 
 public class Player extends Sprite {
     public enum State { RUNNING, FALLING, JUMPING, STANDING};
+    private GameScreenLevel1 level1;
     public State currentState;
     public State previousState;
     public World world;
@@ -23,6 +25,7 @@ public class Player extends Sprite {
     private Animation robotHit;
     private TextureAtlas atlas;
     private float stateTimer;
+    public boolean isDead;
     public static boolean runningRight;
     public Sprite spriteRobotStand;
     public Sprite spriteRobotRun1;
@@ -32,8 +35,12 @@ public class Player extends Sprite {
     public Sprite spriteRobotRun5;
     public Sprite spriteRobotHit0;
     public Sprite spriteRobotHit1;
+    private int HP;
 
     public Player(GameScreenLevel1 level1){
+        HP = 100;
+        this.level1 = level1;
+        this.world = level1.getWorld();
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");
         spriteRobotRun1 = atlas.createSprite("Run1");
@@ -60,7 +67,7 @@ public class Player extends Sprite {
         frames.add(spriteRobotHit1);
         robotHit = new Animation(0.2f, frames);
         frames.clear();
-        this.world = level1.getWorld();
+        isDead = false;
         definePlayer();
     }
 
@@ -176,13 +183,28 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 30/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.categoryBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-        EdgeShape boots = new EdgeShape();
-        boots.set(new Vector2(-13/PPM, -30/PPM), new Vector2(13/PPM, -30/PPM));
-        fdef.shape = boots;
-        fdef.isSensor = true;
-        b2body.createFixture(fdef).setUserData("boots");
     }
+    public void jump(){
+        if(currentState != State.JUMPING && currentState != State.FALLING){
+            b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+            currentState = State.JUMPING;
+        }
+    }
+
+    public void bulletHit(){
+        HP -= 10;
+    }
+    public void swordHit(){
+        HP -= 20;
+    }
+    public boolean isDead(){
+        if(HP <= 0){
+            isDead = true;
+        }
+        return isDead;
+    }
+
 }

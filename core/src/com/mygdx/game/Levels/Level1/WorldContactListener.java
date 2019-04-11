@@ -1,11 +1,12 @@
 package com.mygdx.game.Levels.Level1;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
+import com.mygdx.game.Player.Player;
 
-import static com.mygdx.game.MyGame.BULLET_BIT;
-import static com.mygdx.game.MyGame.ENEMY_BIT;
+import static com.mygdx.game.MyGame.*;
 
 public class WorldContactListener implements ContactListener {
 
@@ -13,8 +14,6 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-        Body bodyA = contact.getFixtureA().getBody();
-        Body bodyB = contact.getFixtureB().getBody();
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (cDef){
@@ -28,31 +27,33 @@ public class WorldContactListener implements ContactListener {
                     ((Bullet)fixA.getUserData()).deleteBullet();
                 }
                 break;
+            case BULLET_BIT | GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == BULLET_BIT){
+                    ((Bullet)fixA.getUserData()).deleteBullet();
+                }
+                else {
+                    ((Bullet)fixB.getUserData()).deleteBullet();
+                }
+                break;
+            case BULLET_BIT | PLAYER_BIT:
+                if(fixA.getFilterData().categoryBits == BULLET_BIT){
+                    ((Bullet)fixA.getUserData()).deleteBullet();
+                    ((Player)fixB.getUserData()).bulletHit();
+                }
+                else {
+                    ((Bullet)fixB.getUserData()).deleteBullet();
+                    ((Player)fixA.getUserData()).bulletHit();
+                }
+                break;
+            case PLAYER_BIT | SENSOR_BIT:
+                if(fixA.getFilterData().categoryBits == SENSOR_BIT){
+                    ((Cannon)fixA.getUserData()).fire();
+                }
+                else {
+                    ((Cannon)fixB.getUserData()).fire();
+                }
+                break;
         }
-
-        if (fixA.getUserData() == "boots" || fixB.getUserData() == "boots") {
-            Fixture boots = fixA.getUserData() == "boots" ? fixA : fixB;
-            Fixture object = boots == fixA ? fixB : fixA;
-
-            if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractiveTileObject) object.getUserData()).isGrounded();
-            }
-        }
-
-        /*if(bodyA.getUserData() == MyGame.BodyData.BULLET && bodyB.getUserData() == MyGame.BodyData.PLAYER){
-            bodyA.applyLinearImpulse(new Vector2(10000f, 10000f), new Vector2(0, 0), true);
-        }
-        if(bodyB.getUserData() == MyGame.BodyData.BULLET && bodyA.getUserData() == MyGame.BodyData.PLAYER){
-            bodyB.applyLinearImpulse(new Vector2(10000f, 10000f), new Vector2(0, 0), true);
-        }
-        if (fixA.getUserData() == "bullet" || fixB.getUserData() == "bullet") {
-            Fixture bullet = fixA.getUserData() == "bullet" ? fixA : fixB;
-            Fixture object = bullet == fixA ? fixB : fixA;
-
-            if (object.getUserData() != null && Enemy.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((Enemy) object.getUserData()).bulletHit();
-            }
-        }*/
     }
 
     @Override

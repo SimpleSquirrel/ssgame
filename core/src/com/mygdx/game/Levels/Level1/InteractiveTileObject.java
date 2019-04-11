@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.*;
 
-import static com.mygdx.game.MyGame.PPM;
+import static com.mygdx.game.MyGame.*;
 
 public abstract class InteractiveTileObject {
     protected World world;
@@ -31,10 +31,16 @@ public abstract class InteractiveTileObject {
         body = world.createBody(bdef);
 
         shape.setAsBox((rectangle.getWidth()/2)/PPM, (rectangle.getHeight()/2)/PPM);
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT;
         fdef.shape = shape;
         body.createFixture(fdef);
         fixture = body.createFixture(fdef);
     }
 
     public abstract void isGrounded();
+    public void setCategoryBits(short filterBit){
+        Filter filter = new Filter();
+        filter.categoryBits = filterBit;
+        fixture.setUserData(filter);
+    }
 }
