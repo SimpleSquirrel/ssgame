@@ -3,15 +3,10 @@ package com.mygdx.game.Objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
-import com.mygdx.game.Levels.Level1.WorldContactListener;
-import com.mygdx.game.MyGame;
-import com.mygdx.game.Player.Player;
-
 import static com.mygdx.game.MyGame.*;
-import static com.mygdx.game.Player.Player.runningRight;
 
 public class Bullet extends Sprite {
     public Body bulletBody;
@@ -40,20 +35,14 @@ public class Bullet extends Sprite {
             deleted = true;
         }
         else if(!deleted) {
-            setPosition(bulletBody.getPosition().x - 2 / PPM, bulletBody.getPosition().y - 2 / PPM);
-            setRegion(spriteBullet);
-        }
-    }
-
-    public void draw(Batch batch){
-        if(stateTime == 0 || !deleted){
-            super.draw(batch);
+                setPosition(bulletBody.getPosition().x - 2 / PPM, bulletBody.getPosition().y - 2 / PPM);
+                setRegion(spriteBullet);
         }
     }
 
     public void createBullet(float x, float y, float check) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(x + check / PPM, y + (float) 2/ PPM);
+        bdef.position.set(x + check, y);
         bdef.type = BodyDef.BodyType.DynamicBody;
         bulletBody = world.createBody(bdef);
 
@@ -65,8 +54,17 @@ public class Bullet extends Sprite {
         fdef.shape = shape;
         bulletBody.createFixture(fdef).setUserData(this);
         bulletBody.setGravityScale(0);
+        if(check > 0) {
+            bulletBody.setLinearVelocity(2f, 0);
+        }
+        else {
+            bulletBody.setLinearVelocity(-2f, 0);
+        }
     }
     public void deleteBullet(){
         setToDelete = true;
+    }
+    public boolean isDestroyed(){
+        return deleted;
     }
 }

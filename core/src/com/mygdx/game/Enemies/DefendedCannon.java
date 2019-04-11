@@ -15,8 +15,7 @@ import com.mygdx.game.Objects.Bullet;
 
 import static com.mygdx.game.MyGame.*;
 
-public class Cannon extends Enemy {
-
+public class DefendedCannon extends Enemy {
     Bullet bullet;
 
     private TextureAtlas atlas;
@@ -32,11 +31,10 @@ public class Cannon extends Enemy {
     private Sprite btoom1;
     private Sprite btoom2;
     private Sprite btoom3;
-    private Array<Bullet> cannonBullets = new Array<Bullet>();
+    private Array<Bullet> defendedCannonBullets = new Array<Bullet>();
 
-    public Cannon(GameScreenLevel1 level1, float x, float y) {
+    public DefendedCannon(GameScreenLevel1 level1, float x, float y) {
         super(level1, x, y);
-        System.out.println(x  + " " + y);
         HP = 10;
         atlas = new TextureAtlas("Animations/Btoom.txt");
         btoom1 = atlas.createSprite("Btoom1");
@@ -47,7 +45,7 @@ public class Cannon extends Enemy {
         frames.add(btoom2);
         frames.add(btoom3);
         BTOOM = new Animation(0.1f, frames);
-        textureCannon = new Texture("Enemies/Cannon.png");
+        textureCannon = new Texture("Enemies/DefendedCannon.png");
         spriteCannon = new Sprite(textureCannon);
         setBounds(getX(), getY(), 32/PPM, 32/PPM);
         setToDestroy = false;
@@ -70,26 +68,26 @@ public class Cannon extends Enemy {
             if (stateTimer >= shootTimer) {
                 if (!spriteCannon.isFlipX()) {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM);
-                    cannonBullets.add(bullet);
+                    defendedCannonBullets.add(bullet);
                 } else {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -24/PPM);
-                    cannonBullets.add(bullet);
+                    defendedCannonBullets.add(bullet);
                 }
                 stateTimer = 0;
             }
         }
-        for (Bullet bullet:cannonBullets){
+        for (Bullet bullet:defendedCannonBullets){
             bullet.update(delta);
             if(bullet.isDestroyed())
                 playerBullets.removeValue(bullet, true);
         }
-        }
+    }
 
     public void draw(Batch batch){
         if(stateTimer == 0 || !destroyed){
             super.draw(batch);
         }
-        for (Bullet bullet:cannonBullets){
+        for (Bullet bullet:defendedCannonBullets){
             if(!bullet.isDestroyed()) {
                 bullet.draw(batch);
             }
@@ -107,7 +105,7 @@ public class Cannon extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 16/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | SWORD_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
         PolygonShape sensor = new PolygonShape();
@@ -123,11 +121,25 @@ public class Cannon extends Enemy {
         fdef.filter.categoryBits = SENSOR_BIT;
         fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT;
         b2body.createFixture(fdef).setUserData(this);
+
+        PolygonShape back = new PolygonShape();
+        Vector2[] weakPoint = new Vector2[4];
+        weakPoint[0] = new Vector2(-14, 16).scl(1/PPM);
+        weakPoint[1] = new Vector2(-14, -16).scl(1/PPM);
+        weakPoint[2] = new Vector2(-13, -16).scl(1/PPM);
+        weakPoint[3] = new Vector2(-13, -16).scl(1/PPM);
+        back.set(weakPoint);
+
+        fdef.shape = back;
+        fdef.isSensor = true;
+        fdef.filter.categoryBits = WEAK_POINT_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SWORD_BIT;
+        b2body.createFixture(fdef).setUserData(this);
     }
 
     @Override
     public void bulletHit() {
-        HP -= 10;
+        HP -= 0;
         if(HP <= 0) {
             setToDestroy = true;
         }
@@ -135,7 +147,7 @@ public class Cannon extends Enemy {
 
     @Override
     public void swordHit() {
-        HP -= 20;
+        HP -= 10;
         if(HP <= 0) {
             setToDestroy = true;
         }

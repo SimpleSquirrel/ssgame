@@ -14,22 +14,19 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Enemies.Cannon;
+import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.Objects.Floor;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Objects.Bullet;
 
-import java.util.ArrayList;
 import com.mygdx.game.Screens.MenuScreen;
 
-import static com.mygdx.game.MyGame.PPM;
+import static com.mygdx.game.MyGame.*;
 
 
 public class GameScreenLevel1 implements Screen {
-    //Bullets
-    ArrayList<Bullet>bullets;
     float shootTimer;
 
     MyGame game;
@@ -49,15 +46,16 @@ public class GameScreenLevel1 implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
-    private final static float  BULLET_WAIT_TIME= 1f;
+    private final static float  BULLET_WAIT_TIME = 0.1f;
     private Cannon cannon;
+    private DefendedCannon defendedCannon;
     public static int bulletCounter;
+    private float timer;
 
     public GameScreenLevel1(MyGame game) {
         isShot = false;
         bulletCounter = 0;
 
-        bullets=new ArrayList<Bullet>();//Bullets
         shootTimer=0;
 
         this.game = game;
@@ -80,7 +78,10 @@ public class GameScreenLevel1 implements Screen {
         new WorldCreatorLevel1(this);
 
         player = new Player(this);
-        cannon = new Cannon(this, (32*7)/PPM, 0);
+        cannon = new Cannon(this, 0, (32*7)/PPM);
+        cannons.add(cannon);
+        defendedCannon = new DefendedCannon(this, 32/PPM, (32*20)/PPM);
+        defendedCannons.add(defendedCannon);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -90,6 +91,7 @@ public class GameScreenLevel1 implements Screen {
     }
 
     public void input(float dt) {
+        timer +=dt;
         if (!isPaused) {
 
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
@@ -109,17 +111,19 @@ public class GameScreenLevel1 implements Screen {
                 game.setScreen(new DeathScreen(game));
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-                if (Player.runningRight && bulletCounter < 1) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 18);
-                    bullet.bulletBody.setLinearVelocity(new Vector2(2f, 0));
+                if (Player.runningRight && bulletCounter < 3 && timer >= BULLET_WAIT_TIME) {
+                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 18/PPM);
+                    playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
+                    timer = 0;
                 }
-                else if(!Player.runningRight && bulletCounter < 1) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -18);
-                    bullet.bulletBody.setLinearVelocity(new Vector2(-2f, 0));
+                else if(!Player.runningRight && bulletCounter < 3 && timer >= BULLET_WAIT_TIME) {
+                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -20/PPM);
+                    playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
+                    timer = 0;
                 }
             }
         } else {
@@ -134,8 +138,19 @@ public class GameScreenLevel1 implements Screen {
         world.step(1 / 60f, 6, 2);
         if(isShot) {
             bullet.update(dt);
+            for(Bullet bullet : playerBullets) {
+                bullet.update(dt);
+                if(bullet.isDestroyed())
+                    playerBullets.removeValue(bullet, true);
+            }
         }
-        cannon.update(dt);
+        for (Cannon cannon:cannons) {
+            cannon.update(dt);
+        }
+        for (DefendedCannon defendedCannon:defendedCannons){
+            defendedCannon.update(dt);
+        }
+        player.update();
         camera.update();
         renderer.setView(camera);
 
@@ -187,9 +202,16 @@ public class GameScreenLevel1 implements Screen {
                 game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 if(isShot) {
-                    bullet.draw(game.batch);
+                    for (Bullet bullet : playerBullets) {
+                        bullet.draw(game.batch);
+                    }
                 }
-                cannon.draw(game.batch);
+                for (Cannon cannon:cannons) {
+                    cannon.draw(game.batch);
+                }
+                for (DefendedCannon defendedCannon:defendedCannons){
+                    defendedCannon.draw(game.batch);
+                }
                 game.batch.end();
             }
         }

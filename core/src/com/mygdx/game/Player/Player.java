@@ -70,7 +70,8 @@ public class Player extends Sprite {
         isDead = false;
         definePlayer();
     }
-
+    public void update(){
+    }
     public Sprite getFrameLegs(float delta){
         currentState = getState();
         Sprite sprite;
@@ -186,6 +187,35 @@ public class Player extends Sprite {
         fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
+
+        PolygonShape sword = new PolygonShape();
+        Vector2[] swordHitbox = new Vector2[4];
+        swordHitbox[0] = new Vector2(14, -30).scl(1 / PPM);
+        swordHitbox[1] = new Vector2(28, -30).scl(1 / PPM);
+        swordHitbox[2] = new Vector2(28, 30).scl(1 / PPM);
+        swordHitbox[3] = new Vector2(14, 30).scl(1 / PPM);
+        sword.set(swordHitbox);
+
+        PolygonShape sword1 = new PolygonShape();
+        Vector2[] swordHitbox1 = new Vector2[4];
+        swordHitbox1[0] = new Vector2(-14, -30).scl(1 / PPM);
+        swordHitbox1[1] = new Vector2(-28, -30).scl(1 / PPM);
+        swordHitbox1[2] = new Vector2(-28, 30).scl(1 / PPM);
+        swordHitbox1[3] = new Vector2(-14, 30).scl(1 / PPM);
+        sword1.set(swordHitbox1);
+
+        fdef.shape = sword;
+        fdef.isSensor = true;
+        fdef.filter.categoryBits = SWORD_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SWORD_BIT | WEAK_POINT_BIT;
+        b2body.createFixture(fdef).setUserData(this);
+
+        fdef.shape = sword1;
+        fdef.isSensor = true;
+        fdef.filter.categoryBits = SWORD_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SWORD_BIT | WEAK_POINT_BIT;
+        b2body.createFixture(fdef).setUserData(this);
+
     }
     public void jump(){
         if(currentState != State.JUMPING && currentState != State.FALLING){
@@ -206,5 +236,4 @@ public class Player extends Sprite {
         }
         return isDead;
     }
-
 }

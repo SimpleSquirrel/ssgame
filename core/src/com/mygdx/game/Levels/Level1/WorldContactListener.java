@@ -2,6 +2,7 @@ package com.mygdx.game.Levels.Level1;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Enemies.Cannon;
+import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Player.Player;
@@ -47,12 +48,27 @@ public class WorldContactListener implements ContactListener {
                 break;
             case PLAYER_BIT | SENSOR_BIT:
                 if(fixA.getFilterData().categoryBits == SENSOR_BIT){
-                    ((Cannon)fixA.getUserData()).fire();
+                    ((Enemy)fixA.getUserData()).fire();
                 }
                 else {
-                    ((Cannon)fixB.getUserData()).fire();
+                    ((Enemy)fixB.getUserData()).fire();
                 }
                 break;
+            case SWORD_BIT | WEAK_POINT_BIT:
+                if(fixA.getFilterData().categoryBits == SWORD_BIT){
+                    ((DefendedCannon)fixB.getUserData()).swordHit();
+                }
+                else {
+                    ((DefendedCannon)fixA.getUserData()).swordHit();
+                }
+                break;
+            case SWORD_BIT | ENEMY_BIT:
+                if((fixA.getFilterData().categoryBits == SWORD_BIT)){
+                    ((Enemy)fixB.getUserData()).swordHit();
+                }
+                else{
+                    ((Enemy)fixA.getUserData()).swordHit();
+                }
         }
     }
 
