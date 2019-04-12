@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.DefendedCannon;
+import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
@@ -15,6 +16,7 @@ public class MyGame extends Game {
 
 	public static Array<Bullet> playerBullets = new Array<Bullet>();
 	public static Array<Cannon> cannons = new Array<Cannon>();
+	public static Array<VerticalCannon> verticalCannons = new Array<VerticalCannon>();
 	public static Array<DefendedCannon> defendedCannons = new Array<DefendedCannon>();
 	public static final short NOTHING_BIT = 0;
 	public static final short GROUND_BIT = 1;
@@ -26,6 +28,7 @@ public class MyGame extends Game {
 	public static final short SENSOR_BIT = 64;
 	public static final short SWORD_BIT = 128;
 	public static final short WEAK_POINT_BIT = 256;
+	public static final short PORTAL_BIT = 512;
 
 	public final  static float PPM = 100;
 

@@ -13,8 +13,7 @@ import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import static com.mygdx.game.MyGame.*;
 
 public class Player extends Sprite {
-    public enum State { RUNNING, FALLING, JUMPING, STANDING};
-    private GameScreenLevel1 level1;
+    public enum State { RUNNING, FALLING, JUMPING, STANDING}
     public State currentState;
     public State previousState;
     public World world;
@@ -38,10 +37,9 @@ public class Player extends Sprite {
     FixtureDef fSwordDef = new FixtureDef();
     private int swordTimer;
 
-    public Player(GameScreenLevel1 level1){
+    public Player(World world){
         HP = 100;
-        this.level1 = level1;
-        this.world = level1.getWorld();
+        this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");
         spriteRobotRun1 = atlas.createSprite("Run1");
@@ -85,10 +83,10 @@ public class Player extends Sprite {
             if (runningRight) {
                 PolygonShape sword = new PolygonShape();
                 Vector2[] swordHitbox = new Vector2[4];
-                swordHitbox[0] = new Vector2(14, -30).scl(1 / PPM);
+                swordHitbox[0] = new Vector2(12, -30).scl(1 / PPM);
                 swordHitbox[1] = new Vector2(28, -30).scl(1 / PPM);
                 swordHitbox[2] = new Vector2(28, 30).scl(1 / PPM);
-                swordHitbox[3] = new Vector2(14, 30).scl(1 / PPM);
+                swordHitbox[3] = new Vector2(12, 30).scl(1 / PPM);
                 sword.set(swordHitbox);
 
                 fSwordDef.shape = sword;
@@ -101,10 +99,10 @@ public class Player extends Sprite {
             } else {
                 PolygonShape sword1 = new PolygonShape();
                 Vector2[] swordHitbox1 = new Vector2[4];
-                swordHitbox1[0] = new Vector2(-14, -30).scl(1 / PPM);
+                swordHitbox1[0] = new Vector2(-12, -30).scl(1 / PPM);
                 swordHitbox1[1] = new Vector2(-28, -30).scl(1 / PPM);
                 swordHitbox1[2] = new Vector2(-28, 30).scl(1 / PPM);
-                swordHitbox1[3] = new Vector2(-14, 30).scl(1 / PPM);
+                swordHitbox1[3] = new Vector2(-12, 30).scl(1 / PPM);
                 sword1.set(swordHitbox1);
 
                 fSwordDef.shape = sword1;
@@ -227,9 +225,9 @@ public class Player extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(14/PPM, 30/PPM);
+        shape.setAsBox(9/PPM, 28/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 

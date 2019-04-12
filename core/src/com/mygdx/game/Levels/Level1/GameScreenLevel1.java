@@ -15,8 +15,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.DefendedCannon;
+import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.Objects.Chest;
+import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Objects.Bullet;
@@ -49,6 +52,12 @@ public class GameScreenLevel1 implements Screen {
     private final static float  BULLET_WAIT_TIME = 0.1f;
     private Cannon cannon;
     private DefendedCannon defendedCannon;
+    private VerticalCannon verticalCannon;
+    private VerticalCannon verticalCannon1;
+    private VerticalCannon verticalCannon2;
+    private VerticalCannon verticalCannon3;
+    private Portal portal;
+    private Chest chest;
     public static int bulletCounter;
     private float timer;
 
@@ -75,13 +84,23 @@ public class GameScreenLevel1 implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        new WorldCreatorLevel1(this);
+        new WorldCreatorLevel1(world, map);
 
-        player = new Player(this);
-        cannon = new Cannon(this, 0, (32*7)/PPM);
+        player = new Player(world);
+        cannon = new Cannon(world, 0, (32*7)/PPM);
         cannons.add(cannon);
-        defendedCannon = new DefendedCannon(this, 32/PPM, (32*20)/PPM);
+        defendedCannon = new DefendedCannon(world, 32/PPM, (32*20)/PPM);
         defendedCannons.add(defendedCannon);
+        verticalCannon = new VerticalCannon(world, (32*22)/PPM, (10*32)/PPM);
+        verticalCannons.add(verticalCannon);
+        verticalCannon1 = new VerticalCannon(world, (32*26)/PPM, (10*32)/PPM);
+        verticalCannons.add(verticalCannon1);
+        verticalCannon2 = new VerticalCannon(world, (32*30)/PPM, (10*32)/PPM);
+        verticalCannons.add(verticalCannon2);
+        verticalCannon3 = new VerticalCannon(world, (32*34)/PPM, (10*32)/PPM);
+        verticalCannons.add(verticalCannon3);
+        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM);
+        portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -110,18 +129,55 @@ public class GameScreenLevel1 implements Screen {
 
             }
             if (player.b2body.getPosition().y < -10 || player.isDead()) {
+                for (Bullet bullet:cannon.cannonBullets){
+                    bullet.deleteBullet();
+                }
+                for (Bullet bullet:defendedCannon.defendedCannonBullets){
+                    bullet.deleteBullet();
+                }
+                for (VerticalCannon verticalCannon:verticalCannons) {
+                    for (Bullet bullet : verticalCannon.verticalCannonBullets) {
+                        bullet.deleteBullet();
+                    }
+                }
+                for (VerticalCannon verticalCannon1:verticalCannons) {
+                    for (Bullet bullet : verticalCannon1.verticalCannonBullets) {
+                        bullet.deleteBullet();
+                    }
+                }
+                for (VerticalCannon verticalCannon2:verticalCannons) {
+                    for (Bullet bullet : verticalCannon2.verticalCannonBullets) {
+                        bullet.deleteBullet();
+                    }
+                }
+                for (VerticalCannon verticalCannon3:verticalCannons) {
+                    for (Bullet bullet : verticalCannon3.verticalCannonBullets) {
+                        bullet.deleteBullet();
+                    }
+                }
+                for (Cannon cannon:cannons){
+                    cannon.deleted();
+                }
+                for (DefendedCannon defendedCannon:defendedCannons){
+                    defendedCannon.deleted();
+                }
+                for (VerticalCannon verticalCannon:verticalCannons){
+                    verticalCannon.deleted();
+                }
                 game.setScreen(new DeathScreen(game));
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-                if (Player.runningRight && bulletCounter < 3 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 20/PPM);
+                if (Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
+                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 20/PPM, 5/PPM);
+                    bullet.bulletBody.setLinearVelocity(2f, 0);
                     playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
                     timer = 0;
                 }
                 else if(!Player.runningRight && bulletCounter < 3 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -20/PPM);
+                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -20/PPM, 5/PPM);
+                    bullet.bulletBody.setLinearVelocity(-2f, 0);
                     playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
@@ -150,10 +206,24 @@ public class GameScreenLevel1 implements Screen {
         }
         for (Cannon cannon:cannons) {
             cannon.update(dt);
+            if(cannon.cannonBullets.isEmpty() && cannon.isDestroyed()){
+                cannons.removeValue(cannon, true);
+            }
         }
         for (DefendedCannon defendedCannon:defendedCannons){
             defendedCannon.update(dt);
+            if(defendedCannon.defendedCannonBullets.isEmpty() && defendedCannon.isDestroyed()){
+                defendedCannons.removeValue(defendedCannon, true);
+            }
         }
+        for (VerticalCannon verticalCannon:verticalCannons){
+            verticalCannon.update(dt);
+            if(verticalCannon.verticalCannonBullets.isEmpty() && verticalCannon.isDestroyed()){
+                verticalCannons.removeValue(verticalCannon, true);
+            }
+        }
+        portal.update();
+        chest.update(dt);
         player.update(dt);
         camera.update();
         renderer.setView(camera);
@@ -171,7 +241,41 @@ public class GameScreenLevel1 implements Screen {
                 if(Gdx.input.getX() <250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
                     game.batch.draw(Assets.spriteDeathScreenDaActive, 300/PPM, 200/PPM, 300/PPM, 150/PPM); //Drawing Active
                     if (Gdx.input.isTouched()) { //creating an event
-                        this.dispose();
+                        for (VerticalCannon verticalCannon:verticalCannons) {
+                            for (Bullet bullet : verticalCannon.verticalCannonBullets) {
+                                bullet.deleteBullet();
+                            }
+                        }
+                        for (VerticalCannon verticalCannon1:verticalCannons) {
+                            for (Bullet bullet : verticalCannon1.verticalCannonBullets) {
+                                bullet.deleteBullet();
+                            }
+                        }
+                        for (VerticalCannon verticalCannon2:verticalCannons) {
+                            for (Bullet bullet : verticalCannon2.verticalCannonBullets) {
+                                bullet.deleteBullet();
+                            }
+                        }
+                        for (VerticalCannon verticalCannon3:verticalCannons) {
+                            for (Bullet bullet : verticalCannon3.verticalCannonBullets) {
+                                bullet.deleteBullet();
+                            }
+                        }
+                        for (Bullet bullet:cannon.cannonBullets){
+                            bullet.deleteBullet();
+                        }
+                        for (Bullet bullet:defendedCannon.defendedCannonBullets){
+                            bullet.deleteBullet();
+                        }
+                        for (Cannon cannon:cannons){
+                            cannon.deleted();
+                        }
+                        for (DefendedCannon defendedCannon:defendedCannons){
+                            defendedCannon.deleted();
+                        }
+                        for (VerticalCannon verticalCannon:verticalCannons){
+                            verticalCannon.deleted();
+                        }
                         game.setScreen(new MenuScreen(game)); //changing screen
                         isPaused=false;
                     }
@@ -198,7 +302,7 @@ public class GameScreenLevel1 implements Screen {
 
                 renderer.render();
 
-                b2dr.render(world, camera.combined);
+                //b2dr.render(world, camera.combined);
 
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
@@ -216,6 +320,11 @@ public class GameScreenLevel1 implements Screen {
                 for (DefendedCannon defendedCannon:defendedCannons){
                     defendedCannon.draw(game.batch);
                 }
+                for (VerticalCannon verticalCannon:verticalCannons){
+                    verticalCannon.draw(game.batch);
+                }
+                chest.draw(game.batch);
+                portal.draw(game.batch);
                 game.batch.end();
             }
         }

@@ -13,9 +13,9 @@ public abstract class InteractiveTileObject {
     protected Body body;
     protected Fixture fixture;
 
-    public InteractiveTileObject(GameScreenLevel1 level1, Rectangle rectangle){
-        this.world = level1.getWorld();
-        this.map = level1.getMap();
+    public InteractiveTileObject(World world, TiledMap map, Rectangle rectangle){
+        this.world = world;
+        this.map = map;
         this.rectangle = rectangle;
 
         BodyDef bdef = new BodyDef();

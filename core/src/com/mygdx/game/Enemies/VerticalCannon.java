@@ -5,22 +5,24 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
 
 import static com.mygdx.game.MyGame.*;
+import static com.mygdx.game.MyGame.PLAYER_BIT;
 
-public class Cannon extends Enemy {
-
+public class VerticalCannon extends Enemy {
     Bullet bullet;
 
     private TextureAtlas atlas;
 
-    private Texture textureCannon;
-    private Sprite spriteCannon;
+    private Texture textureVerticalCannon;
+    private Sprite spriteVerticalCannon;
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean attack;
@@ -31,12 +33,12 @@ public class Cannon extends Enemy {
     private Sprite btoom1;
     private Sprite btoom2;
     private Sprite btoom3;
-    public Array<Bullet> cannonBullets = new Array<Bullet>();
+    public Array<Bullet> verticalCannonBullets = new Array<Bullet>();
 
-    public Cannon(World world, float x, float y) {
+    public VerticalCannon(World world, float x, float y) {
         super(world, x, y);
         System.out.println(x  + " " + y);
-        HP = 10;
+        HP = 20;
         atlas = new TextureAtlas("Animations/Btoom.txt");
         btoom1 = atlas.createSprite("Btoom1");
         btoom2 = atlas.createSprite("Btoom2");
@@ -46,12 +48,12 @@ public class Cannon extends Enemy {
         frames.add(btoom2);
         frames.add(btoom3);
         BTOOM = new Animation(0.5f, frames);
-        textureCannon = new Texture("Enemies/Cannon.png");
-        spriteCannon = new Sprite(textureCannon);
-        setBounds(getX(), getY(), 32/PPM, 32/PPM);
+        textureVerticalCannon = new Texture("Enemies/VerticalCannon.png");
+        spriteVerticalCannon = new Sprite(textureVerticalCannon);
+        setBounds(getX(), getY(), 32/PPM, 50/PPM);
         setToDestroy = false;
         destroyed = false;
-        attack = false;
+        attack = true;
     }
     public void update(float delta){
         stateTimer += delta;
@@ -66,34 +68,34 @@ public class Cannon extends Enemy {
         }
         else if(!destroyed) {
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            setRegion(spriteCannon);
+            setRegion(spriteVerticalCannon);
         }
         if(attack){
             if (stateTimer >= shootTimer) {
-                if (!spriteCannon.isFlipX()) {
-                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM, 8/PPM);
-                    bullet.bulletBody.setLinearVelocity(2f, 0);
-                    cannonBullets.add(bullet);
+                if (!spriteVerticalCannon.isFlipX()) {
+                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 14/PPM, 30/PPM);
+                    bullet.bulletBody.setLinearVelocity(0, 2f);
+                    verticalCannonBullets.add(bullet);
                 } else {
-                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -24/PPM, 8/PPM);
-                    bullet.bulletBody.setLinearVelocity(-2f, 0);
-                    cannonBullets.add(bullet);
+                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -14/PPM, 30/PPM);
+                    bullet.bulletBody.setLinearVelocity(0, -2f);
+                    verticalCannonBullets.add(bullet);
                 }
                 stateTimer = 0;
             }
         }
-        for (Bullet bullet:cannonBullets){
+        for (Bullet bullet:verticalCannonBullets){
             bullet.update(delta);
             if(bullet.isDestroyed())
                 playerBullets.removeValue(bullet, true);
         }
-        }
+    }
 
     public void draw(Batch batch){
         if((stateTimer < 1 || !destroyed)){
             super.draw(batch);
         }
-        for (Bullet bullet:cannonBullets){
+        for (Bullet bullet:verticalCannonBullets){
             if(!bullet.isDestroyed()) {
                 bullet.draw(batch);
             }
@@ -103,29 +105,16 @@ public class Cannon extends Enemy {
     @Override
     protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(getX() + 20/PPM, getY() + 16/PPM);
+        bdef.position.set(getX() + 10/PPM, getY() - 4/PPM);
         bdef.type = BodyDef.BodyType.StaticBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(14/PPM, 16/PPM);
+        shape.setAsBox(14/PPM, 25/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
         fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT | PLAYER_BIT;
         fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
-        PolygonShape sensor = new PolygonShape();
-        Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-1600, 15).scl(1/PPM);
-        vertice[1] = new Vector2(1600, 15).scl(1/PPM);
-        vertice[2] = new Vector2(1600, 10).scl(1/PPM);
-        vertice[3] = new Vector2(-1600, 10).scl(1/PPM);
-        sensor.set(vertice);
-
-        fdef.shape = sensor;
-        fdef.isSensor = true;
-        fdef.filter.categoryBits = SENSOR_BIT;
-        fdef.filter.maskBits = PLAYER_BIT;
         b2body.createFixture(fdef).setUserData(this);
     }
 
@@ -144,13 +133,15 @@ public class Cannon extends Enemy {
             deleted();
         }
     }
+
+    @Override
+    public void fire() {
+
+    }
+
     @Override
     public void deleted(){
         setToDestroy = true;
-    }
-
-    public void fire(){
-        attack = true;
     }
     public boolean isDestroyed(){
         return destroyed;

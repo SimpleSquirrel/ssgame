@@ -15,14 +15,14 @@ public class Bullet extends Sprite {
     public boolean deleted;
     private float stateTime;
 
-    public Bullet(World world, float x, float y, float check) {
+    public Bullet(World world, float x, float y, float checkX, float checkY) {
         textureBullet = new Texture("Bullets/Bullet.png");
         spriteBullet = new Sprite(textureBullet);
         setBounds(getX(), getY(), 4 / PPM, 2 / PPM);
         this.world = world;
         setToDelete = false;
         deleted = false;
-        createBullet(x, y, check);
+        createBullet(x, y, checkX, checkY);
     }
     public void update(float delta){
         stateTime += delta;
@@ -37,9 +37,9 @@ public class Bullet extends Sprite {
         }
     }
 
-    public void createBullet(float x, float y, float check) {
+    public void createBullet(float x, float y, float checkX, float checkY) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(x + check, y);
+        bdef.position.set(x + checkX, y + checkY);
         bdef.type = BodyDef.BodyType.DynamicBody;
         bulletBody = world.createBody(bdef);
 
@@ -51,12 +51,6 @@ public class Bullet extends Sprite {
         fdef.shape = shape;
         bulletBody.createFixture(fdef).setUserData(this);
         bulletBody.setGravityScale(0);
-        if(check > 0) {
-            bulletBody.setLinearVelocity(2f, 0);
-        }
-        else {
-            bulletBody.setLinearVelocity(-2f, 0);
-        }
     }
     public void deleteBullet(){
         setToDelete = true;

@@ -10,9 +10,8 @@ public abstract class Enemy extends Sprite {
     protected GameScreenLevel1 screen;
     public Body b2body;
     protected int HP;
-    public Enemy(GameScreenLevel1 level1, float x, float y){
-        this.world = level1.getWorld();
-        this.screen = screen;
+    public Enemy(World world, float x, float y){
+        this.world = world;
         setPosition(x, y);
         defineEnemy();
     }
@@ -21,4 +20,5 @@ public abstract class Enemy extends Sprite {
     public abstract void bulletHit();
     public abstract void swordHit();
     public abstract void fire();
+    public abstract void deleted();
 }

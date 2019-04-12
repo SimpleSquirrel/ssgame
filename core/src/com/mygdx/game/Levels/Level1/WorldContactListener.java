@@ -4,6 +4,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
+import com.mygdx.game.Objects.Chest;
+import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Player.Player;
 
 import static com.mygdx.game.MyGame.*;
@@ -67,6 +69,42 @@ public class WorldContactListener implements ContactListener {
                 }
                 else{
                     ((Enemy)fixA.getUserData()).swordHit();
+                }
+                break;
+            case BULLET_BIT | BULLET_BIT:
+                ((Bullet)fixA.getUserData()).deleteBullet();
+                ((Bullet)fixB.getUserData()).deleteBullet();
+                break;
+            case PLAYER_BIT | CHEST_BIT:
+                if(fixA.getFilterData().categoryBits == CHEST_BIT){
+                    ((Chest)fixA.getUserData()).contact();
+                }
+                else {
+                    ((Chest)fixB.getUserData()).contact();
+                }
+                break;
+            case BULLET_BIT | CHEST_BIT:
+                if(fixA.getFilterData().categoryBits == BULLET_BIT){
+                    ((Bullet)fixA.getUserData()).deleteBullet();
+                }
+                else {
+                    ((Bullet)fixB.getUserData()).deleteBullet();
+                }
+                break;
+            case BULLET_BIT | PORTAL_BIT:
+                if(fixA.getFilterData().categoryBits == BULLET_BIT){
+                    ((Bullet)fixA.getUserData()).deleteBullet();
+                }
+                else {
+                    ((Bullet)fixB.getUserData()).deleteBullet();
+                }
+                break;
+            case PLAYER_BIT | PORTAL_BIT:
+                if(fixA.getFilterData().categoryBits == CHEST_BIT){
+                    ((Portal)fixA.getUserData()).contact();
+                }
+                else {
+                    ((Portal)fixB.getUserData()).contact();
                 }
         }
     }

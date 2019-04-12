@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
@@ -27,14 +28,15 @@ public class DefendedCannon extends Enemy {
     private boolean attack;
     private static final float shootTimer = 2f;
     private float stateTimer;
+    private float timer;
     private Animation BTOOM;
     private Sprite btoom1;
     private Sprite btoom2;
     private Sprite btoom3;
-    private Array<Bullet> defendedCannonBullets = new Array<Bullet>();
+    public Array<Bullet> defendedCannonBullets = new Array<Bullet>();
 
-    public DefendedCannon(GameScreenLevel1 level1, float x, float y) {
-        super(level1, x, y);
+    public DefendedCannon(World world, float x, float y) {
+        super(world, x, y);
         HP = 10;
         atlas = new TextureAtlas("Animations/Btoom.txt");
         btoom1 = atlas.createSprite("Btoom1");
@@ -54,9 +56,12 @@ public class DefendedCannon extends Enemy {
     }
     public void update(float delta){
         stateTimer += delta;
+        timer += delta;
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             attack = false;
+            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
+            setRegion((Sprite)BTOOM.getKeyFrame(timer, false));
             stateTimer = 0;
             destroyed = true;
         }
@@ -67,10 +72,12 @@ public class DefendedCannon extends Enemy {
         if(attack){
             if (stateTimer >= shootTimer) {
                 if (!spriteCannon.isFlipX()) {
-                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM);
+                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM, 1/PPM);
+                    bullet.bulletBody.setLinearVelocity(2f, 0);
                     defendedCannonBullets.add(bullet);
                 } else {
-                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -24/PPM);
+                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -24/PPM, 1/PPM);
+                    bullet.bulletBody.setLinearVelocity(-2f, 0);
                     defendedCannonBullets.add(bullet);
                 }
                 stateTimer = 0;
@@ -97,8 +104,8 @@ public class DefendedCannon extends Enemy {
     @Override
     protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(getX() + 20/PPM, getY());
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.position.set(getX() + 20/PPM, getY() + 16/PPM);
+        bdef.type = BodyDef.BodyType.StaticBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
@@ -127,7 +134,7 @@ public class DefendedCannon extends Enemy {
         weakPoint[0] = new Vector2(-14, 16).scl(1/PPM);
         weakPoint[1] = new Vector2(-14, -16).scl(1/PPM);
         weakPoint[2] = new Vector2(-13, -16).scl(1/PPM);
-        weakPoint[3] = new Vector2(-13, -16).scl(1/PPM);
+        weakPoint[3] = new Vector2(-13, 16).scl(1/PPM);
         back.set(weakPoint);
 
         fdef.shape = back;
@@ -141,7 +148,7 @@ public class DefendedCannon extends Enemy {
     public void bulletHit() {
         HP -= 0;
         if(HP <= 0) {
-            setToDestroy = true;
+            deleted();
         }
     }
 
@@ -149,11 +156,19 @@ public class DefendedCannon extends Enemy {
     public void swordHit() {
         HP -= 10;
         if(HP <= 0) {
-            setToDestroy = true;
+            deleted();
         }
     }
 
     public void fire(){
         attack = true;
+    }
+
+    @Override
+    public void deleted() {
+        setToDestroy = true;
+    }
+    public boolean isDestroyed(){
+        return destroyed;
     }
 }
