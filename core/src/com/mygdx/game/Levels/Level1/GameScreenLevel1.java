@@ -93,7 +93,9 @@ public class GameScreenLevel1 implements Screen {
     public void input(float dt) {
         timer +=dt;
         if (!isPaused) {
-
+            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                Player.swordAttack = true;
+            }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
@@ -112,7 +114,7 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
                 if (Player.runningRight && bulletCounter < 3 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 18/PPM);
+                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 20/PPM);
                     playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
@@ -140,8 +142,10 @@ public class GameScreenLevel1 implements Screen {
             bullet.update(dt);
             for(Bullet bullet : playerBullets) {
                 bullet.update(dt);
-                if(bullet.isDestroyed())
+                if(bullet.isDestroyed()) {
                     playerBullets.removeValue(bullet, true);
+                    bulletCounter--;
+                }
             }
         }
         for (Cannon cannon:cannons) {
@@ -150,7 +154,7 @@ public class GameScreenLevel1 implements Screen {
         for (DefendedCannon defendedCannon:defendedCannons){
             defendedCannon.update(dt);
         }
-        player.update();
+        player.update(dt);
         camera.update();
         renderer.setView(camera);
 

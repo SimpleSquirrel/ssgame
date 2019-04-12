@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
@@ -86,7 +87,7 @@ public class Cannon extends Enemy {
         }
 
     public void draw(Batch batch){
-        if(stateTimer == 0 || !destroyed){
+        if((stateTimer == 0 || !destroyed)){
             super.draw(batch);
         }
         for (Bullet bullet:cannonBullets){
@@ -107,7 +108,7 @@ public class Cannon extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 16/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | SWORD_BIT;
+        fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT | PLAYER_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
         PolygonShape sensor = new PolygonShape();
@@ -121,7 +122,7 @@ public class Cannon extends Enemy {
         fdef.shape = sensor;
         fdef.isSensor = true;
         fdef.filter.categoryBits = SENSOR_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT;
+        fdef.filter.maskBits = PLAYER_BIT;
         b2body.createFixture(fdef).setUserData(this);
     }
 

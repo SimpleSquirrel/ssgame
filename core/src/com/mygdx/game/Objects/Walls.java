@@ -13,9 +13,4 @@ public class Walls extends InteractiveTileObject {
         fixture.setUserData(this);
         setCategoryBits(GROUND_BIT);
     }
-
-    @Override
-    public void isGrounded() {
-        Gdx.app.log("Walls", "Collision");
-    }
 }

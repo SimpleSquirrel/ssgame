@@ -119,7 +119,7 @@ public class DefendedCannon extends Enemy {
         fdef.shape = sensor;
         fdef.isSensor = true;
         fdef.filter.categoryBits = SENSOR_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT;
+        fdef.filter.maskBits = PLAYER_BIT;
         b2body.createFixture(fdef).setUserData(this);
 
         PolygonShape back = new PolygonShape();
@@ -133,7 +133,7 @@ public class DefendedCannon extends Enemy {
         fdef.shape = back;
         fdef.isSensor = true;
         fdef.filter.categoryBits = WEAK_POINT_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SWORD_BIT;
+        fdef.filter.maskBits = SWORD_BIT;
         b2body.createFixture(fdef).setUserData(this);
     }
 

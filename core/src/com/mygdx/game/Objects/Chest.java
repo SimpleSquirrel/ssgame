@@ -1,6 +1,5 @@
 package com.mygdx.game.Objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level1.InteractiveTileObject;
@@ -14,8 +13,4 @@ public class Chest extends InteractiveTileObject {
         setCategoryBits(CHEST_BIT);
     }
 
-    @Override
-    public void isGrounded() {
-        Gdx.app.log("Chest", "Collision");
-    }
 }

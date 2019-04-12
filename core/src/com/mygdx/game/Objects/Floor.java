@@ -14,10 +14,4 @@ public class Floor extends InteractiveTileObject {
         fixture.setUserData(this);
         setCategoryBits(GROUND_BIT);
     }
-
-    @Override
-    public void isGrounded() {
-        Gdx.app.log("Floor", "Collision");
-        isGrounded = true;
-    }
 }

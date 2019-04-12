@@ -1,12 +1,8 @@
 package com.mygdx.game.Levels.Level1;
 
-import com.badlogic.gdx.maps.tiled.TideMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.math.Rectangle;
-
-import java.awt.*;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -37,7 +33,6 @@ public abstract class InteractiveTileObject {
         fixture = body.createFixture(fdef);
     }
 
-    public abstract void isGrounded();
     public void setCategoryBits(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;

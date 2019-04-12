@@ -1,10 +1,8 @@
 package com.mygdx.game.Objects;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import static com.mygdx.game.MyGame.*;
 
@@ -31,7 +29,6 @@ public class Bullet extends Sprite {
         if(setToDelete && !deleted){
             world.destroyBody(bulletBody);
             stateTime = 0;
-            GameScreenLevel1.bulletCounter--;
             deleted = true;
         }
         else if(!deleted) {

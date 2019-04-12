@@ -3,14 +3,12 @@ package com.mygdx.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
-import com.mygdx.game.Objects.Bullet;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -36,6 +34,9 @@ public class Player extends Sprite {
     public Sprite spriteRobotHit0;
     public Sprite spriteRobotHit1;
     private int HP;
+    public static boolean swordAttack;
+    FixtureDef fSwordDef = new FixtureDef();
+    private int swordTimer;
 
     public Player(GameScreenLevel1 level1){
         HP = 100;
@@ -68,9 +69,53 @@ public class Player extends Sprite {
         robotHit = new Animation(0.2f, frames);
         frames.clear();
         isDead = false;
+        swordAttack = false;
         definePlayer();
     }
-    public void update(){
+    public void update(float delta) {
+        swordTimer += delta;
+        if(swordTimer == 0 && !swordAttack) {
+            for (Fixture fixture : b2body.getFixtureList()) {
+                if (fixture.getFilterData().categoryBits == SWORD_BIT) {
+                    b2body.destroyFixture(fixture);
+                }
+            }
+        }
+        if (swordAttack) {
+            if (runningRight) {
+                PolygonShape sword = new PolygonShape();
+                Vector2[] swordHitbox = new Vector2[4];
+                swordHitbox[0] = new Vector2(14, -30).scl(1 / PPM);
+                swordHitbox[1] = new Vector2(28, -30).scl(1 / PPM);
+                swordHitbox[2] = new Vector2(28, 30).scl(1 / PPM);
+                swordHitbox[3] = new Vector2(14, 30).scl(1 / PPM);
+                sword.set(swordHitbox);
+
+                fSwordDef.shape = sword;
+                fSwordDef.isSensor = true;
+                fSwordDef.filter.categoryBits = SWORD_BIT;
+                fSwordDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | ENEMY_BIT | WEAK_POINT_BIT;
+                b2body.createFixture(fSwordDef).setUserData(this);
+                swordTimer = 0;
+                swordAttack = false;
+            } else {
+                PolygonShape sword1 = new PolygonShape();
+                Vector2[] swordHitbox1 = new Vector2[4];
+                swordHitbox1[0] = new Vector2(-14, -30).scl(1 / PPM);
+                swordHitbox1[1] = new Vector2(-28, -30).scl(1 / PPM);
+                swordHitbox1[2] = new Vector2(-28, 30).scl(1 / PPM);
+                swordHitbox1[3] = new Vector2(-14, 30).scl(1 / PPM);
+                sword1.set(swordHitbox1);
+
+                fSwordDef.shape = sword1;
+                fSwordDef.isSensor = true;
+                fSwordDef.filter.categoryBits = SWORD_BIT;
+                fSwordDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | ENEMY_BIT | WEAK_POINT_BIT;
+                b2body.createFixture(fSwordDef).setUserData(this);
+                swordTimer = 0;
+                swordAttack = false;
+            }
+        }
     }
     public Sprite getFrameLegs(float delta){
         currentState = getState();
@@ -186,34 +231,6 @@ public class Player extends Sprite {
         fdef.filter.categoryBits = PLAYER_BIT;
         fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT;
         fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
-
-        PolygonShape sword = new PolygonShape();
-        Vector2[] swordHitbox = new Vector2[4];
-        swordHitbox[0] = new Vector2(14, -30).scl(1 / PPM);
-        swordHitbox[1] = new Vector2(28, -30).scl(1 / PPM);
-        swordHitbox[2] = new Vector2(28, 30).scl(1 / PPM);
-        swordHitbox[3] = new Vector2(14, 30).scl(1 / PPM);
-        sword.set(swordHitbox);
-
-        PolygonShape sword1 = new PolygonShape();
-        Vector2[] swordHitbox1 = new Vector2[4];
-        swordHitbox1[0] = new Vector2(-14, -30).scl(1 / PPM);
-        swordHitbox1[1] = new Vector2(-28, -30).scl(1 / PPM);
-        swordHitbox1[2] = new Vector2(-28, 30).scl(1 / PPM);
-        swordHitbox1[3] = new Vector2(-14, 30).scl(1 / PPM);
-        sword1.set(swordHitbox1);
-
-        fdef.shape = sword;
-        fdef.isSensor = true;
-        fdef.filter.categoryBits = SWORD_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SWORD_BIT | WEAK_POINT_BIT;
-        b2body.createFixture(fdef).setUserData(this);
-
-        fdef.shape = sword1;
-        fdef.isSensor = true;
-        fdef.filter.categoryBits = SWORD_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SWORD_BIT | WEAK_POINT_BIT;
         b2body.createFixture(fdef).setUserData(this);
 
     }
