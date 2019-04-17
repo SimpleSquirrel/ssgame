@@ -11,7 +11,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.DefendedCannon;
@@ -20,6 +23,8 @@ import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Chest;
 import com.mygdx.game.Objects.Portal;
+//import com.mygdx.game.Objects.Floor;
+import com.mygdx.game.Player.HUD;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Objects.Bullet;
@@ -27,11 +32,17 @@ import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.MyGame.*;
+import static com.mygdx.game.MyGame.PPM;
+
+import static com.mygdx.game.Player.HUD.score;
 
 
 public class GameScreenLevel1 implements Screen {
+    private static HUD hud;
+    //Bullets
+   // ArrayList<Bullet>bullets;
     float shootTimer;
-
+    private static Stage stage;
     MyGame game;
 
     private Player player;
@@ -62,6 +73,9 @@ public class GameScreenLevel1 implements Screen {
     private float timer;
 
     public GameScreenLevel1(MyGame game) {
+
+        hud = new HUD();
+        stage = new Stage(new ScreenViewport());
         isShot = false;
         bulletCounter = 0;
 
@@ -123,6 +137,7 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
+                HUD.SCORE++;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
@@ -307,6 +322,10 @@ public class GameScreenLevel1 implements Screen {
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
                 game.batch.begin();
+
+                hud.render();
+                stage.addActor(score);
+
                 game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
                 if(isShot) {
@@ -326,6 +345,9 @@ public class GameScreenLevel1 implements Screen {
                 chest.draw(game.batch);
                 portal.draw(game.batch);
                 game.batch.end();
+                stage.act();
+                stage.draw();
+
             }
         }
 
