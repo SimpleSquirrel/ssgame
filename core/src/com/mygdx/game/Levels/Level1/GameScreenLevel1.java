@@ -22,6 +22,7 @@ import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Chest;
+import com.mygdx.game.Objects.Familiar;
 import com.mygdx.game.Objects.Portal;
 //import com.mygdx.game.Objects.Floor;
 import com.mygdx.game.Player.HUD;
@@ -39,6 +40,7 @@ import static com.mygdx.game.Player.HUD.score;
 
 public class GameScreenLevel1 implements Screen {
     private static HUD hud;
+    private final Familiar familiar;
     //Bullets
    // ArrayList<Bullet>bullets;
     float shootTimer;
@@ -73,7 +75,7 @@ public class GameScreenLevel1 implements Screen {
     private float timer;
 
     public GameScreenLevel1(MyGame game) {
-
+        familiar=new Familiar();
         hud = new HUD();
         stage = new Stage(new ScreenViewport());
         isShot = false;
@@ -141,6 +143,11 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
+
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+                familiar.setActive(false);
+
 
             }
             if (player.b2body.getPosition().y < -10 || player.isDead()) {
@@ -247,7 +254,8 @@ public class GameScreenLevel1 implements Screen {
 
         @Override
         public void render ( float delta){
-            update(delta);
+            //update(delta);
+
             Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
             if(isPaused){
@@ -322,7 +330,13 @@ public class GameScreenLevel1 implements Screen {
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
                 game.batch.begin();
-
+                if (familiar.isActive()) {
+                    game.batch.draw(Assets.spriteFamiliar1Active, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                }
+                else{
+                    game.batch.draw(Assets.spriteFamiliar1Inactive, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                    familiar.reload(delta);
+                }
                 hud.render();
                 stage.addActor(score);
 

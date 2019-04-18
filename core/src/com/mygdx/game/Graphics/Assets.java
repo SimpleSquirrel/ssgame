@@ -78,17 +78,23 @@ public class Assets {
     public static Texture textureDeathScreenTosheDa;
     public static Texture textureDeathScreenNoInactive;
     //ExitScreen
-    //Sprites
+        //Sprites
     public static Sprite spriteNoActive;
     public static Sprite spriteExitScreenBack;
-    //Textures
+        //Textures
     public static Texture textureNoActive;
     public static Texture textureExitScreenBack;
     //New Game Screen
-    //BackGround
+        //BackGround
     public static Sprite spriteNewGameScreenBack;
     public static Texture textureNewGameScreenBack;
-    //Bullet
+    //Familiar
+        //1
+    public static Sprite spriteFamiliar1Active;
+    public static Texture textureFamiliar1Active;
+    public static Sprite spriteFamiliar1Inactive;
+    public static Texture textureFamiliar1Inactive;
+
 
 
 
@@ -260,7 +266,15 @@ public class Assets {
         textureNewGameScreenBack= new Texture(Gdx.files.internal("NewGameScreen/Back.png"));
         textureNewGameScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteNewGameScreenBack = new Sprite(textureNewGameScreenBack);
-        // Bullet
+        // Familiar
+            //1
+        textureFamiliar1Active= new Texture(Gdx.files.internal("Familiar/familiar1Active.png"));
+        textureFamiliar1Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar1Active = new Sprite(textureFamiliar1Active);
+
+        textureFamiliar1Inactive= new Texture(Gdx.files.internal("Familiar/familiar1Inactive.png"));
+        textureFamiliar1Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar1Inactive = new Sprite(textureFamiliar1Inactive);
 
     }
 }
