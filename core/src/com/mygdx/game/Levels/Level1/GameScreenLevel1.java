@@ -126,7 +126,7 @@ public class GameScreenLevel1 implements Screen {
     public void input(float dt) {
         timer +=dt;
         if (!isPaused) {
-            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
                 Player.swordAttack = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
@@ -312,7 +312,7 @@ public class GameScreenLevel1 implements Screen {
             else {
                 Gdx.graphics.requestRendering();
                 update(delta);
-                Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
+                Gdx.gl.glClearColor(0, 0, 0, 1); //setting bg color
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
 
                 renderer.render();

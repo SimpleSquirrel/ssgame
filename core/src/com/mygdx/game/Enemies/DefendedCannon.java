@@ -110,7 +110,7 @@ public class DefendedCannon extends Enemy {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(14/PPM, 16/PPM);
+        shape.setAsBox(14/PPM, 8/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
         fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
         fdef.shape = shape;

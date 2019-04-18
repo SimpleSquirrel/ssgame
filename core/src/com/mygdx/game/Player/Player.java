@@ -32,6 +32,9 @@ public class Player extends Sprite {
     public Sprite spriteRobotRun5;
     public Sprite spriteRobotHit0;
     public Sprite spriteRobotHit1;
+    public Sprite spriteRobotHit2;
+    public Sprite spriteRobotHit3;
+    public Sprite spriteRobotHit4;
     private int HP;
     public static boolean swordAttack;
     FixtureDef fSwordDef = new FixtureDef();
@@ -49,6 +52,9 @@ public class Player extends Sprite {
         spriteRobotRun5 = atlas.createSprite("Run5");
         spriteRobotHit0 = atlas.createSprite("Sword0");
         spriteRobotHit1 = atlas.createSprite("Sword1");
+        spriteRobotHit2 = atlas.createSprite("Sword2");
+        spriteRobotHit3 = atlas.createSprite("Sword3");
+        spriteRobotHit4 = atlas.createSprite("Sword4");
         setBounds(0, 0, 32/PPM, 64/PPM);
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -64,7 +70,10 @@ public class Player extends Sprite {
         frames.clear();
         frames.add(spriteRobotHit0);
         frames.add(spriteRobotHit1);
-        robotHit = new Animation(0.2f, frames);
+        frames.add(spriteRobotHit2);
+        frames.add(spriteRobotHit3);
+        frames.add(spriteRobotHit4);
+        robotHit = new Animation(0.1f, frames);
         frames.clear();
         isDead = false;
         swordAttack = false;
@@ -83,10 +92,10 @@ public class Player extends Sprite {
             if (runningRight) {
                 PolygonShape sword = new PolygonShape();
                 Vector2[] swordHitbox = new Vector2[4];
-                swordHitbox[0] = new Vector2(12, -30).scl(1 / PPM);
-                swordHitbox[1] = new Vector2(28, -30).scl(1 / PPM);
-                swordHitbox[2] = new Vector2(28, 30).scl(1 / PPM);
-                swordHitbox[3] = new Vector2(12, 30).scl(1 / PPM);
+                swordHitbox[0] = new Vector2(12, -24).scl(1 / PPM);
+                swordHitbox[1] = new Vector2(20, -24).scl(1 / PPM);
+                swordHitbox[2] = new Vector2(20, 24).scl(1 / PPM);
+                swordHitbox[3] = new Vector2(12, 24).scl(1 / PPM);
                 sword.set(swordHitbox);
 
                 fSwordDef.shape = sword;
@@ -99,10 +108,10 @@ public class Player extends Sprite {
             } else {
                 PolygonShape sword1 = new PolygonShape();
                 Vector2[] swordHitbox1 = new Vector2[4];
-                swordHitbox1[0] = new Vector2(-12, -30).scl(1 / PPM);
-                swordHitbox1[1] = new Vector2(-28, -30).scl(1 / PPM);
-                swordHitbox1[2] = new Vector2(-28, 30).scl(1 / PPM);
-                swordHitbox1[3] = new Vector2(-12, 30).scl(1 / PPM);
+                swordHitbox1[0] = new Vector2(-12, -24).scl(1 / PPM);
+                swordHitbox1[1] = new Vector2(-20, -24).scl(1 / PPM);
+                swordHitbox1[2] = new Vector2(-20, 24).scl(1 / PPM);
+                swordHitbox1[3] = new Vector2(-12, 24).scl(1 / PPM);
                 sword1.set(swordHitbox1);
 
                 fSwordDef.shape = sword1;
@@ -147,48 +156,12 @@ public class Player extends Sprite {
         return sprite;
     }
     public Sprite getFrameChest(float delta){
-        currentState = getState();
         Sprite sprite;
-        switch (currentState){
-            case JUMPING:
-                if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-                    sprite = (Sprite) robotHit.getKeyFrame(stateTimer, false);
-                }
-                else {
-                    sprite = spriteRobotHit0;
-                }
-                break;
-            case FALLING:
-                if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-                    sprite = (Sprite) robotHit.getKeyFrame(stateTimer, false);
-                }
-                else {
-                    sprite = spriteRobotHit0;
-                }
-                break;
-            case STANDING:
-                if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-                    sprite = (Sprite) robotHit.getKeyFrame(stateTimer, false);
-                }
-                else {
-                    sprite = spriteRobotHit0;
-                }
-                break;
-            case RUNNING:
-                if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-                    sprite = (Sprite) robotHit.getKeyFrame(stateTimer, false);
-                }
-                else {
-                    sprite = spriteRobotHit0;
-                }
-                break;
-            default:
-                if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-                    sprite = (Sprite) robotHit.getKeyFrame(stateTimer, false);
-                }
-                else {
-                    sprite = spriteRobotHit0;
-                }
+        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+            sprite = (Sprite) robotHit.getKeyFrame(stateTimer, true);
+        }
+        else {
+            sprite = spriteRobotHit0;
         }
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !sprite.isFlipX()){
             sprite.flip(true, false);
@@ -225,7 +198,7 @@ public class Player extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(9/PPM, 28/PPM);
+        shape.setAsBox(9/PPM, 25/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
         fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT;
         fdef.shape = shape;
