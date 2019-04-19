@@ -89,6 +89,13 @@ public class Assets {
     public static Sprite spriteNewGameScreenBack;
     public static Texture textureNewGameScreenBack;
     //Bullet
+    
+    //LoadScreen
+    public static Texture textureLoadBack;
+    public static Sprite loadBack;
+
+    public static Texture loadAnimation;
+    
 
 
 
@@ -261,6 +268,12 @@ public class Assets {
         textureNewGameScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteNewGameScreenBack = new Sprite(textureNewGameScreenBack);
         // Bullet
+        
+        //LoadScreen
+        loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
+        loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
+        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 }
