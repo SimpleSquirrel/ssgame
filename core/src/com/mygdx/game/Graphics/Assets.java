@@ -94,7 +94,11 @@ public class Assets {
     public static Texture textureFamiliar1Active;
     public static Sprite spriteFamiliar1Inactive;
     public static Texture textureFamiliar1Inactive;
-
+        //2
+    public static Sprite spriteFamiliar2Active;
+    public static Texture textureFamiliar2Active;
+    public static Sprite spriteFamiliar2Inactive;
+    public static Texture textureFamiliar2Inactive;
 
 
 
@@ -275,6 +279,13 @@ public class Assets {
         textureFamiliar1Inactive= new Texture(Gdx.files.internal("Familiar/familiar1Inactive.png"));
         textureFamiliar1Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar1Inactive = new Sprite(textureFamiliar1Inactive);
+            //2
+        textureFamiliar2Active= new Texture(Gdx.files.internal("Familiar/2A.png"));
+        textureFamiliar2Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar2Active = new Sprite(textureFamiliar2Active);
 
+        textureFamiliar2Inactive= new Texture(Gdx.files.internal("Familiar/2I.png"));
+        textureFamiliar2Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar2Inactive = new Sprite(textureFamiliar2Inactive);
     }
 }

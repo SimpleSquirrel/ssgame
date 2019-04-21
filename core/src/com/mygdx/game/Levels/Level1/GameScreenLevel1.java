@@ -146,9 +146,10 @@ public class GameScreenLevel1 implements Screen {
 
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                familiar.setActive(false);
-
-
+                familiar.setActive(1,false);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+                familiar.setActive(2,false);
             }
             if (player.b2body.getPosition().y < -10 || player.isDead()) {
                 for (Bullet bullet:cannon.cannonBullets){
@@ -330,12 +331,20 @@ public class GameScreenLevel1 implements Screen {
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
                 game.batch.begin();
-                if (familiar.isActive()) {
+                //familiar reload
+                if (familiar.isActive(1)) {
                     game.batch.draw(Assets.spriteFamiliar1Active, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                 }
                 else{
                     game.batch.draw(Assets.spriteFamiliar1Inactive, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
-                    familiar.reload(delta);
+                    familiar.reload(1,delta);
+                }
+                if (familiar.isActive(2)) {
+                    game.batch.draw(Assets.spriteFamiliar2Active, 100 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                }
+                else{
+                    game.batch.draw(Assets.spriteFamiliar2Inactive, 100 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                    familiar.reload(2,delta);
                 }
                 hud.render();
                 stage.addActor(score);
