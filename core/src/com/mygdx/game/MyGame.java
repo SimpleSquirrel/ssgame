@@ -29,7 +29,8 @@ public class MyGame extends Game {
 	public static final short SWORD_BIT = 128;
 	public static final short WEAK_POINT_BIT = 256;
 	public static final short PORTAL_BIT = 512;
-
+	public static  int SOUND=0;
+	public static  short MUZIC=0;
 	public final  static float PPM = 100;
 
 	public void create() {

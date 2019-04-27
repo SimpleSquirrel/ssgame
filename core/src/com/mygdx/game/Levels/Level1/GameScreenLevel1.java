@@ -35,6 +35,7 @@ import com.mygdx.game.Screens.MenuScreen;
 import static com.mygdx.game.MyGame.*;
 import static com.mygdx.game.MyGame.PPM;
 
+import static com.mygdx.game.Player.HUD.SCORE;
 import static com.mygdx.game.Player.HUD.score;
 
 
@@ -139,14 +140,18 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
-                HUD.SCORE++;
+
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
 
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                familiar.setActive(1,false);
+                if (SCORE>=50&&Player.HP<=30) {
+                    familiar.setActive(1,false);
+                    Player.HP += 10;
+                    SCORE-=50;
+                }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
                 familiar.setActive(2,false);

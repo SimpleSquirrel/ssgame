@@ -35,13 +35,13 @@ public class Player extends Sprite {
     public Sprite spriteRobotHit2;
     public Sprite spriteRobotHit3;
     public Sprite spriteRobotHit4;
-    private int HP;
+    public static int HP;
     public static boolean swordAttack;
     FixtureDef fSwordDef = new FixtureDef();
     private int swordTimer;
 
     public Player(World world){
-        HP = 100;
+        HP = 30;
         this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");

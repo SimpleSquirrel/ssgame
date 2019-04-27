@@ -3,6 +3,7 @@ package com.mygdx.game.Objects;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Player.HUD;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -18,6 +19,7 @@ public class Chest extends Sprite {
     private TextureAtlas atlas;
     private float stateTimer;
     public boolean isTouched;
+    private boolean JastOpen=true;
 
     public Chest(World world, float x, float y, float CheckX, float CheckY) {
         this.world = world;
@@ -43,6 +45,10 @@ public class Chest extends Sprite {
         switch (currentState){
             case OPENED:
                 sprite = chestOpened;
+                if(JastOpen) {
+                    HUD.SCORE += 200;
+                    JastOpen=false;
+                }
                 break;
             case CLOSED:
                 sprite = chestClosed;

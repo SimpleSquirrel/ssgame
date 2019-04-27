@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
+import com.mygdx.game.Player.HUD;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -63,6 +64,7 @@ public class Cannon extends Enemy {
             setRegion((Sprite)BTOOM.getKeyFrame(timer, false));
             stateTimer = 0;
             destroyed = true;
+            HUD.SCORE+=25;
         }
         else if(!destroyed) {
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
