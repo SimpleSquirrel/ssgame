@@ -73,11 +73,11 @@ public class DefendedCannon extends Enemy {
             if (stateTimer >= shootTimer) {
                 if (!spriteCannon.isFlipX()) {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM, 1/PPM);
-                    bullet.bulletBody.setLinearVelocity(2f, 0);
+                    bullet.bulletBody.setLinearVelocity(4f, 0);
                     defendedCannonBullets.add(bullet);
                 } else {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -24/PPM, 1/PPM);
-                    bullet.bulletBody.setLinearVelocity(-2f, 0);
+                    bullet.bulletBody.setLinearVelocity(-4f, 0);
                     defendedCannonBullets.add(bullet);
                 }
                 stateTimer = 0;

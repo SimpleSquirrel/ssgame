@@ -35,6 +35,11 @@ public class Player extends Sprite {
     public Sprite spriteRobotHit2;
     public Sprite spriteRobotHit3;
     public Sprite spriteRobotHit4;
+    public Sprite spriteStatic;
+    public Sprite spriteStatic0;
+    public Sprite spriteStatic1;
+    public Animation robotStatic;
+    public Animation robotStatic1;
     private int HP;
     public static boolean swordAttack;
     FixtureDef fSwordDef = new FixtureDef();
@@ -55,6 +60,9 @@ public class Player extends Sprite {
         spriteRobotHit2 = atlas.createSprite("Sword2");
         spriteRobotHit3 = atlas.createSprite("Sword3");
         spriteRobotHit4 = atlas.createSprite("Sword4");
+        spriteStatic = atlas.createSprite("Static");
+        spriteStatic0 = atlas.createSprite("Static0");
+        spriteStatic1 = atlas.createSprite("Static1");
         setBounds(0, 0, 32/PPM, 64/PPM);
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -74,6 +82,14 @@ public class Player extends Sprite {
         frames.add(spriteRobotHit3);
         frames.add(spriteRobotHit4);
         robotHit = new Animation(0.1f, frames);
+        frames.clear();
+        frames.add(spriteStatic0);
+        frames.add(spriteStatic1);
+        robotStatic = new Animation(0.5f, frames);
+        frames.clear();
+        frames.add(spriteRobotHit0);
+        frames.add(spriteStatic);
+        robotStatic1 = new Animation(0.5f, frames);
         frames.clear();
         isDead = false;
         swordAttack = false;
@@ -135,7 +151,7 @@ public class Player extends Sprite {
                 sprite = spriteRobotRun5;
                 break;
             case STANDING:
-                sprite = spriteRobotRun1;
+                sprite = (Sprite) robotStatic.getKeyFrame(stateTimer, true);
                 break;
             case RUNNING:
                 sprite = (Sprite) robotRun.getKeyFrame(stateTimer, true);
@@ -161,7 +177,7 @@ public class Player extends Sprite {
             sprite = (Sprite) robotHit.getKeyFrame(stateTimer, true);
         }
         else {
-            sprite = spriteRobotHit0;
+            sprite = (Sprite) robotStatic1.getKeyFrame(stateTimer, true);
         }
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !sprite.isFlipX()){
             sprite.flip(true, false);
@@ -207,7 +223,7 @@ public class Player extends Sprite {
     }
     public void jump(){
         if(currentState != State.JUMPING && currentState != State.FALLING){
-            b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(0, 10f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
         }
     }

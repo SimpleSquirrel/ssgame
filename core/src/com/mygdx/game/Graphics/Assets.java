@@ -99,8 +99,17 @@ public class Assets {
     public static Texture textureFamiliar2Active;
     public static Sprite spriteFamiliar2Inactive;
     public static Texture textureFamiliar2Inactive;
-
-
+    //Loading
+    public static Texture textureLoad1;
+    public static Texture textureLoad2;
+    public static Texture textureLoad3;
+    public static Texture textureLoad4;
+    public static Sprite spriteLoad1;
+    public static Sprite spriteLoad2;
+    public static Sprite spriteLoad3;
+    public static Sprite spriteLoad4;
+    public static Texture loadAnimation;
+    public static Texture textureLoadBack;
 
     public static void load() {
         //Menu
@@ -287,5 +296,23 @@ public class Assets {
         textureFamiliar2Inactive= new Texture(Gdx.files.internal("Familiar/2I.png"));
         textureFamiliar2Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Inactive = new Sprite(textureFamiliar2Inactive);
+        //Loading
+        textureLoad1 = new Texture(Gdx.files.internal("Loading/Load0.png"));
+        textureLoad1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad1 = new Sprite(textureLoad1);
+        textureLoad2 = new Texture(Gdx.files.internal("Loading/Load1.png"));
+        textureLoad2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad2 = new Sprite(textureLoad2);
+        textureLoad3 = new Texture(Gdx.files.internal("Loading/Load2.png"));
+        textureLoad3.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad3 = new Sprite(textureLoad3);
+        textureLoad4 = new Texture(Gdx.files.internal("Loading/Load3.png"));
+        textureLoad4.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad4 = new Sprite(textureLoad4);
+        loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
+        loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
+        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 }
