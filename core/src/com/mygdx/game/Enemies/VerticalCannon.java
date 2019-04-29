@@ -74,11 +74,11 @@ public class VerticalCannon extends Enemy {
             if (stateTimer >= shootTimer) {
                 if (!spriteVerticalCannon.isFlipX()) {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 14/PPM, 30/PPM);
-                    bullet.bulletBody.setLinearVelocity(0, 2f);
+                    bullet.bulletBody.setLinearVelocity(0, 4f);
                     verticalCannonBullets.add(bullet);
                 } else {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -14/PPM, 30/PPM);
-                    bullet.bulletBody.setLinearVelocity(0, -2f);
+                    bullet.bulletBody.setLinearVelocity(0, -4f);
                     verticalCannonBullets.add(bullet);
                 }
                 stateTimer = 0;

@@ -78,25 +78,47 @@ public class Assets {
     public static Texture textureDeathScreenTosheDa;
     public static Texture textureDeathScreenNoInactive;
     //ExitScreen
-    //Sprites
+        //Sprites
     public static Sprite spriteNoActive;
     public static Sprite spriteExitScreenBack;
-    //Textures
+        //Textures
     public static Texture textureNoActive;
     public static Texture textureExitScreenBack;
     //New Game Screen
-    //BackGround
+        //BackGround
     public static Sprite spriteNewGameScreenBack;
     public static Texture textureNewGameScreenBack;
     //Bullet
-    
+
     //LoadScreen
     public static Texture textureLoadBack;
     public static Sprite loadBack;
 
     public static Texture loadAnimation;
-    
 
+
+    //Familiar
+        //1
+    public static Sprite spriteFamiliar1Active;
+    public static Texture textureFamiliar1Active;
+    public static Sprite spriteFamiliar1Inactive;
+    public static Texture textureFamiliar1Inactive;
+        //2
+    public static Sprite spriteFamiliar2Active;
+    public static Texture textureFamiliar2Active;
+    public static Sprite spriteFamiliar2Inactive;
+    public static Texture textureFamiliar2Inactive;
+    //Loading
+    public static Texture textureLoad1;
+    public static Texture textureLoad2;
+    public static Texture textureLoad3;
+    public static Texture textureLoad4;
+    public static Sprite spriteLoad1;
+    public static Sprite spriteLoad2;
+    public static Sprite spriteLoad3;
+    public static Sprite spriteLoad4;
+    public static Texture loadAnimation;
+    public static Texture textureLoadBack;
 
 
     public static void load() {
@@ -268,8 +290,42 @@ public class Assets {
         textureNewGameScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteNewGameScreenBack = new Sprite(textureNewGameScreenBack);
         // Bullet
-        
+
         //LoadScreen
+        loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
+        loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        // Familiar
+            //1
+        textureFamiliar1Active= new Texture(Gdx.files.internal("Familiar/familiar1Active.png"));
+        textureFamiliar1Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar1Active = new Sprite(textureFamiliar1Active);
+
+        textureFamiliar1Inactive= new Texture(Gdx.files.internal("Familiar/familiar1Inactive.png"));
+        textureFamiliar1Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar1Inactive = new Sprite(textureFamiliar1Inactive);
+            //2
+        textureFamiliar2Active= new Texture(Gdx.files.internal("Familiar/2A.png"));
+        textureFamiliar2Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar2Active = new Sprite(textureFamiliar2Active);
+
+        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
+        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        textureFamiliar2Inactive= new Texture(Gdx.files.internal("Familiar/2I.png"));
+        textureFamiliar2Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar2Inactive = new Sprite(textureFamiliar2Inactive);
+        //Loading
+        textureLoad1 = new Texture(Gdx.files.internal("Loading/Load0.png"));
+        textureLoad1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad1 = new Sprite(textureLoad1);
+        textureLoad2 = new Texture(Gdx.files.internal("Loading/Load1.png"));
+        textureLoad2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad2 = new Sprite(textureLoad2);
+        textureLoad3 = new Texture(Gdx.files.internal("Loading/Load2.png"));
+        textureLoad3.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad3 = new Sprite(textureLoad3);
+        textureLoad4 = new Texture(Gdx.files.internal("Loading/Load3.png"));
+        textureLoad4.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad4 = new Sprite(textureLoad4);
         loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
         loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 

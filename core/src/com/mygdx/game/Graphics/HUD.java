@@ -1,4 +1,4 @@
-package com.mygdx.game.Player;
+package com.mygdx.game.Graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -39,26 +39,28 @@ public class HUD  {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Amble-Light.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 30;
+        parameter.size = 15;
         parameter.borderWidth = 1;
         parameter.color = Color.YELLOW;
-        parameter.shadowOffsetX = 3;
-        parameter.shadowOffsetY = 3;
+        parameter.shadowOffsetX = 2;
+        parameter.shadowOffsetY = 2;
         parameter.shadowColor = new Color(0, 0.5f, 0, 0.75f);
         BitmapFont font24 = generator.generateFont(parameter);
         generator.dispose();
 
          labelStyle = new Label.LabelStyle();
         labelStyle.font = font24;
-        score=new Label(String.format("%04d",SCORE),labelStyle);
+        score=new Label(String.format("%02d",SCORE),labelStyle);
         //countOfDeath=new Label(String.format("%03d",COUNT_OF_DEATH),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         score.setSize(3,1);
-        score.setPosition(13,10);
+        score.setPosition(Gdx.graphics.getWidth()-50,Gdx.graphics.getHeight()-30);
         score.setColor(1,1,1,1);
     }
     public static void render(){
 
-        score.setText(String.format("%04d",SCORE));
+        score.setText(String.format("%02d",SCORE));
+
+
     }
 
 
