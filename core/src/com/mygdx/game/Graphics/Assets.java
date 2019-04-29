@@ -117,8 +117,6 @@ public class Assets {
     public static Sprite spriteLoad2;
     public static Sprite spriteLoad3;
     public static Sprite spriteLoad4;
-    public static Texture loadAnimation;
-    public static Texture textureLoadBack;
 
 
     public static void load() {
