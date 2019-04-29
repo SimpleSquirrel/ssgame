@@ -117,7 +117,8 @@ public class Assets {
     public static Sprite spriteLoad2;
     public static Sprite spriteLoad3;
     public static Sprite spriteLoad4;
-
+    public static Texture textureEmpty;
+    public static Sprite spriteEmpty;
 
     public static void load() {
         //Menu
@@ -329,5 +330,9 @@ public class Assets {
 
         textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
         textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureEmpty = new Texture(Gdx.files.internal("Animations/Empty.png"));
+        textureEmpty.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteEmpty = new Sprite(textureEmpty);
     }
 }

@@ -323,7 +323,7 @@ public class GameScreenLevel1 implements Screen {
 
                 renderer.render();
 
-                //b2dr.render(world, camera.combined);
+                b2dr.render(world, camera.combined);
 
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
@@ -355,12 +355,15 @@ public class GameScreenLevel1 implements Screen {
                 }
                 for (Cannon cannon:cannons) {
                     cannon.draw(game.batch);
+                    game.batch.draw(cannon.babax(), cannon.b2body.getPosition().x - 15/PPM, cannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
                 }
                 for (DefendedCannon defendedCannon:defendedCannons){
                     defendedCannon.draw(game.batch);
+                    game.batch.draw(defendedCannon.babax(), defendedCannon.b2body.getPosition().x - 15/PPM, defendedCannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
                 }
                 for (VerticalCannon verticalCannon:verticalCannons){
                     verticalCannon.draw(game.batch);
+                    game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 15/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
                 }
                 chest.draw(game.batch);
                 portal.draw(game.batch);

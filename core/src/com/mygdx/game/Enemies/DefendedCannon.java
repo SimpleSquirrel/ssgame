@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
 
@@ -46,7 +47,7 @@ public class DefendedCannon extends Enemy {
         frames.add(btoom1);
         frames.add(btoom2);
         frames.add(btoom3);
-        BTOOM = new Animation(0.1f, frames);
+        BTOOM = new Animation(0.05f, frames);
         textureCannon = new Texture("Enemies/DefendedCannon.png");
         spriteCannon = new Sprite(textureCannon);
         setBounds(getX(), getY(), 32/PPM, 32/PPM);
@@ -57,17 +58,13 @@ public class DefendedCannon extends Enemy {
     public void update(float delta){
         stateTimer += delta;
         timer += delta;
-        if(setToDestroy && !destroyed){
+        if(setToDestroy && !destroyed && stateTimer > 0.3f){
             world.destroyBody(b2body);
             attack = false;
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
             setRegion((Sprite)BTOOM.getKeyFrame(timer, false));
             stateTimer = 0;
             destroyed = true;
-        }
-        else if(!destroyed) {
-            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            setRegion(spriteCannon);
         }
         if(attack){
             if (stateTimer >= shootTimer) {
@@ -91,9 +88,6 @@ public class DefendedCannon extends Enemy {
     }
 
     public void draw(Batch batch){
-        if(stateTimer == 0 || !destroyed){
-            super.draw(batch);
-        }
         for (Bullet bullet:defendedCannonBullets){
             if(!bullet.isDestroyed()) {
                 bullet.draw(batch);
@@ -167,8 +161,22 @@ public class DefendedCannon extends Enemy {
     @Override
     public void deleted() {
         setToDestroy = true;
+        stateTimer = 0;
     }
     public boolean isDestroyed(){
         return destroyed;
+    }
+    public Sprite babax(){
+        Sprite sprite;
+        if(setToDestroy && !destroyed){
+            sprite = (Sprite) BTOOM.getKeyFrame(stateTimer, false);
+        }
+        else if (destroyed){
+            sprite = Assets.spriteEmpty;
+        }
+        else {
+            sprite = spriteCannon;
+        }
+        return sprite;
     }
 }
