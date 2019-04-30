@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
-import com.mygdx.game.Player.HUD;
+import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
 

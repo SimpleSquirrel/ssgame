@@ -3,7 +3,7 @@ package com.mygdx.game.Objects;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Player.HUD;
+import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
 

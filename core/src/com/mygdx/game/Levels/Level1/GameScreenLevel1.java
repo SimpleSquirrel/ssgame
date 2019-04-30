@@ -19,28 +19,26 @@ import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
+//import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;
 import com.mygdx.game.Objects.Familiar;
 import com.mygdx.game.Objects.Portal;
-//import com.mygdx.game.Objects.Floor;
-import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
-import com.mygdx.game.Objects.Bullet;
-
 import com.mygdx.game.Screens.MenuScreen;
 
-import static com.mygdx.game.MyGame.*;
-import static com.mygdx.game.MyGame.PPM;
-
-import static com.mygdx.game.Player.HUD.SCORE;
-import static com.mygdx.game.Player.HUD.score;
 import static com.mygdx.game.Graphics.HUD.score;
+import static com.mygdx.game.MyGame.*;
+
+
+//import com.mygdx.game.Objects.Floor;
 
 
 public class GameScreenLevel1 implements Screen {
-    private static HUD hud;
+
     private final Familiar familiar;
     //Bullets
    // ArrayList<Bullet>bullets;
@@ -59,7 +57,7 @@ public class GameScreenLevel1 implements Screen {
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-
+    private HUD hud;
     private World world;
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
@@ -77,7 +75,7 @@ public class GameScreenLevel1 implements Screen {
 
     public GameScreenLevel1(MyGame game) {
         familiar=new Familiar();
-        hud = new HUD();
+        hud=new HUD();
         stage = new Stage(new ScreenViewport());
         isShot = false;
         bulletCounter = 0;
@@ -139,17 +137,17 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
-                SCORE+=1000;
+                HUD.SCORE+=1000;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
 
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                if (SCORE>=50&&Player.HP<=30) {
+                if (HUD.SCORE>=50&&Player.HP<=30) {
                     familiar.setActive(1,false);
                     Player.HP += 10;
-                    SCORE-=50;
+                    HUD.SCORE-=50;
                 }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {

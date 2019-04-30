@@ -40,7 +40,7 @@ public class Player extends Sprite {
     public Sprite spriteStatic1;
     public Animation robotStatic;
     public Animation robotStatic1;
-    private int HP;
+    public static int HP;
     public static boolean swordAttack;
     FixtureDef fSwordDef = new FixtureDef();
     private int swordTimer;
