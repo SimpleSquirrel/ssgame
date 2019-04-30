@@ -43,12 +43,12 @@ public class DeathScreen implements Screen {
             batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 300, 150); //Drawing Active
             if (Gdx.input.isTouched()) { //creating an event
                 this.dispose();
-                game.setScreen(new GameScreenLevel1(game)); //changing screen
+                game.setScreen(new LoadScreen(game)); //changing screen
             }
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             this.dispose();
-            game.setScreen(new GameScreenLevel1(game)); //changing screen
+            game.setScreen(new LoadScreen(game)); //changing screen
         }
         else{
             batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150);
@@ -57,7 +57,7 @@ public class DeathScreen implements Screen {
             batch.draw(Assets.spriteDeathScreenTosheDa, 750, 200, 300, 150); //Drawing Active
             if (Gdx.input.isTouched()) { //creating an event
                 this.dispose();
-                game.setScreen(new GameScreenLevel1(game)); //changing screen
+                game.setScreen(new LoadScreen(game)); //changing screen
             }
         }
         else if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){

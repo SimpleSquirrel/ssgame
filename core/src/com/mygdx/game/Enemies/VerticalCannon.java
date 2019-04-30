@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Player.HUD;
@@ -48,7 +49,7 @@ public class VerticalCannon extends Enemy {
         frames.add(btoom1);
         frames.add(btoom2);
         frames.add(btoom3);
-        BTOOM = new Animation(0.5f, frames);
+        BTOOM = new Animation(0.05f, frames);
         textureVerticalCannon = new Texture("Enemies/VerticalCannon.png");
         spriteVerticalCannon = new Sprite(textureVerticalCannon);
         setBounds(getX(), getY(), 32/PPM, 50/PPM);
@@ -60,7 +61,7 @@ public class VerticalCannon extends Enemy {
     public void update(float delta){
         stateTimer += delta;
         timer += delta;
-        if(setToDestroy && !destroyed){
+        if(setToDestroy && !destroyed && stateTimer > 0.3f){
             world.destroyBody(b2body);
             attack = false;
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
@@ -69,19 +70,15 @@ public class VerticalCannon extends Enemy {
             destroyed = true;
             HUD.SCORE+=15;
         }
-        else if(!destroyed) {
-            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            setRegion(spriteVerticalCannon);
-        }
         if(attack){
             if (stateTimer >= shootTimer) {
                 if (!spriteVerticalCannon.isFlipX()) {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 14/PPM, 30/PPM);
-                    bullet.bulletBody.setLinearVelocity(0, 2f);
+                    bullet.bulletBody.setLinearVelocity(0, 4f);
                     verticalCannonBullets.add(bullet);
                 } else {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -14/PPM, 30/PPM);
-                    bullet.bulletBody.setLinearVelocity(0, -2f);
+                    bullet.bulletBody.setLinearVelocity(0, -4f);
                     verticalCannonBullets.add(bullet);
                 }
                 stateTimer = 0;
@@ -95,9 +92,6 @@ public class VerticalCannon extends Enemy {
     }
 
     public void draw(Batch batch){
-        if((stateTimer < 1 || !destroyed)){
-            super.draw(batch);
-        }
         for (Bullet bullet:verticalCannonBullets){
             if(!bullet.isDestroyed()) {
                 bullet.draw(batch);
@@ -145,8 +139,20 @@ public class VerticalCannon extends Enemy {
     @Override
     public void deleted(){
         setToDestroy = true;
+        stateTimer = 0;
     }
-    public boolean isDestroyed(){
-        return destroyed;
+    public boolean isDestroyed(){return destroyed;}
+    public Sprite babax(){
+        Sprite sprite;
+        if(setToDestroy && !destroyed){
+            sprite = (Sprite) BTOOM.getKeyFrame(stateTimer, false);
+        }
+        else if (destroyed){
+            sprite = Assets.spriteEmpty;
+        }
+        else {
+            sprite = spriteVerticalCannon;
+        }
+        return sprite;
     }
 }

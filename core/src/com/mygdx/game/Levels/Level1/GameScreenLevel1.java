@@ -11,7 +11,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -25,7 +24,7 @@ import com.mygdx.game.Objects.Chest;
 import com.mygdx.game.Objects.Familiar;
 import com.mygdx.game.Objects.Portal;
 //import com.mygdx.game.Objects.Floor;
-import com.mygdx.game.Player.HUD;
+import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Objects.Bullet;
@@ -37,6 +36,7 @@ import static com.mygdx.game.MyGame.PPM;
 
 import static com.mygdx.game.Player.HUD.SCORE;
 import static com.mygdx.game.Player.HUD.score;
+import static com.mygdx.game.Graphics.HUD.score;
 
 
 public class GameScreenLevel1 implements Screen {
@@ -98,9 +98,8 @@ public class GameScreenLevel1 implements Screen {
         map = mapLoader.load("Try.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
 
-        world = new World(new Vector2(0, -10), true);
+        world = new World(new Vector2(0, -40), true);
         b2dr = new Box2DDebugRenderer();
-
         new WorldCreatorLevel1(world, map);
 
         player = new Player(world);
@@ -132,11 +131,11 @@ public class GameScreenLevel1 implements Screen {
             if(Gdx.input.isKeyPressed(Input.Keys.W)) {
                 Player.swordAttack = true;
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
+                player.b2body.applyLinearImpulse(new Vector2(0.3f, 0), player.b2body.getWorldCenter(), true);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3) {
+                player.b2body.applyLinearImpulse(new Vector2(-0.3f, 0), player.b2body.getWorldCenter(), true);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
@@ -197,15 +196,15 @@ public class GameScreenLevel1 implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
                 if (Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
                     bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 20/PPM, 5/PPM);
-                    bullet.bulletBody.setLinearVelocity(2f, 0);
+                    bullet.bulletBody.setLinearVelocity(4f, 0);
                     playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
                     timer = 0;
                 }
-                else if(!Player.runningRight && bulletCounter < 3 && timer >= BULLET_WAIT_TIME) {
+                else if(!Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
                     bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -20/PPM, 5/PPM);
-                    bullet.bulletBody.setLinearVelocity(-2f, 0);
+                    bullet.bulletBody.setLinearVelocity(-4f, 0);
                     playerBullets.add(bullet);
                     isShot = true;
                     bulletCounter++;
@@ -255,11 +254,10 @@ public class GameScreenLevel1 implements Screen {
         player.update(dt);
         camera.update();
         renderer.setView(camera);
-
     }
 
         @Override
-        public void render ( float delta){
+        public void render (float delta){
             //update(delta);
 
             Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
@@ -331,7 +329,7 @@ public class GameScreenLevel1 implements Screen {
 
                 renderer.render();
 
-                //b2dr.render(world, camera.combined);
+                b2dr.render(world, camera.combined);
 
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
@@ -363,12 +361,15 @@ public class GameScreenLevel1 implements Screen {
                 }
                 for (Cannon cannon:cannons) {
                     cannon.draw(game.batch);
+                    game.batch.draw(cannon.babax(), cannon.b2body.getPosition().x - 15/PPM, cannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
                 }
                 for (DefendedCannon defendedCannon:defendedCannons){
                     defendedCannon.draw(game.batch);
+                    game.batch.draw(defendedCannon.babax(), defendedCannon.b2body.getPosition().x - 15/PPM, defendedCannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
                 }
                 for (VerticalCannon verticalCannon:verticalCannons){
                     verticalCannon.draw(game.batch);
+                    game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 15/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
                 }
                 chest.draw(game.batch);
                 portal.draw(game.batch);

@@ -57,6 +57,15 @@ public class Assets {
         //BackGround
     public static Sprite spriteNewGameScreenBack;
     public static Texture textureNewGameScreenBack;
+    //Bullet
+
+    //LoadScreen
+    public static Texture textureLoadBack;
+    public static Sprite loadBack;
+
+    public static Texture loadAnimation;
+
+
     //Familiar
         //1
     public static Sprite spriteFamiliar1Active;
@@ -134,6 +143,17 @@ public class Assets {
     public static Texture textureTurnDownInactive;
     public static Sprite spriteTurnDownInactive;
 
+    //Loading
+    public static Texture textureLoad1;
+    public static Texture textureLoad2;
+    public static Texture textureLoad3;
+    public static Texture textureLoad4;
+    public static Sprite spriteLoad1;
+    public static Sprite spriteLoad2;
+    public static Sprite spriteLoad3;
+    public static Sprite spriteLoad4;
+    public static Texture textureEmpty;
+    public static Sprite spriteEmpty;
 
     public static void load() {
         //Menu
@@ -259,6 +279,11 @@ public class Assets {
         textureNewGameScreenBack= new Texture(Gdx.files.internal("NewGameScreen/Back.png"));
         textureNewGameScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteNewGameScreenBack = new Sprite(textureNewGameScreenBack);
+        // Bullet
+
+        //LoadScreen
+        loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
+        loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Familiar
             //1
         textureFamiliar1Active= new Texture(Gdx.files.internal("Familiar/familiar1Active.png"));
@@ -273,6 +298,8 @@ public class Assets {
         textureFamiliar2Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Active = new Sprite(textureFamiliar2Active);
 
+        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
+        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         textureFamiliar2Inactive= new Texture(Gdx.files.internal("Familiar/2I.png"));
         textureFamiliar2Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Inactive = new Sprite(textureFamiliar2Inactive);
@@ -330,5 +357,27 @@ public class Assets {
         textureSkalaVerh= new Texture(Gdx.files.internal("PreferencesScreen/SkalaVerh.png"));
         textureSkalaVerh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteSkalaVerh = new Sprite(textureSkalaVerh);
+        //Loading
+        textureLoad1 = new Texture(Gdx.files.internal("Loading/Load0.png"));
+        textureLoad1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad1 = new Sprite(textureLoad1);
+        textureLoad2 = new Texture(Gdx.files.internal("Loading/Load1.png"));
+        textureLoad2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad2 = new Sprite(textureLoad2);
+        textureLoad3 = new Texture(Gdx.files.internal("Loading/Load2.png"));
+        textureLoad3.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad3 = new Sprite(textureLoad3);
+        textureLoad4 = new Texture(Gdx.files.internal("Loading/Load3.png"));
+        textureLoad4.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteLoad4 = new Sprite(textureLoad4);
+        loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
+        loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
+        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureEmpty = new Texture(Gdx.files.internal("Animations/Empty.png"));
+        textureEmpty.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteEmpty = new Sprite(textureEmpty);
     }
 }
