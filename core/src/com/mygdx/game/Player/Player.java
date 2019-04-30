@@ -46,7 +46,7 @@ public class Player extends Sprite {
     private int swordTimer;
 
     public Player(World world){
-        HP = 100;
+        HP = 25;
         this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");

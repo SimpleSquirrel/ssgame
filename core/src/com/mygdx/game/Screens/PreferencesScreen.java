@@ -16,7 +16,7 @@ public class PreferencesScreen implements Screen {
 
     double testX;
     double testY;
-    double freeze=0.2f;
+    double freeze=0.15f;
     double timer=0;
     public PreferencesScreen(MyGame game){
         this.game = game;

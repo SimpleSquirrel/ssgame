@@ -56,6 +56,9 @@ public class HUD  {
         score.setPosition(Gdx.graphics.getWidth()-50,Gdx.graphics.getHeight()-30);
         score.setColor(1,1,1,1);
     }
+    public static void HealthBar(){
+
+    }
     public static void render(){
 
         score.setText(String.format("%02d",SCORE));

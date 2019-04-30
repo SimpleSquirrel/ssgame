@@ -139,7 +139,7 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
-
+                SCORE+=1000;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
@@ -334,6 +334,7 @@ public class GameScreenLevel1 implements Screen {
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
                 game.batch.begin();
+
                 //familiar reload
                 if (familiar.isActive(1)) {
                     game.batch.draw(Assets.spriteFamiliar1Active, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
