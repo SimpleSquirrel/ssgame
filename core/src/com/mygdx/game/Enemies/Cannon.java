@@ -26,7 +26,7 @@ public class Cannon extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean attack;
-    private static final float shootTimer = 2f;
+    private static final float shootTimer = 1f;
     private float stateTimer;
     private float timer;
     private Animation BTOOM;

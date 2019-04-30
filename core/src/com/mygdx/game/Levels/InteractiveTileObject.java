@@ -1,4 +1,4 @@
-package com.mygdx.game.Levels.Level1;
+package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.*;

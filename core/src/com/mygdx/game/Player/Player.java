@@ -8,41 +8,40 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 
 import static com.mygdx.game.MyGame.*;
 
 public class Player extends Sprite {
     public enum State { RUNNING, FALLING, JUMPING, STANDING}
-    public State currentState;
-    public State previousState;
+    private State currentState;
+    private State previousState;
     public World world;
     public Body b2body;
     private Animation robotRun;
     private Animation robotHit;
     private TextureAtlas atlas;
     private float stateTimer;
-    public boolean isDead;
+    private boolean isDead;
     public static boolean runningRight;
-    public Sprite spriteRobotStand;
-    public Sprite spriteRobotRun1;
-    public Sprite spriteRobotRun2;
-    public Sprite spriteRobotRun3;
-    public Sprite spriteRobotRun4;
-    public Sprite spriteRobotRun5;
-    public Sprite spriteRobotHit0;
-    public Sprite spriteRobotHit1;
-    public Sprite spriteRobotHit2;
-    public Sprite spriteRobotHit3;
-    public Sprite spriteRobotHit4;
-    public Sprite spriteStatic;
-    public Sprite spriteStatic0;
-    public Sprite spriteStatic1;
-    public Animation robotStatic;
-    public Animation robotStatic1;
+    private Sprite spriteRobotStand;
+    private Sprite spriteRobotRun1;
+    private Sprite spriteRobotRun2;
+    private Sprite spriteRobotRun3;
+    private Sprite spriteRobotRun4;
+    private Sprite spriteRobotRun5;
+    private Sprite spriteRobotHit0;
+    private Sprite spriteRobotHit1;
+    private Sprite spriteRobotHit2;
+    private Sprite spriteRobotHit3;
+    private Sprite spriteRobotHit4;
+    private Sprite spriteStatic;
+    private Sprite spriteStatic0;
+    private Sprite spriteStatic1;
+    private Animation robotStatic;
+    private Animation robotStatic1;
     public static int HP;
     public static boolean swordAttack;
-    FixtureDef fSwordDef = new FixtureDef();
+    private FixtureDef fSwordDef = new FixtureDef();
     private int swordTimer;
 
     public Player(World world){
@@ -172,12 +171,18 @@ public class Player extends Sprite {
         return sprite;
     }
     public Sprite getFrameChest(float delta){
+        currentState = getState();
         Sprite sprite;
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             sprite = (Sprite) robotHit.getKeyFrame(stateTimer, true);
         }
         else {
-            sprite = (Sprite) robotStatic1.getKeyFrame(stateTimer, true);
+            if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0){
+                sprite = spriteRobotHit0;
+            }
+            else {
+                sprite = (Sprite) robotStatic1.getKeyFrame(stateTimer, true);
+            }
         }
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !sprite.isFlipX()){
             sprite.flip(true, false);
@@ -191,7 +196,7 @@ public class Player extends Sprite {
         previousState = currentState;
         return sprite;
     }
-    public State getState(){
+    private State getState(){
         if(b2body.getLinearVelocity().y > 0){
             return State.JUMPING;
         }
@@ -206,7 +211,7 @@ public class Player extends Sprite {
         }
     }
 
-    public void definePlayer(){
+    private void definePlayer(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(32/PPM, 32/PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;

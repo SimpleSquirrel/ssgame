@@ -1,7 +1,6 @@
-package com.mygdx.game.Levels.Level1;
+package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;

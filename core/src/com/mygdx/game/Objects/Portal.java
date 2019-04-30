@@ -26,6 +26,8 @@ public class Portal extends Sprite {
     public void update(){
         setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
         setRegion(spritePortal);
+        if(isTouched){
+        }
     }
 
     public void definePortal(float x, float y, float CheckX, float CheckY){
