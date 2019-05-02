@@ -72,13 +72,14 @@ public class GameScreenLevel2 implements Screen {
     private Biter biter7;
     private Biter biter8;
     private Portal portal;
+    private Familiar familiar;
     private Chest chest;
     private static int bulletCounter;
     private float timer;
     public GameScreenLevel2(MyGame game){
         this.game = game;
         hud = new HUD();
-
+        familiar=new Familiar();
         stage = new Stage(new ScreenViewport());
         isShot = false;
         bulletCounter = 0;
@@ -148,14 +149,24 @@ public class GameScreenLevel2 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
-                HUD.SCORE++;
+
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
 
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                Familiar.setActive(1,false);
+                if (HUD.SCORE>=50&&Player.HP<=Player.MAX_HP&&game.preferences.getInteger("level")!=1&&familiar.isActive(1)) {
+                    familiar.setActive(1,false);
+
+                    Player.HP += 10;
+                    HUD.SCORE-=50;
+                }
+                else if(HUD.SCORE>=50&&Player.HP<=25&&familiar.isActive(1)) {
+                    familiar.setActive(1, false);
+                    Player.HP += 10;
+                    HUD.SCORE -= 50;
+                }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
                 Familiar.setActive(2,false);
