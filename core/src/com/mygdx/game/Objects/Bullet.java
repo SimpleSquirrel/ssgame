@@ -18,7 +18,7 @@ public class Bullet extends Sprite {
     public Bullet(World world, float x, float y, float checkX, float checkY) {
         textureBullet = new Texture("Bullets/Bullet.png");
         spriteBullet = new Sprite(textureBullet);
-        setBounds(getX(), getY(), 4 / PPM, 2 / PPM);
+        setBounds(getX(), getY(), 4 / PPM, 4 / PPM);
         this.world = world;
         setToDelete = false;
         deleted = false;

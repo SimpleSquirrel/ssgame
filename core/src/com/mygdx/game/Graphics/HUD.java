@@ -15,7 +15,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.Player.Player;
 
+import static com.mygdx.game.MyGame.PLAYER_BIT;
 import static com.mygdx.game.MyGame.PPM;
 import static javax.swing.UIManager.getString;
 
@@ -53,17 +55,27 @@ public class HUD  {
         score=new Label(String.format("%02d",SCORE),labelStyle);
         //countOfDeath=new Label(String.format("%03d",COUNT_OF_DEATH),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         score.setSize(3,1);
-        score.setPosition(Gdx.graphics.getWidth()-50,Gdx.graphics.getHeight()-30);
+        score.setPosition(Gdx.graphics.getWidth()-1297,Gdx.graphics.getHeight()-60);
         score.setColor(1,1,1,1);
     }
     public static void HealthBar(){
+
 
     }
     public static void render(){
 
         score.setText(String.format("%02d",SCORE));
+        if(Player.HP>Player.MAX_HP){
+            Player.HP=Player.MAX_HP;
+        }
 
 
+    }
+    public static double hp(){
+        double vhp;
+        vhp=(double)Player.HP/(double)Player.MAX_HP;
+        vhp=vhp*100;
+        return vhp;
     }
 
 

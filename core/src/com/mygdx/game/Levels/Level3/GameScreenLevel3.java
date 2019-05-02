@@ -65,12 +65,13 @@ public class GameScreenLevel3 implements Screen {
     private Cactus cactus5;
     private Portal portal;
     private Chest chest;
+    private  Familiar familiar;
     private static int bulletCounter;
     private float timer;
     public GameScreenLevel3(MyGame game){
         this.game = game;
         hud = new HUD();
-
+        familiar=new Familiar();
         stage = new Stage(new ScreenViewport());
         isShot = false;
         bulletCounter = 0;
@@ -129,10 +130,19 @@ public class GameScreenLevel3 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
-                HUD.SCORE++;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-                isPaused = !isPaused;
+                if (HUD.SCORE>=50&&Player.HP<Player.MAX_HP&&game.preferences.getInteger("level")!=1&&familiar.isActive(1)) {
+                    familiar.setActive(1,false);
+
+                    Player.HP += 10;
+                    HUD.SCORE-=50;
+                }
+                else if(Player.HP<Player.MAX_HP&&familiar.isActive(1)) {
+                    familiar.setActive(1, false);
+                    Player.HP += 10;
+
+                }
 
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
@@ -286,23 +296,56 @@ public class GameScreenLevel3 implements Screen {
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
             game.batch.begin();
+            game.batch.draw(Assets.spriteHeadGG, 30 / PPM, 840 / PPM, 40 / PPM, 40 / PPM);
+            game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
             //familiar reload
             if (Familiar.isActive(1)) {
-                game.batch.draw(Assets.spriteFamiliar1Active, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                game.batch.draw(Assets.spriteFamiliar1Active, (Gdx.graphics.getWidth()+110) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
             }
             else{
-                game.batch.draw(Assets.spriteFamiliar1Inactive, 20 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                game.batch.draw(Assets.spriteFamiliar1Inactive, (Gdx.graphics.getWidth()+110) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                 Familiar.reload(1,delta);
             }
             if (Familiar.isActive(2)) {
-                game.batch.draw(Assets.spriteFamiliar2Active, 100 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                game.batch.draw(Assets.spriteFamiliar2Active,  (Gdx.graphics.getWidth()+180) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
             }
             else{
-                game.batch.draw(Assets.spriteFamiliar2Inactive, 100 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                game.batch.draw(Assets.spriteFamiliar2Inactive, (Gdx.graphics.getWidth()+180) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                 Familiar.reload(2,delta);
             }
             hud.render();
             stage.addActor(score);
+            //Health bar
+            if(HUD.hp()>0&&HUD.hp()<=10){
+                game.batch.draw(Assets.spriteHealthBar1, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>10&&HUD.hp()<=20){
+                game.batch.draw(Assets.spriteHealthBar2, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>20&&HUD.hp()<=30){
+                game.batch.draw(Assets.spriteHealthBar3, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>30&&HUD.hp()<=40){
+                game.batch.draw(Assets.spriteHealthBar4, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>40&&HUD.hp()<=50){
+                game.batch.draw(Assets.spriteHealthBar5, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>50&&HUD.hp()<=60){
+                game.batch.draw(Assets.spriteHealthBar6, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>60&&HUD.hp()<=70){
+                game.batch.draw(Assets.spriteHealthBar7, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>70&&HUD.hp()<=80){
+                game.batch.draw(Assets.spriteHealthBar8, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>80&&HUD.hp()<=90){
+                game.batch.draw(Assets.spriteHealthBar9, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
+            else if(HUD.hp()>90&&HUD.hp()<=100){
+                game.batch.draw(Assets.spriteHealthBar10, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
+            }
 
             game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
             game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);

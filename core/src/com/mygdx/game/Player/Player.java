@@ -46,7 +46,7 @@ public class Player extends Sprite {
     private int swordTimer;
 
     public Player(World world){
-        HP = 25000;
+        HP = 2500;
         MAX_HP=HP;
         this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
@@ -229,10 +229,10 @@ public class Player extends Sprite {
 
     }
     public void jump(){
-        if(currentState != State.JUMPING && currentState != State.FALLING){
+       // if(currentState != State.JUMPING && currentState != State.FALLING){
             b2body.applyLinearImpulse(new Vector2(0, 10f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
-        }
+       // }
     }
 
     public void bulletHit(){

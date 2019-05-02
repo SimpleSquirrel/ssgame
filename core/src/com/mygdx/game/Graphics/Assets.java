@@ -65,7 +65,8 @@ public class Assets {
 
     public static Texture loadAnimation;
 
-
+    public static Texture textureHeadGG;
+    public static Sprite spriteHeadGG;
     //Familiar
         //1
     public static Sprite spriteFamiliar1Active;
@@ -154,7 +155,39 @@ public class Assets {
     public static Sprite spriteLoad4;
     public static Texture textureEmpty;
     public static Sprite spriteEmpty;
+    //Health Bar
+    public static Texture textureHealthBar1;
+    public static Sprite spriteHealthBar1;
 
+    public static Texture textureHealthBar2;
+    public static Sprite spriteHealthBar2;
+
+    public static Texture textureHealthBar3;
+    public static Sprite spriteHealthBar3;
+
+    public static Texture textureHealthBar4;
+    public static Sprite spriteHealthBar4;
+
+    public static Texture textureHealthBar5;
+    public static Sprite spriteHealthBar5;
+
+    public static Texture textureHealthBar6;
+    public static Sprite spriteHealthBar6;
+
+    public static Texture textureHealthBar7;
+    public static Sprite spriteHealthBar7;
+
+    public static Texture textureHealthBar8;
+    public static Sprite spriteHealthBar8;
+
+    public static Texture textureHealthBar9;
+    public static Sprite spriteHealthBar9;
+
+    public static Texture textureHealthBar10;
+    public static Sprite spriteHealthBar10;
+
+    public static Texture textureDetal;
+    public static Sprite spriteDetal;
     public static void load() {
         //Menu
         textureMenuScreenBack = new Texture(Gdx.files.internal("MenuScreen/Back.jpg"));
@@ -379,5 +412,54 @@ public class Assets {
         textureEmpty = new Texture(Gdx.files.internal("Animations/Empty.png"));
         textureEmpty.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteEmpty = new Sprite(textureEmpty);
+        //Health Bar
+        textureHealthBar1= new Texture(Gdx.files.internal("HUD/HealthBar1.png"));
+        textureHealthBar1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar1 = new Sprite(textureHealthBar1);
+
+        textureHealthBar2= new Texture(Gdx.files.internal("HUD/HealthBar2.png"));
+        textureHealthBar2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar2 = new Sprite(textureHealthBar2);
+
+        textureHealthBar3= new Texture(Gdx.files.internal("HUD/HealthBar3.png"));
+        textureHealthBar3.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar3 = new Sprite(textureHealthBar3);
+
+        textureHealthBar4= new Texture(Gdx.files.internal("HUD/HealthBar4.png"));
+        textureHealthBar4.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar4= new Sprite(textureHealthBar4);
+
+        textureHealthBar5= new Texture(Gdx.files.internal("HUD/HealthBar5.png"));
+        textureHealthBar5.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar5= new Sprite(textureHealthBar5);
+
+        textureHealthBar6= new Texture(Gdx.files.internal("HUD/HealthBar6.png"));
+        textureHealthBar6.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar6 = new Sprite(textureHealthBar6);
+
+        textureHealthBar7= new Texture(Gdx.files.internal("HUD/HealthBar7.png"));
+        textureHealthBar7.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar7 = new Sprite(textureHealthBar7);
+
+        textureHealthBar8= new Texture(Gdx.files.internal("HUD/HealthBar8.png"));
+        textureHealthBar8.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar8 = new Sprite(textureHealthBar8);
+
+        textureHealthBar9= new Texture(Gdx.files.internal("HUD/HealthBar9.png"));
+        textureHealthBar9.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar9 = new Sprite(textureHealthBar9);
+
+        textureHealthBar10= new Texture(Gdx.files.internal("HUD/HealthBar10.png"));
+        textureHealthBar10.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar10 = new Sprite(textureHealthBar10);
+
+        textureHeadGG= new Texture(Gdx.files.internal("HUD/HeadGG.png"));
+        textureHeadGG.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHeadGG = new Sprite(textureHeadGG);
+
+        textureDetal= new Texture(Gdx.files.internal("HUD/Detal.png"));
+        textureDetal.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDetal = new Sprite(textureDetal);
+
     }
 }

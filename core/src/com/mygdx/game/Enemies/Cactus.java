@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
 import static com.mygdx.game.MyGame.PLAYER_BIT;
@@ -61,6 +62,7 @@ public class Cactus extends Enemy {
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
             stateTimer = 0;
             destroyed = true;
+            HUD.SCORE+=30;
         }
         else if(!destroyed && !setToDestroy){
             b2body.setLinearVelocity(velocity);
