@@ -1,19 +1,19 @@
 package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.*;
 
 import static com.mygdx.game.MyGame.*;
 
-public abstract class InteractiveTileObject {
+public abstract class InteractiveSensorObject {
     protected World world;
     protected TiledMap map;
     protected Rectangle rectangle;
     protected Body body;
     protected Fixture fixture;
 
-    public InteractiveTileObject(World world, TiledMap map, Rectangle rectangle){
+    public InteractiveSensorObject(World world, TiledMap map, Rectangle rectangle){
         this.world = world;
         this.map = map;
         this.rectangle = rectangle;
@@ -28,7 +28,7 @@ public abstract class InteractiveTileObject {
 
         shape.setAsBox((rectangle.getWidth()/2)/PPM, (rectangle.getHeight()/2)/PPM);
         fdef.filter.categoryBits = GROUND_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | WALKING_ENEMY_BIT;
+        fdef.filter.maskBits = WALKING_ENEMY_BIT | ENEMY_BIT;
         fdef.shape = shape;
         body.createFixture(fdef);
         fixture = body.createFixture(fdef);

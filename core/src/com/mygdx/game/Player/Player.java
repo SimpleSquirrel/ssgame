@@ -45,7 +45,7 @@ public class Player extends Sprite {
     private int swordTimer;
 
     public Player(World world){
-        HP = 25;
+        HP = 25000;
         this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");
@@ -200,7 +200,7 @@ public class Player extends Sprite {
         if(b2body.getLinearVelocity().y > 0){
             return State.JUMPING;
         }
-        else if(b2body.getLinearVelocity().y < 0){
+        else if(b2body.getLinearVelocity().y < -0.1){
             return State.FALLING;
         }
         else if(b2body.getLinearVelocity().x != 0){
@@ -219,9 +219,9 @@ public class Player extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(9/PPM, 25/PPM);
+        shape.setAsBox(9/PPM, 27/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
@@ -244,5 +244,16 @@ public class Player extends Sprite {
             isDead = true;
         }
         return isDead;
+    }
+    public void spikeHit(){
+        HP -= 25;
+    }
+    public void hitByEnemy(float x){
+        if(x > 0){
+            b2body.applyForce(new Vector2(300, 200), b2body.getWorldCenter(), true);
+        }
+        else {
+            b2body.applyForce(new Vector2(-300, 200), b2body.getWorldCenter(), true);
+        }
     }
 }

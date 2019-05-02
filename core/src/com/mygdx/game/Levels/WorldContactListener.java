@@ -70,7 +70,7 @@ public class WorldContactListener implements ContactListener {
                     ((Enemy)fixA.getUserData()).swordHit();
                 }
                 break;
-            case BULLET_BIT | BULLET_BIT:
+            case BULLET_BIT:
                 ((Bullet)fixA.getUserData()).deleteBullet();
                 ((Bullet)fixB.getUserData()).deleteBullet();
                 break;
@@ -99,11 +99,39 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case PLAYER_BIT | PORTAL_BIT:
-                if(fixA.getFilterData().categoryBits == CHEST_BIT){
+                if(fixA.getFilterData().categoryBits == PORTAL_BIT){
                     ((Portal)fixA.getUserData()).contact();
                 }
                 else {
                     ((Portal)fixB.getUserData()).contact();
+                }
+                break;
+            case SPIKE_BIT | PLAYER_BIT:
+                if(fixA.getFilterData().categoryBits == PLAYER_BIT){
+                    ((Player)fixA.getUserData()).spikeHit();
+                }
+                else {
+                    ((Player)fixB.getUserData()).spikeHit();
+                }
+                break;
+            case WALKING_ENEMY_BIT | GROUND_BIT:
+                if (fixA.getFilterData().categoryBits == WALKING_ENEMY_BIT){
+                    ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
+                }
+                else {
+                    ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
+                }
+                break;
+            case WALKING_ENEMY_BIT | PLAYER_BIT:
+                if(fixA.getFilterData().categoryBits == PLAYER_BIT){
+                    ((Player)fixA.getUserData()).swordHit();
+                    ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getLinearVelocity().x);
+                    System.out.println(fixB.getBody().getLinearVelocity().x);
+                }
+                else {
+                    ((Player)fixB.getUserData()).swordHit();
+                    ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getLinearVelocity().x);
+                    System.out.println(fixA.getBody().getLinearVelocity().x);
                 }
         }
     }

@@ -80,7 +80,7 @@ public class Chest extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 13/PPM);
         fdef.filter.categoryBits = CHEST_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }

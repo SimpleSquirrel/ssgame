@@ -35,9 +35,8 @@ public class Cannon extends Enemy {
     private Sprite btoom3;
     public Array<Bullet> cannonBullets = new Array<Bullet>();
 
-    public Cannon(World world, float x, float y) {
-        super(world, x, y);
-        System.out.println(x  + " " + y);
+    public Cannon(World world, float x, float y, boolean flip) {
+        super(world, x, y, flip);
         HP = 10;
         atlas = new TextureAtlas("Animations/Btoom.txt");
         btoom1 = atlas.createSprite("Btoom1");
@@ -50,6 +49,9 @@ public class Cannon extends Enemy {
         BTOOM = new Animation(0.05f, frames);
         textureCannon = new Texture("Enemies/Cannon.png");
         spriteCannon = new Sprite(textureCannon);
+        if(isFlip){
+            spriteCannon.flip(true, false);
+        }
         setBounds(getX(), getY(), 32/PPM, 32/PPM);
         setToDestroy = false;
         destroyed = false;
@@ -59,16 +61,16 @@ public class Cannon extends Enemy {
         stateTimer += delta;
         timer += delta;
         if(setToDestroy && !destroyed && stateTimer > 0.3f){
+            HUD.SCORE+=25;
             world.destroyBody(b2body);
             attack = false;
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
             stateTimer = 0;
             destroyed = true;
-            HUD.SCORE+=25;
         }
         if(attack){
             if (stateTimer >= shootTimer) {
-                if (!spriteCannon.isFlipX()) {
+                if (!isFlip) {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM, 8/PPM);
                     bullet.bulletBody.setLinearVelocity(4f, 0);
                     cannonBullets.add(bullet);

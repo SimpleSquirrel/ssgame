@@ -16,12 +16,12 @@ public class WorldCreatorLevel1 {
     public WorldCreatorLevel1(World world, TiledMap map){
         this.world = world;
         this.map = map;
-        for(MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Ground(world, map, rect);
         }
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Walls(world, map, rect);

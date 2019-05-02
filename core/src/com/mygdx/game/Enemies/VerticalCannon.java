@@ -37,8 +37,8 @@ public class VerticalCannon extends Enemy {
     private Sprite btoom3;
     public Array<Bullet> verticalCannonBullets = new Array<Bullet>();
 
-    public VerticalCannon(World world, float x, float y) {
-        super(world, x, y);
+    public VerticalCannon(World world, float x, float y, boolean flip) {
+        super(world, x, y, flip);
         System.out.println(x  + " " + y);
         HP = 20;
         atlas = new TextureAtlas("Animations/Btoom.txt");
@@ -73,11 +73,11 @@ public class VerticalCannon extends Enemy {
         if(attack){
             if (stateTimer >= shootTimer) {
                 if (!spriteVerticalCannon.isFlipX()) {
-                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 14/PPM, 30/PPM);
+                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 4/PPM, 30/PPM);
                     bullet.bulletBody.setLinearVelocity(0, 4f);
                     verticalCannonBullets.add(bullet);
                 } else {
-                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -14/PPM, 30/PPM);
+                    bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -4/PPM, 30/PPM);
                     bullet.bulletBody.setLinearVelocity(0, -4f);
                     verticalCannonBullets.add(bullet);
                 }
@@ -102,13 +102,13 @@ public class VerticalCannon extends Enemy {
     @Override
     protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(getX() + 10/PPM, getY() - 4/PPM);
+        bdef.position.set(getX() + 25/PPM, getY() - 4/PPM);
         bdef.type = BodyDef.BodyType.StaticBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(14/PPM, 25/PPM);
+        shape.setAsBox(8/PPM, 25/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
         fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT | PLAYER_BIT;
         fdef.shape = shape;

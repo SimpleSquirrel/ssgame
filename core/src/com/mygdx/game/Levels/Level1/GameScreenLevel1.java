@@ -21,14 +21,12 @@ import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.WorldContactListener;
-//import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;
 import com.mygdx.game.Objects.Familiar;
 import com.mygdx.game.Objects.Portal;
-import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Screens.MenuScreen;
@@ -36,16 +34,9 @@ import com.mygdx.game.Screens.MenuScreen;
 import static com.mygdx.game.Graphics.HUD.score;
 import static com.mygdx.game.MyGame.*;
 
-
-//import com.mygdx.game.Objects.Floor;
-
-
 public class GameScreenLevel1 implements Screen {
 
     private final Familiar familiar;
-    //Bullets
-   // ArrayList<Bullet>bullets;
-    float shootTimer;
     private static HUD hud;
     private MyGame game;
     private static Stage stage;
@@ -101,17 +92,17 @@ public class GameScreenLevel1 implements Screen {
         new WorldCreatorLevel1(world, map);
 
         player = new Player(world);
-        cannon = new Cannon(world, 0, (32*7)/PPM);
+        cannon = new Cannon(world, 0, (32*7)/PPM, false);
         cannons.add(cannon);
-        defendedCannon = new DefendedCannon(world, 32/PPM, (32*20)/PPM);
+        defendedCannon = new DefendedCannon(world, 32/PPM, (32*20)/PPM, false);
         defendedCannons.add(defendedCannon);
-        VerticalCannon verticalCannon = new VerticalCannon(world, (32 * 22) / PPM, (10 * 32) / PPM);
+        VerticalCannon verticalCannon = new VerticalCannon(world, (32 * 22) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon);
-        VerticalCannon verticalCannon1 = new VerticalCannon(world, (32 * 26) / PPM, (10 * 32) / PPM);
+        VerticalCannon verticalCannon1 = new VerticalCannon(world, (32 * 26) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon1);
-        VerticalCannon verticalCannon2 = new VerticalCannon(world, (32 * 30) / PPM, (10 * 32) / PPM);
+        VerticalCannon verticalCannon2 = new VerticalCannon(world, (32 * 30) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon2);
-        VerticalCannon verticalCannon3 = new VerticalCannon(world, (32 * 34) / PPM, (10 * 32) / PPM);
+        VerticalCannon verticalCannon3 = new VerticalCannon(world, (32 * 34) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon3);
         chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM);
         portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM);
@@ -130,10 +121,10 @@ public class GameScreenLevel1 implements Screen {
                 Player.swordAttack = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.b2body.applyLinearImpulse(new Vector2(0.3f, 0), player.b2body.getWorldCenter(), true);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.b2body.applyLinearImpulse(new Vector2(-0.3f, 0), player.b2body.getWorldCenter(), true);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
@@ -358,8 +349,8 @@ public class GameScreenLevel1 implements Screen {
                 hud.render();
                 stage.addActor(score);
 
-                game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
-                game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 30/PPM), 32/PPM, 64/PPM);
+                game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 18/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
+                game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 18/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
                 if(isShot) {
                     for (Bullet bullet : playerBullets) {
                         bullet.draw(game.batch);
@@ -375,7 +366,7 @@ public class GameScreenLevel1 implements Screen {
                 }
                 for (VerticalCannon verticalCannon:verticalCannons){
                     verticalCannon.draw(game.batch);
-                    game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 15/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
+                    game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 25/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
                 }
                 chest.draw(game.batch);
                 portal.draw(game.batch);

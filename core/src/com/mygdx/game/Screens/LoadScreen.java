@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.Enemies.Biter;
 import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
+import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Player.Player;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 import static com.mygdx.game.MyGame.*;
@@ -50,6 +53,12 @@ public class LoadScreen implements Screen
                 verticalCannons.removeValue(verticalCannon, true);
             }
         }
+        for (Biter biter:biters){
+            biter.update(delta, 0);
+            if(biter.isDestroyed()){
+                biters.removeValue(biter, true);
+            }
+        }
     }
 
     @Override
@@ -69,9 +78,27 @@ public class LoadScreen implements Screen
     {
         update(delta);
         timer+=delta;
-        if(timer > 3f){
+        if(timer > 2f){
             this.dispose();
-            game.setScreen(new GameScreenLevel1(game));
+            switch (game.preferences.getInteger("level")){
+                case 1:
+                    switch (game.preferences.getInteger("location")){
+                        case 1:
+                            game.setScreen(new GameScreenLevel1(game));
+                            break;
+                        case 2:
+                            game.setScreen(new GameScreenLevel2(game));
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                    }
+                case 2:
+                    break;
+            }
         }
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

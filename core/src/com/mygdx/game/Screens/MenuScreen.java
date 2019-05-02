@@ -57,25 +57,10 @@ public class MenuScreen implements Screen {
             if(Gdx.input.getX() < 550 + 250 && Gdx.input.getX() > 550 && Gdx.input.getY() < 250 + 150 && Gdx.input.getY() > 250) {
                 game.batch.draw(Assets.spriteContinueGameButtonActive, 550, 250, 500, 150);
                 if (Gdx.input.isTouched()) {
-                    switch (game.preferences.getInteger("level")){
-                        case 1:
-                            switch (game.preferences.getInteger("location")){
-                                case 1:
-                                    game.setScreen(new GameScreenLevel1(game));
-                                    this.dispose();
-                                    break;
-                                case 2:
-                                    game.setScreen(new GameScreenLevel2(game));
-                                    this.dispose();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        default:
-                            break;
+                        this.dispose();
+                        game.setScreen(new LoadScreen(game));
                     }
                 }
-            }
             else{
                 game.batch.draw(Assets.spriteContinueGameButtonInactive, 550, 250, 500, 150);
             }
