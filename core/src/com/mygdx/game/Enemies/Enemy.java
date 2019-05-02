@@ -19,7 +19,6 @@ public abstract class Enemy extends Sprite {
         this.world = world;
         setPosition(x, y);
         defineEnemy();
-        velocity = new Vector2(2, 0);
     }
 
     protected abstract void defineEnemy();
@@ -27,25 +26,6 @@ public abstract class Enemy extends Sprite {
     public abstract void swordHit();
     public abstract void fire();
     public abstract void deleted();
-    public void reverseVelocity(boolean x, boolean y){
-        if(x){
-            if(velocity.x > 0){
-                check = velocity.x;
-                velocity.x -= 2;
-            }
-            else if (velocity.x == 0 && check > 0){
-                velocity.x -= 2;
-            }
-            else if (velocity.x < 0){
-                check = velocity.x;
-                velocity.x += 2;
-            }
-            else if (velocity.x == 0 && check < 0){
-                velocity.x += 2;
-            }
-        }
-        if(y){
-            velocity.y = -velocity.y;
-        }
-    }
+    public abstract void reverseVelocity(boolean x, boolean y);
+    public abstract boolean isDestroyed();
 }

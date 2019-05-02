@@ -147,9 +147,15 @@ public class Cannon extends Enemy {
         stateTimer = 0;
     }
 
+    @Override
+    public void reverseVelocity(boolean x, boolean y) {
+
+    }
+
     public void fire(){
         attack = true;
     }
+    @Override
     public boolean isDestroyed(){
         if(destroyed){
 

@@ -20,12 +20,18 @@ public class Chest extends Sprite {
     private float stateTimer;
     public boolean isTouched;
     private boolean JastOpen=true;
+    private boolean isFlip;
 
-    public Chest(World world, float x, float y, float CheckX, float CheckY) {
+    public Chest(World world, float x, float y, float CheckX, float CheckY, boolean flip) {
         this.world = world;
+        isFlip = flip;
         atlas = new TextureAtlas("Objects/WoodenChest.txt");
         chestClosed = atlas.createSprite("ChestClosed");
         chestOpened = atlas.createSprite("ChestOpen");
+        if(isFlip){
+            chestClosed.flip(true, false);
+            chestOpened.flip(true, false);
+        }
         setBounds(0, 0, 32 / PPM, 32 / PPM);
         currentState = State.CLOSED;
         previousState = State.CLOSED;

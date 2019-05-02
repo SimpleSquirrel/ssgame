@@ -1,0 +1,19 @@
+Cactus.png
+size: 160, 80
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cactus1
+  rotate: false
+  xy: 0, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+Cactus2
+  rotate: false
+  xy: 80, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1

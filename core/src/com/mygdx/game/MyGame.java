@@ -6,10 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Enemies.Biter;
-import com.mygdx.game.Enemies.Cannon;
-import com.mygdx.game.Enemies.DefendedCannon;
-import com.mygdx.game.Enemies.VerticalCannon;
+import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
@@ -17,6 +14,7 @@ import com.mygdx.game.Screens.MenuScreen;
 public class MyGame extends Game {
 	public SpriteBatch batch;
 
+	public static Array<Cactus> cactuses = new Array<Cactus>();
 	public static Array<Bullet> playerBullets = new Array<Bullet>();
 	public static Array<Cannon> cannons = new Array<Cannon>();
 	public static Array<VerticalCannon> verticalCannons = new Array<VerticalCannon>();

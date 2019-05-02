@@ -29,6 +29,7 @@ import com.mygdx.game.Objects.Familiar;
 import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.Graphics.HUD.score;
@@ -104,8 +105,8 @@ public class GameScreenLevel1 implements Screen {
         verticalCannons.add(verticalCannon2);
         VerticalCannon verticalCannon3 = new VerticalCannon(world, (32 * 34) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon3);
-        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM);
-        portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM);
+        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM, false);
+        portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM, false);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -249,7 +250,7 @@ public class GameScreenLevel1 implements Screen {
             game.preferences.putInteger("score", HUD.SCORE);
             game.preferences.putInteger("location", 2);
             game.preferences.flush();
-            game.setScreen(new GameScreenLevel2(game));
+            game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);
         player.update(dt);

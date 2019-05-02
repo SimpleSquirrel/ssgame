@@ -1,6 +1,7 @@
 package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Enemies.Biter;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;

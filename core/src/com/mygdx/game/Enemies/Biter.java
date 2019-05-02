@@ -38,7 +38,7 @@ public class Biter extends Enemy {
     private boolean attack;
     private float timer;
     private float stateTimer;
-    Player player;
+    private boolean isGrounded;
     public Biter(World world, float x, float y, boolean flip){
         super(world, x, y, flip);
         HP = 50;
@@ -84,6 +84,7 @@ public class Biter extends Enemy {
         frames.add(btoom3);
         BTOOM = new Animation(0.05f, frames);
         frames.clear();
+        velocity = new Vector2(4, -8);
     }
     public void update(float delta, float position){
         stateTimer += delta;
@@ -200,7 +201,29 @@ public class Biter extends Enemy {
         setToDestroy = true;
         stateTimer = 0;
     }
+    @Override
     public boolean isDestroyed(){
         return destroyed;
+    }
+    public void reverseVelocity(boolean x, boolean y){
+        if(x){
+            if(velocity.x > 0){
+                check = velocity.x;
+                velocity.x -= 4;
+            }
+            else if (velocity.x == 0 && check > 0){
+                velocity.x -= 4;
+            }
+            else if (velocity.x < 0){
+                check = velocity.x;
+                velocity.x += 4;
+            }
+            else if (velocity.x == 0 && check < 0){
+                velocity.x += 4;
+            }
+        }
+        if(y){
+            velocity.y = -velocity.y;
+        }
     }
 }

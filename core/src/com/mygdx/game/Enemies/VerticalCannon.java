@@ -141,6 +141,12 @@ public class VerticalCannon extends Enemy {
         setToDestroy = true;
         stateTimer = 0;
     }
+
+    @Override
+    public void reverseVelocity(boolean x, boolean y) {
+
+    }
+    @Override
     public boolean isDestroyed(){return destroyed;}
     public Sprite babax(){
         Sprite sprite;

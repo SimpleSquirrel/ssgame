@@ -7,12 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.Enemies.Biter;
-import com.mygdx.game.Enemies.Cannon;
-import com.mygdx.game.Enemies.DefendedCannon;
-import com.mygdx.game.Enemies.VerticalCannon;
+import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
+import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Player.Player;
@@ -59,6 +57,12 @@ public class LoadScreen implements Screen
                 biters.removeValue(biter, true);
             }
         }
+        for (Cactus cactus:cactuses){
+            cactus.update(delta);
+            if(cactus.isDestroyed()){
+                cactuses.removeValue(cactus, true);
+            }
+        }
     }
 
     @Override
@@ -90,6 +94,7 @@ public class LoadScreen implements Screen
                             game.setScreen(new GameScreenLevel2(game));
                             break;
                         case 3:
+                            game.setScreen(new GameScreenLevel3(game));
                             break;
                         case 4:
                             break;
