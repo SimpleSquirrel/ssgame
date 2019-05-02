@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Player.Player;
 
 import static com.mygdx.game.MyGame.*;
@@ -89,6 +90,7 @@ public class Biter extends Enemy {
         timer += delta;
         if(setToDestroy && !destroyed && stateTimer > 0.3f){
             world.destroyBody(b2body);
+            HUD.SCORE+=30;
             attack = false;
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
             stateTimer = 0;

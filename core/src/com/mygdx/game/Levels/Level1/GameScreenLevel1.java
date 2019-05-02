@@ -128,19 +128,24 @@ public class GameScreenLevel1 implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
-                HUD.SCORE+=1000;
+
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
 
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                if (HUD.SCORE>=50&&Player.HP<=30) {
+                if (HUD.SCORE>=50&&Player.HP<=Player.MAX_HP&&game.preferences.getInteger("level")!=1&&familiar.isActive(1)) {
                     familiar.setActive(1,false);
+
                     Player.HP += 10;
                     HUD.SCORE-=50;
                 }
-                Familiar.setActive(1,false);
+                else if(HUD.SCORE>=50&&Player.HP<=25&&familiar.isActive(1)) {
+                    familiar.setActive(1, false);
+                    Player.HP += 10;
+                    HUD.SCORE -= 50;
+                }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
                 Familiar.setActive(2,false);

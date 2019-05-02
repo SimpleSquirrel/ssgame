@@ -40,12 +40,14 @@ public class Player extends Sprite {
     private Animation robotStatic;
     private Animation robotStatic1;
     public static int HP;
+    public static int MAX_HP;
     public static boolean swordAttack;
     private FixtureDef fSwordDef = new FixtureDef();
     private int swordTimer;
 
     public Player(World world){
         HP = 25000;
+        MAX_HP=HP;
         this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");

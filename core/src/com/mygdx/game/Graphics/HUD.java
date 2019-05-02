@@ -61,7 +61,7 @@ public class HUD  {
     }
     public static void render(){
 
-//        score.setText(String.format("%02d",SCORE));
+        score.setText(String.format("%02d",SCORE));
 
 
     }

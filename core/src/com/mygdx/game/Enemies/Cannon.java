@@ -151,6 +151,9 @@ public class Cannon extends Enemy {
         attack = true;
     }
     public boolean isDestroyed(){
+        if(destroyed){
+
+        }
         return destroyed;
     }
     public Sprite babax(){

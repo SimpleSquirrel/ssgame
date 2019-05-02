@@ -78,7 +78,7 @@ public class LoadScreen implements Screen
     {
         update(delta);
         timer+=delta;
-        if(timer > 2f){
+        if(timer > 1f){
             this.dispose();
             switch (game.preferences.getInteger("level")){
                 case 1:
