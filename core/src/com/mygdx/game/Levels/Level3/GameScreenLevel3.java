@@ -68,6 +68,7 @@ public class GameScreenLevel3 implements Screen {
     private  Familiar familiar;
     private static int bulletCounter;
     private float timer;
+    public static float destroyTimer;
     public GameScreenLevel3(MyGame game){
         this.game = game;
         hud = new HUD();
@@ -120,7 +121,7 @@ public class GameScreenLevel3 implements Screen {
     private void input(float dt) {
         timer +=dt;
         if (!isPaused) {
-            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
                 Player.swordAttack = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
@@ -194,6 +195,7 @@ public class GameScreenLevel3 implements Screen {
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
+        destroyTimer += dt;
         if(isShot) {
             bullet.update(dt);
             for(Bullet bullet : playerBullets) {
@@ -218,19 +220,30 @@ public class GameScreenLevel3 implements Screen {
         }
         for (Biter biter:biters){
             biter.update(dt, player.b2body.getPosition().x);
-            if(biter.isDestroyed()){
+            if(biter.isDestroyed() && destroyTimer > 0.4f){
                 biters.removeValue(biter, true);
             }
         }
         for (Cactus cactus:cactuses){
             cactus.update(dt);
-            if(cactus.isDestroyed()){
+            if(cactus.isDestroyed() && destroyTimer > 0.4f){
                 cactuses.removeValue(cactus, true);
             }
         }
         portal.update();
         if(portal.isTouched){
-            this.dispose();
+            for (Cannon cannon:cannons){
+                cannon.deleted();
+            }
+            for (DefendedCannon defendedCannon:defendedCannons){
+                defendedCannon.deleted();
+            }
+            for (Biter biter:biters){
+                biter.deleted();
+            }
+            for (Cactus cactus:cactuses){
+                cactus.deleted();
+            }
             game.setScreen(new GameScreenLevel3(game));
         }
         chest.update(dt);
@@ -291,7 +304,7 @@ public class GameScreenLevel3 implements Screen {
 
             renderer.render();
 
-            //b2dr.render(world, camera.combined);
+            b2dr.render(world, camera.combined);
 
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
@@ -367,10 +380,20 @@ public class GameScreenLevel3 implements Screen {
                 game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 15/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
             }
             for (Biter biter:biters){
-                game.batch.draw(biter.spriteBiter(delta), biter.b2body.getPosition().x - 30/PPM, biter.b2body.getPosition().y - 45/PPM, 60/PPM, 80/PPM);
+                if(biter.isSetToDestroy()){
+                    game.batch.draw(biter.babax(delta), biter.positionX - 30/PPM, biter.positionY - 45/PPM, 60/PPM, 80/PPM);
+                }
+                else {
+                    game.batch.draw(biter.spriteBiter(delta), biter.b2body.getPosition().x - 30/PPM, biter.b2body.getPosition().y - 45/PPM, 60/PPM, 80/PPM);
+                }
             }
             for (Cactus cactus:cactuses){
-                game.batch.draw(cactus.spriteCactus(delta), cactus.b2body.getPosition().x - 37/PPM, cactus.b2body.getPosition().y - 45/PPM, 80/PPM, 80/PPM);
+                if(cactus.isSetToDestroy()){
+                    game.batch.draw(cactus.babax(delta), cactus.positionX - 37/PPM, cactus.positionY - 45/PPM, 80/PPM, 80/PPM);
+                }
+                else {
+                    game.batch.draw(cactus.spriteCactus(delta), cactus.b2body.getPosition().x - 37/PPM, cactus.b2body.getPosition().y - 45/PPM, 80/PPM, 80/PPM);
+                }
             }
             chest.draw(game.batch);
             portal.draw(game.batch);

@@ -34,6 +34,8 @@ public class MyGame extends Game {
 	public static final short PORTAL_BIT = 512;
 	public static final short SPIKE_BIT = 1024;
 	public static final short WALKING_ENEMY_BIT = 2048;
+	public static final short PLAYER_HEAD_BIT = 4096;
+	public static final short ENEMY_LEGS_BIT = 8192;
 	public static  int SOUND=0;
 	public static  int Score=0;
 	public static  short MUZIC=0;

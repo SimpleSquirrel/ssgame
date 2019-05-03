@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
@@ -25,11 +26,12 @@ public class Cactus extends Enemy {
     private Sprite btoom3;
     private Animation animationCactus;
     private Animation BTOOM;
-    private float stateTimer;
     private float timer;
     private boolean setToDestroy;
     private boolean destroyed;
     private float checkVelocity;
+    public float positionX;
+    public float positionY;
     public Cactus(World world, float x, float y, boolean flip) {
         super(world, x, y, flip);
         HP = 50;
@@ -48,42 +50,40 @@ public class Cactus extends Enemy {
         frames.add(btoom1);
         frames.add(btoom2);
         frames.add(btoom3);
-        BTOOM = new Animation(0.05f, frames);
+        frames.add(Assets.spriteEmpty);
+        BTOOM = new Animation(0.1f, frames);
         frames.clear();
         velocity = new Vector2(8, -8);
         check = velocity.x/2;
     }
 
     public void update(float delta){
-        stateTimer += delta;
         timer += delta;
-        if(setToDestroy && !destroyed && stateTimer > 0.3f){
+        if(setToDestroy && !destroyed){
+            b2body.setLinearVelocity(0, 0);
             world.destroyBody(b2body);
-            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            stateTimer = 0;
+            GameScreenLevel3.destroyTimer = 0;
             destroyed = true;
             HUD.SCORE+=35;
         }
         else if(!destroyed && !setToDestroy){
+            positionX = b2body.getPosition().x;
+            positionY = b2body.getPosition().y;
             b2body.setLinearVelocity(velocity);
-        }
-        else if(setToDestroy){
-            b2body.setLinearVelocity(0, 0);
         }
     }
     public Sprite spriteCactus(float delta){
         Sprite sprite;
         timer += delta;
-        if(setToDestroy && !destroyed){
-            sprite = (Sprite) BTOOM.getKeyFrame(timer, false);
-        }
-        else if(destroyed){
-            sprite = Assets.spriteEmpty;
-        }
-        else {
-            sprite = (Sprite) animationCactus.getKeyFrame(timer, true);
-        }
+        sprite = (Sprite) animationCactus.getKeyFrame(timer, true);
         return  sprite;
+    }
+
+    public Sprite babax(float delta){
+        Sprite sprite;
+        timer += delta;
+        sprite = (Sprite) BTOOM.getKeyFrame(timer, false);
+        return sprite;
     }
 
     @Override
@@ -148,7 +148,7 @@ public class Cactus extends Enemy {
 
     @Override
     public void swordHit() {
-        HP -= 10;
+        HP -= 50;
         if(HP <= 0){
             deleted();
         }
@@ -161,8 +161,10 @@ public class Cactus extends Enemy {
 
     @Override
     public void deleted() {
+        positionX = b2body.getPosition().x;
+        positionY = b2body.getPosition().y;
+        timer = 0;
         setToDestroy = true;
-        stateTimer = 0;
     }
 
     @Override
@@ -188,4 +190,5 @@ public class Cactus extends Enemy {
     public boolean isDestroyed() {
         return destroyed;
     }
+    public boolean isSetToDestroy(){return setToDestroy;}
 }

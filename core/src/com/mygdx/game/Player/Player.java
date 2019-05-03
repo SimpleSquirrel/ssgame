@@ -43,7 +43,8 @@ public class Player extends Sprite {
     public static int MAX_HP;
     public static boolean swordAttack;
     private FixtureDef fSwordDef = new FixtureDef();
-    private int swordTimer;
+    private float swordTimer;
+    private float swordAnimationTimer;
 
     public Player(World world){
         HP = 25;
@@ -98,7 +99,7 @@ public class Player extends Sprite {
     }
     public void update(float delta) {
         swordTimer += delta;
-        if(swordTimer == 0 && !swordAttack) {
+        if(swordTimer > 0.1f && !swordAttack) {
             for (Fixture fixture : b2body.getFixtureList()) {
                 if (fixture.getFilterData().categoryBits == SWORD_BIT) {
                     b2body.destroyFixture(fixture);
@@ -110,8 +111,8 @@ public class Player extends Sprite {
                 PolygonShape sword = new PolygonShape();
                 Vector2[] swordHitbox = new Vector2[4];
                 swordHitbox[0] = new Vector2(12, -24).scl(1 / PPM);
-                swordHitbox[1] = new Vector2(20, -24).scl(1 / PPM);
-                swordHitbox[2] = new Vector2(20, 24).scl(1 / PPM);
+                swordHitbox[1] = new Vector2(16, -24).scl(1 / PPM);
+                swordHitbox[2] = new Vector2(16, 24).scl(1 / PPM);
                 swordHitbox[3] = new Vector2(12, 24).scl(1 / PPM);
                 sword.set(swordHitbox);
 
@@ -126,8 +127,8 @@ public class Player extends Sprite {
                 PolygonShape sword1 = new PolygonShape();
                 Vector2[] swordHitbox1 = new Vector2[4];
                 swordHitbox1[0] = new Vector2(-12, -24).scl(1 / PPM);
-                swordHitbox1[1] = new Vector2(-20, -24).scl(1 / PPM);
-                swordHitbox1[2] = new Vector2(-20, 24).scl(1 / PPM);
+                swordHitbox1[1] = new Vector2(-16, -24).scl(1 / PPM);
+                swordHitbox1[2] = new Vector2(-16, 24).scl(1 / PPM);
                 swordHitbox1[3] = new Vector2(-12, 24).scl(1 / PPM);
                 sword1.set(swordHitbox1);
 
@@ -173,10 +174,14 @@ public class Player extends Sprite {
         return sprite;
     }
     public Sprite getFrameChest(float delta){
+        swordAnimationTimer += delta;
         currentState = getState();
         Sprite sprite;
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            sprite = (Sprite) robotHit.getKeyFrame(stateTimer, true);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
+            swordAnimationTimer = 0;
+        }
+        if(swordAnimationTimer >= 0 && swordAnimationTimer <= 0.218f){
+            sprite = (Sprite)robotHit.getKeyFrame(stateTimer, true);
         }
         else {
             if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0){
@@ -226,7 +231,6 @@ public class Player extends Sprite {
         fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-
     }
     public void jump(){
        // if(currentState != State.JUMPING && currentState != State.FALLING){
@@ -239,7 +243,7 @@ public class Player extends Sprite {
         HP -= 10;
     }
     public void swordHit(){
-        HP -= 20;
+        HP -= 25;
     }
     public boolean isDead(){
         if(HP <= 0){

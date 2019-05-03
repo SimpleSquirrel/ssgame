@@ -19,7 +19,6 @@ import com.mygdx.game.Enemies.Cannon;
 import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
-import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.WorldContactListener;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.MyGame;
@@ -118,7 +117,7 @@ public class GameScreenLevel1 implements Screen {
     private void input(float dt) {
         timer +=dt;
         if (!isPaused) {
-            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
                 Player.swordAttack = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
@@ -250,6 +249,41 @@ public class GameScreenLevel1 implements Screen {
             game.preferences.putInteger("score", HUD.SCORE);
             game.preferences.putInteger("location", 2);
             game.preferences.flush();
+            for (Bullet bullet:cannon.cannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Bullet bullet:defendedCannon.defendedCannonBullets){
+                bullet.deleteBullet();
+            }
+            for (VerticalCannon verticalCannon:verticalCannons) {
+                for (Bullet bullet : verticalCannon.verticalCannonBullets) {
+                    bullet.deleteBullet();
+                }
+            }
+            for (VerticalCannon verticalCannon1:verticalCannons) {
+                for (Bullet bullet : verticalCannon1.verticalCannonBullets) {
+                    bullet.deleteBullet();
+                }
+            }
+            for (VerticalCannon verticalCannon2:verticalCannons) {
+                for (Bullet bullet : verticalCannon2.verticalCannonBullets) {
+                    bullet.deleteBullet();
+                }
+            }
+            for (VerticalCannon verticalCannon3:verticalCannons) {
+                for (Bullet bullet : verticalCannon3.verticalCannonBullets) {
+                    bullet.deleteBullet();
+                }
+            }
+            for (Cannon cannon:cannons){
+                cannon.deleted();
+            }
+            for (DefendedCannon defendedCannon:defendedCannons){
+                defendedCannon.deleted();
+            }
+            for (VerticalCannon verticalCannon:verticalCannons){
+                verticalCannon.deleted();
+            }
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);

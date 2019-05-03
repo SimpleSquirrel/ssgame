@@ -1,7 +1,6 @@
 package com.mygdx.game.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.PolygonBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +9,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
-import com.mygdx.game.Player.Player;
+import com.mygdx.game.Levels.Level2.GameScreenLevel2;
+import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -37,8 +36,8 @@ public class Biter extends Enemy {
     private boolean destroyed;
     private boolean attack;
     private float timer;
-    private float stateTimer;
-    private boolean isGrounded;
+    public float positionX;
+    public float positionY;
     public Biter(World world, float x, float y, boolean flip){
         super(world, x, y, flip);
         HP = 50;
@@ -87,14 +86,15 @@ public class Biter extends Enemy {
         velocity = new Vector2(4, -8);
     }
     public void update(float delta, float position){
-        stateTimer += delta;
         timer += delta;
-        if(setToDestroy && !destroyed && stateTimer > 0.3f){
+        if(setToDestroy && !destroyed){
+            positionX = b2body.getPosition().x;
+            positionY = b2body.getPosition().y;
             world.destroyBody(b2body);
             HUD.SCORE+=30;
             attack = false;
-            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            stateTimer = 0;
+            GameScreenLevel2.destroyTimer = 0;
+            GameScreenLevel3.destroyTimer = 0;
             destroyed = true;
         }
         else if(!destroyed && !setToDestroy){
@@ -117,22 +117,21 @@ public class Biter extends Enemy {
     public Sprite spriteBiter(float delta){
         Sprite sprite;
         timer+=delta;
-        if (setToDestroy && !destroyed){
-            sprite = (Sprite) BTOOM.getKeyFrame(stateTimer, false);
-        }
-        else if(destroyed){
-            sprite = Assets.spriteEmpty;
-        }
-        else {
-            if (b2body.getLinearVelocity().x > 0) {
-                sprite = (Sprite) biterAnimation.getKeyFrame(timer, true);
-            } else if (b2body.getLinearVelocity().x < 0) {
-                sprite = (Sprite) biterAnimationLeft.getKeyFrame(timer, true);
+        if (b2body.getLinearVelocity().x > 0) {
+            sprite = (Sprite) biterAnimation.getKeyFrame(timer, true);
+        } else if (b2body.getLinearVelocity().x < 0) {
+            sprite = (Sprite) biterAnimationLeft.getKeyFrame(timer, true);
 
-            } else {
-                sprite = spriteBiter1;
-            }
+        } else {
+            sprite = spriteBiter1;
         }
+        return sprite;
+    }
+
+    public Sprite babax(float delta){
+        Sprite sprite;
+        timer+=delta;
+        sprite = (Sprite)BTOOM.getKeyFrame(timer, false);
         return sprite;
     }
     @Override
@@ -146,7 +145,7 @@ public class Biter extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(20/PPM, 35/PPM);
         fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT | SWORD_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT | SWORD_BIT | PLAYER_HEAD_BIT;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape shape1 = new PolygonShape();
@@ -185,7 +184,7 @@ public class Biter extends Enemy {
 
     @Override
     public void swordHit() {
-        HP -= 25;
+        HP -= 50;
         if(HP <= 0){
             deleted();
         }
@@ -198,13 +197,14 @@ public class Biter extends Enemy {
 
     @Override
     public void deleted() {
+        timer = 0;
         setToDestroy = true;
-        stateTimer = 0;
     }
     @Override
     public boolean isDestroyed(){
         return destroyed;
     }
+    public boolean isSetToDestroy(){return setToDestroy;}
     public void reverseVelocity(boolean x, boolean y){
         if(x){
             if(velocity.x > 0){

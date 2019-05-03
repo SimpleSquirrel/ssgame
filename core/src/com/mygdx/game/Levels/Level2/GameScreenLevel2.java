@@ -77,6 +77,7 @@ public class GameScreenLevel2 implements Screen {
     private Chest chest;
     private static int bulletCounter;
     private float timer;
+    public static float destroyTimer;
     public GameScreenLevel2(MyGame game){
         this.game = game;
         hud = new HUD();
@@ -140,7 +141,7 @@ public class GameScreenLevel2 implements Screen {
     private void input(float dt) {
         timer +=dt;
         if (!isPaused) {
-            if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
                 Player.swordAttack = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
@@ -231,6 +232,7 @@ public class GameScreenLevel2 implements Screen {
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
+        destroyTimer += dt;
         if(isShot) {
             bullet.update(dt);
             for(Bullet bullet : playerBullets) {
@@ -255,7 +257,7 @@ public class GameScreenLevel2 implements Screen {
         }
         for (Biter biter:biters){
             biter.update(dt, player.b2body.getPosition().x);
-            if(biter.isDestroyed()){
+            if(biter.isDestroyed() && destroyTimer > 0.4f){
                 biters.removeValue(biter, true);
             }
         }
@@ -264,6 +266,33 @@ public class GameScreenLevel2 implements Screen {
             game.preferences.putInteger("score", hud.SCORE);
             game.preferences.putInteger("location", 3);
             game.preferences.flush();
+            for (Bullet bullet:cannon.cannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Bullet bullet:cannon1.cannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Bullet bullet:cannon2.cannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Bullet bullet:cannon3.cannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Bullet bullet:cannon4.cannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Bullet bullet:defendedCannon.defendedCannonBullets){
+                bullet.deleteBullet();
+            }
+            for (Cannon cannon:cannons){
+                cannon.deleted();
+            }
+            for (DefendedCannon defendedCannon:defendedCannons){
+                defendedCannon.deleted();
+            }
+            for (Biter biter:biters){
+                biter.deleted();
+            }
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);
@@ -416,7 +445,12 @@ public class GameScreenLevel2 implements Screen {
                 game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 15/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
             }
             for (Biter biter:biters){
-                game.batch.draw(biter.spriteBiter(delta), biter.b2body.getPosition().x - 30/PPM, biter.b2body.getPosition().y - 45/PPM, 60/PPM, 80/PPM);
+                if(biter.isSetToDestroy()){
+                    game.batch.draw(biter.babax(delta), biter.positionX - 30/PPM, biter.positionY - 45/PPM, 60/PPM, 80/PPM);
+                }
+                else {
+                    game.batch.draw(biter.spriteBiter(delta), biter.b2body.getPosition().x - 30/PPM, biter.b2body.getPosition().y - 45/PPM, 60/PPM, 80/PPM);
+                }
             }
             chest.draw(game.batch);
             portal.draw(game.batch);
