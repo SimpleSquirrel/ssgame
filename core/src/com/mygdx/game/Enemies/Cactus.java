@@ -62,7 +62,7 @@ public class Cactus extends Enemy {
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
             stateTimer = 0;
             destroyed = true;
-            HUD.SCORE+=30;
+            HUD.SCORE+=35;
         }
         else if(!destroyed && !setToDestroy){
             b2body.setLinearVelocity(velocity);

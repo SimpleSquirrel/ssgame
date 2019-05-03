@@ -71,6 +71,7 @@ public class GameScreenLevel3 implements Screen {
     public GameScreenLevel3(MyGame game){
         this.game = game;
         hud = new HUD();
+        hud.SCORE = game.preferences.getInteger("score");
         familiar=new Familiar();
         stage = new Stage(new ScreenViewport());
         isShot = false;
@@ -132,6 +133,9 @@ public class GameScreenLevel3 implements Screen {
                 player.jump();
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
                 if (HUD.SCORE>=50&&Player.HP<Player.MAX_HP&&game.preferences.getInteger("level")!=1&&familiar.isActive(1)) {
                     familiar.setActive(1,false);
 
@@ -141,12 +145,8 @@ public class GameScreenLevel3 implements Screen {
                 else if(Player.HP<Player.MAX_HP&&familiar.isActive(1)) {
                     familiar.setActive(1, false);
                     Player.HP += 10;
-
                 }
 
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                Familiar.setActive(1,false);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
                 Familiar.setActive(2,false);

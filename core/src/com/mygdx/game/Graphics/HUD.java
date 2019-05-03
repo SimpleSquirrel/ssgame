@@ -36,7 +36,7 @@ public class HUD  {
     public HUD(){
         stage = new Stage(new ScreenViewport());
         WORLD_TIME=0;
-        SCORE=0;
+        SCORE=MyGame.Score;
         COUNT_OF_DEATH=0;
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Amble-Light.ttf"));

@@ -35,6 +35,7 @@ public class MyGame extends Game {
 	public static final short SPIKE_BIT = 1024;
 	public static final short WALKING_ENEMY_BIT = 2048;
 	public static  int SOUND=0;
+	public static  int Score=0;
 	public static  short MUZIC=0;
 	public final  static float PPM = 100;
 

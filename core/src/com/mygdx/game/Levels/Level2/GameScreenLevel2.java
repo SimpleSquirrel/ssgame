@@ -80,6 +80,7 @@ public class GameScreenLevel2 implements Screen {
     public GameScreenLevel2(MyGame game){
         this.game = game;
         hud = new HUD();
+        hud.SCORE = game.preferences.getInteger("score");
         familiar=new Familiar();
         stage = new Stage(new ScreenViewport());
         isShot = false;
