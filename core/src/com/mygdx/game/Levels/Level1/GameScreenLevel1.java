@@ -129,6 +129,7 @@ public class GameScreenLevel1 implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
 
+
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;

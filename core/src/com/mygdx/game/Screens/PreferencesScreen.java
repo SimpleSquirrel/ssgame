@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
 
@@ -18,12 +20,14 @@ public class PreferencesScreen implements Screen {
     double testY;
     double freeze=0.15f;
     double timer=0;
+    Viewport viewport;
     public PreferencesScreen(MyGame game){
         this.game = game;
 
         camera = new OrthographicCamera(); //Initialising camera
         camera.setToOrtho(false, 1600, 900); //setting sizes for camera
         batch = new SpriteBatch();
+        viewport=new FitViewport(1600,900 );
     }
 
     @Override
@@ -37,7 +41,7 @@ public class PreferencesScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
             testX=Gdx.input.getX();
             testY=Gdx.input.getY();
-            System.out.print(testX +"  "+ testY);
+            System.out.print(testX +"  "+(Gdx.graphics.getHeight()-testY));
             System.out.println();
         }
         Gdx.gl.glClearColor(0, 0, 0.2f, 1); //setting bg color
@@ -64,10 +68,10 @@ public class PreferencesScreen implements Screen {
         game.batch.draw(Assets.spritePoleProtsNiz, 0, 0);
         game.batch.draw(Assets.spriteSkalaVerh, 0, 0);
         game.batch.draw(Assets.spriteSkalaNiz, 0, 0);
-        game.batch.draw(Assets.spriteTurnDownInactive, 657, Gdx.graphics.getHeight()-240);
-        game.batch.draw(Assets.spriteTurnUpInactive, 767, Gdx.graphics.getHeight()-240);
-        game.batch.draw(Assets.spriteTurnDownInactive, 657, Gdx.graphics.getHeight()-655);
-        game.batch.draw(Assets.spriteTurnUpInactive, 767, Gdx.graphics.getHeight()-655);
+        game.batch.draw(Assets.spriteTurnDownInactive, 657, 532,100,50);
+        game.batch.draw(Assets.spriteTurnUpInactive, 767, 532,100,50);
+        game.batch.draw(Assets.spriteTurnDownInactive, 657, 117,100,50);
+        game.batch.draw(Assets.spriteTurnUpInactive, 767, 117,100,50);
         if(Gdx.input.getX() <645  && Gdx.input.getX() > 561 && Gdx.input.getY() >258   && Gdx.input.getY() <316 ) { //setting bounds of NewGameButton
             game.batch.draw(Assets.spriteTurnDownActive1,657 ,Gdx.graphics.getHeight()-240 ); //Drawing Active
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
@@ -203,7 +207,7 @@ public class PreferencesScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override
