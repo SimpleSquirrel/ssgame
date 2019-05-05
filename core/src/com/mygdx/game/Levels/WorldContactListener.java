@@ -134,6 +134,36 @@ public class WorldContactListener implements ContactListener {
                     ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getLinearVelocity().x);
                     System.out.println(fixA.getBody().getLinearVelocity().x);
                 }
+            case SHIELD_BIT | SPIKE_BIT:
+                if(fixA.getFilterData().categoryBits == SHIELD_BIT){
+                    ((Player)fixA.getUserData()).destroyShield();
+                    ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getPosition().x);
+                }
+                else {
+                    ((Player)fixB.getUserData()).destroyShield();
+                    ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getPosition().x);
+                }
+                break;
+            case SHIELD_BIT | BULLET_BIT:
+                if(fixA.getFilterData().categoryBits == SHIELD_BIT){
+                    ((Player)fixA.getUserData()).destroyShield();
+                    ((Bullet)fixB.getUserData()).deleteBullet();
+                }
+                else {
+                    ((Player)fixB.getUserData()).destroyShield();
+                    ((Bullet)fixA.getUserData()).deleteBullet();
+                }
+                break;
+            case SHIELD_BIT | ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == SHIELD_BIT){
+                    ((Player)fixA.getUserData()).destroyShield();
+                    ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getPosition().x);
+                }
+                else {
+                    ((Player)fixB.getUserData()).destroyShield();
+                    ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getPosition().x);
+                }
+                break;
         }
     }
 

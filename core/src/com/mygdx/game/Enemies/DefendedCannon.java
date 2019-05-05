@@ -86,7 +86,7 @@ public class DefendedCannon extends Enemy {
             }
         }
         for (Bullet bullet:defendedCannonBullets){
-            bullet.update(delta);
+            bullet.update();
             if(bullet.isDestroyed())
                 playerBullets.removeValue(bullet, true);
         }
@@ -185,6 +185,7 @@ public class DefendedCannon extends Enemy {
     public boolean isDestroyed(){
         return destroyed;
     }
+
     public Sprite babax(){
         Sprite sprite;
         if(setToDestroy && !destroyed){

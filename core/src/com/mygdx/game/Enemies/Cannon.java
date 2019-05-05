@@ -82,8 +82,10 @@ public class Cannon extends Enemy {
                 stateTimer = 0;
             }
         }
+        else if(FOURboolean){
+        }
         for (Bullet bullet:cannonBullets){
-            bullet.update(delta);
+            bullet.update();
             if(bullet.isDestroyed())
                 playerBullets.removeValue(bullet, true);
         }
@@ -162,6 +164,7 @@ public class Cannon extends Enemy {
         }
         return destroyed;
     }
+
     public Sprite babax(){
         Sprite sprite;
         if(setToDestroy && !destroyed){

@@ -71,6 +71,8 @@ public class Cactus extends Enemy {
             positionY = b2body.getPosition().y;
             b2body.setLinearVelocity(velocity);
         }
+        else if(FOURboolean){
+        }
     }
     public Sprite spriteCactus(float delta){
         Sprite sprite;
@@ -140,7 +142,12 @@ public class Cactus extends Enemy {
 
     @Override
     public void bulletHit() {
-        HP -= 10;
+        if(rageActive){
+            HP -= 25;
+        }
+        else {
+            HP -= 10;
+        }
         if(HP <= 0){
             deleted();
         }
@@ -190,5 +197,6 @@ public class Cactus extends Enemy {
     public boolean isDestroyed() {
         return destroyed;
     }
+
     public boolean isSetToDestroy(){return setToDestroy;}
 }
