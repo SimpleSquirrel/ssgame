@@ -27,6 +27,8 @@ public class HUD  {
     private float WORLD_TIME;
     public static int SCORE;
     private int COUNT_OF_DEATH;
+    private Viewport viewport;
+    private OrthographicCamera camera;
 
     public static Label score ;
     public  Label countOfDeath;
@@ -34,7 +36,9 @@ public class HUD  {
     private static Label.LabelStyle labelStyle;
 
     public HUD(){
-        stage = new Stage(new ScreenViewport());
+       // camera.setToOrtho(false,1600/PPM, 900/PPM);
+        viewport = new FitViewport(1600/PPM, 900/PPM); //camera);
+        stage = new Stage(viewport);
         WORLD_TIME=0;
         SCORE=MyGame.Score;
         COUNT_OF_DEATH=0;
@@ -55,7 +59,7 @@ public class HUD  {
         score=new Label(String.format("%02d",SCORE),labelStyle);
         //countOfDeath=new Label(String.format("%03d",COUNT_OF_DEATH),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         score.setSize(3,1);
-        score.setPosition(Gdx.graphics.getWidth()-1297,Gdx.graphics.getHeight()-60);
+        score.setPosition(67,Gdx.graphics.getHeight()-60);
         score.setColor(1,1,1,1);
     }
     public static void HealthBar(){

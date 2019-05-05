@@ -129,6 +129,7 @@ public class GameScreenLevel1 implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
                 player.jump();
 
+
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 isPaused = !isPaused;
@@ -374,17 +375,17 @@ public class GameScreenLevel1 implements Screen {
                 game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
                 //familiar reload
                 if (Familiar.isActive(1)) {
-                    game.batch.draw(Assets.spriteFamiliar1Active, (Gdx.graphics.getWidth()+110) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                    game.batch.draw(Assets.spriteFamiliar1Active, (1450) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                 }
                 else{
-                    game.batch.draw(Assets.spriteFamiliar1Inactive, (Gdx.graphics.getWidth()+110) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                    game.batch.draw(Assets.spriteFamiliar1Inactive, (1450) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                     Familiar.reload(1,delta);
                 }
                 if (Familiar.isActive(2)) {
-                    game.batch.draw(Assets.spriteFamiliar2Active,  (Gdx.graphics.getWidth()+180) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                    game.batch.draw(Assets.spriteFamiliar2Active,  1510 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                 }
                 else{
-                    game.batch.draw(Assets.spriteFamiliar2Inactive, (Gdx.graphics.getWidth()+180) / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
+                    game.batch.draw(Assets.spriteFamiliar2Inactive, 1510 / PPM, 850 / PPM, 40 / PPM, 40 / PPM);
                     Familiar.reload(2,delta);
                 }
                 hud.render();
