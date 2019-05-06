@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.awt.*;
+
 public class Assets {
     //MenuScreen
     public static Texture textureMenuScreenBack;
@@ -117,6 +119,12 @@ public class Assets {
     public static Sprite spriteLoad2;
     public static Sprite spriteLoad3;
     public static Sprite spriteLoad4;
+
+    //Novel
+    public static Texture textureCatSilence;
+    public static Sprite spriteCatSilence;
+    public static Texture textureNovelBox;
+    public static Sprite spriteNovelBox;
 
 
     public static void load() {
@@ -327,7 +335,16 @@ public class Assets {
         loadAnimation = new Texture(Gdx.files.internal("LoadScreen/loadAnimation.png"));
         loadAnimation.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        //Loading screen
         textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
         textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        //Novel
+        textureCatSilence = new Texture(Gdx.files.internal("Novel/catSilence.png"));
+        spriteCatSilence = new Sprite(textureCatSilence);
+
+        textureNovelBox = new Texture(Gdx.files.internal("Novel/novelBox.png"));
+        spriteNovelBox = new Sprite(textureNovelBox);
+
     }
 }

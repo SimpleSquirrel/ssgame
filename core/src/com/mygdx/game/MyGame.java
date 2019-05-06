@@ -10,6 +10,7 @@ import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
+import com.mygdx.game.Screens.NovelScreen;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
@@ -35,7 +36,7 @@ public class MyGame extends Game {
 	public void create() {
 		Assets.load();
 		batch = new SpriteBatch();
-		this.setScreen(new MenuScreen(this));
+		this.setScreen(new NovelScreen());
 
 	}
 	public void render(){
