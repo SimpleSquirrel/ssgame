@@ -63,6 +63,16 @@ public class Assets {
     public static Texture textureFamiliar2Active;
     public static Sprite spriteFamiliar2Inactive;
     public static Texture textureFamiliar2Inactive;
+    //3
+    public static Sprite spriteFamiliar3Active;
+    public static Texture textureFamiliar3Active;
+    public static Sprite spriteFamiliar3Inactive;
+    public static Texture textureFamiliar3Inactive;
+    //4
+    public static Sprite spriteFamiliar4Active;
+    public static Texture textureFamiliar4Active;
+    public static Sprite spriteFamiliar4Inactive;
+    public static Texture textureFamiliar4Inactive;
 
     //Preferences Screen
 
@@ -283,12 +293,25 @@ public class Assets {
         textureFamiliar2Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Active = new Sprite(textureFamiliar2Active);
 
-        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
-        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         textureFamiliar2Inactive= new Texture(Gdx.files.internal("Familiar/2I.png"));
         textureFamiliar2Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Inactive = new Sprite(textureFamiliar2Inactive);
+        //3
+        textureFamiliar3Active= new Texture(Gdx.files.internal("Familiar/familiar3Active.png"));
+        textureFamiliar3Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar3Active = new Sprite(textureFamiliar3Active);
 
+        textureFamiliar3Inactive= new Texture(Gdx.files.internal("Familiar/familiar3Inactive.png"));
+        textureFamiliar3Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar3Inactive = new Sprite(textureFamiliar3Inactive);
+        //4
+        textureFamiliar4Active= new Texture(Gdx.files.internal("Familiar/familiar4Active.png"));
+        textureFamiliar4Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar4Active = new Sprite(textureFamiliar4Active);
+
+        textureFamiliar4Inactive= new Texture(Gdx.files.internal("Familiar/familiar4Inactive.png"));
+        textureFamiliar4Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar4Inactive = new Sprite(textureFamiliar4Inactive);
         //Preferences Scereen
 
         textureShesternyaNiz= new Texture(Gdx.files.internal("PreferencesScreen/SestNiz.png"));

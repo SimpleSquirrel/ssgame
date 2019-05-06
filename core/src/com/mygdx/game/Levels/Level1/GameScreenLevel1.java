@@ -285,6 +285,7 @@ public class GameScreenLevel1 implements Screen {
             Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
             if(isPaused){
+                System.out.println(Gdx.graphics.getWidth()+" "+Gdx.graphics.getHeight());
                 game.batch.begin(); //start of rendering
                 game.batch.draw(Assets.spriteExitScreenBack, 0, 0,Assets.spriteExitScreenBack.getWidth()/PPM,Assets.spriteExitScreenBack.getHeight()/PPM);
                 if(Gdx.input.getX() <250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
@@ -355,11 +356,13 @@ public class GameScreenLevel1 implements Screen {
 
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);
+                familiar.drawFamiliar(delta,Familiar.currentFamiliar1,Familiar.currentFamiliar2);
                 game.batch.begin();
                 game.batch.draw(Assets.spriteHeadGG, 30 / PPM, 840 / PPM, 40 / PPM, 40 / PPM);
                 game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
                 hud.render();
                 stage.addActor(score);
+
                 //Health bar
                 if(HUD.hp()>0&&HUD.hp()<=10){
                     game.batch.draw(Assets.spriteHealthBar1, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);

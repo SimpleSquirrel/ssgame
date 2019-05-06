@@ -301,6 +301,7 @@ public class GameScreenLevel3 implements Screen {
 
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
+            familiar.drawFamiliar(delta,Familiar.currentFamiliar1,Familiar.currentFamiliar2);
             game.batch.begin();
             game.batch.draw(Assets.spriteHeadGG, 30 / PPM, 840 / PPM, 40 / PPM, 40 / PPM);
             game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
