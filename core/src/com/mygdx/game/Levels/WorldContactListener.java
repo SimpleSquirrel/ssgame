@@ -5,6 +5,7 @@ import com.mygdx.game.Enemies.Biter;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;
+import com.mygdx.game.Objects.LuxuryChest;
 import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Player.Player;
 
@@ -81,6 +82,14 @@ public class WorldContactListener implements ContactListener {
                 }
                 else {
                     ((Chest)fixB.getUserData()).contact();
+                }
+                break;
+            case PLAYER_BIT | LUXURY_CHEST_BIT:
+                if(fixA.getFilterData().categoryBits == LUXURY_CHEST_BIT){
+                    ((LuxuryChest)fixA.getUserData()).contact();
+                }
+                else {
+                    ((LuxuryChest)fixB.getUserData()).contact();
                 }
                 break;
             case BULLET_BIT | CHEST_BIT:

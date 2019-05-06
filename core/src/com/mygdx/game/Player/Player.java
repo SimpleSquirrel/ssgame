@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Objects.Weapon;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -17,6 +18,7 @@ public class Player extends Sprite {
     private State previousState;
     public World world;
     public Body b2body;
+    private Weapon weapon;
     private Animation robotRun;
     private Animation robotHit;
     private TextureAtlas atlas;
@@ -52,7 +54,7 @@ public class Player extends Sprite {
     private int counter;
 
     public Player(World world, float x, float y){
-        HP = 25;
+        HP = 25000;
         MAX_HP = HP;
         this.x = x;
         this.y = y;
@@ -108,6 +110,7 @@ public class Player extends Sprite {
     }
     public void update(float delta) {
         swordTimer += delta;
+        input();
         if(swordTimer > 0.1f && !swordAttack) {
             for (Fixture fixture : b2body.getFixtureList()) {
                 if (fixture.getFilterData().categoryBits == SWORD_BIT) {
@@ -255,7 +258,7 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(9/PPM, 27/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT | LUXURY_CHEST_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }
@@ -301,5 +304,19 @@ public class Player extends Sprite {
     }
     public void destroyShield(){
         shield = false;
+    }
+    private void input(){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 3) {
+            b2body.applyLinearImpulse(new Vector2(0.3f, 0), b2body.getWorldCenter(), true);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -3) {
+            b2body.applyLinearImpulse(new Vector2(-0.3f, 0), b2body.getWorldCenter(), true);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            jump();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            swordAttack = true;
+        }
     }
 }

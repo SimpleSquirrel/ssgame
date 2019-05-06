@@ -22,9 +22,7 @@ import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.WorldContactListener;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.Objects.Bullet;
-import com.mygdx.game.Objects.Chest;
-import com.mygdx.game.Objects.Portal;
+import com.mygdx.game.Objects.*;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Screens.MenuScreen;
@@ -39,10 +37,9 @@ public class GameScreenLevel4 implements Screen {
     private Familiar familiar;
 
     private Player player;
-    private Bullet bullet;
+    private Weapon weapon;
 
     private static boolean isPaused;
-    private static boolean isShot;
 
     private OrthographicCamera camera;
 
@@ -52,10 +49,9 @@ public class GameScreenLevel4 implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
-    private final static float  BULLET_WAIT_TIME = 0.1f;
     private Cannon cannon;
     private Cannon cannon1;
-    private DefendedCannon defendedCannon;
+    private Cannon cannon2;
     private Biter biter;
     private Biter biter1;
     private Biter biter2;
@@ -66,9 +62,7 @@ public class GameScreenLevel4 implements Screen {
     private Cactus cactus1;
     private Cactus cactus2;
     private Portal portal;
-    private Chest chest;
-    private static int bulletCounter;
-    private float timer;
+    private LuxuryChest luxuryChest;
     public static float destroyTimer;
     public GameScreenLevel4(MyGame game){
         this.game = game;
@@ -78,8 +72,6 @@ public class GameScreenLevel4 implements Screen {
         game.preferences.putInteger("familiar2", 4);
         game.preferences.flush();
         stage = new Stage(new ScreenViewport());
-        isShot = false;
-        bulletCounter = 0;
 
         camera = new OrthographicCamera();
 
@@ -99,8 +91,8 @@ public class GameScreenLevel4 implements Screen {
         cannons.add(cannon);
         cannon1 = new Cannon(world, 32*9/PPM - 5/PPM, 32*2/PPM, true);
         cannons.add(cannon1);
-        defendedCannon = new DefendedCannon(world, 32*47/PPM, 32*4/PPM, true);
-        defendedCannons.add(defendedCannon);
+        cannon2 = new Cannon(world, 32*47/PPM, 32*4/PPM, true);
+        cannons.add(cannon2);
         biter = new Biter(world, 32*30/PPM, 32/PPM, false);
         biters.add(biter);
         enemies.add(biter);
@@ -129,94 +121,52 @@ public class GameScreenLevel4 implements Screen {
         cactuses.add(cactus2);
         enemies.add(cactus2);
         portal = new Portal(world, 32*50/PPM, 32*16/PPM, 0, 29/PPM, true);
-        chest = new Chest(world, 32*11/PPM, 32*24/PPM, 0, 16/PPM, true);
+        luxuryChest = new LuxuryChest(world, 32*11/PPM, 32*24/PPM, 0, 16/PPM, true);
         player = new Player(world, 32/PPM, 32*6/PPM);
 
         familiar = new Familiar(game, player);
 
+        weapon = new Weapon(game, world);
+
         world.setContactListener(new WorldContactListener());
     }
     private void input(float dt) {
-        timer +=dt;
         if (!isPaused) {
-            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-                Player.swordAttack = true;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
-                player.b2body.applyLinearImpulse(new Vector2(0.3f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.3f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                player.jump();
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-
-            }
             if (player.b2body.getPosition().y < -10 || player.isDead()) {
-                for (Cannon cannon:cannons){
+                for (Cannon cannon : cannons) {
                     cannon.deleted();
                 }
-                for (DefendedCannon defendedCannon:defendedCannons){
-                    defendedCannon.deleted();
-                }
-                for (Bullet bullet:cannon.cannonBullets){
+                for (Bullet bullet : cannon.cannonBullets) {
                     bullet.deleteBullet();
                 }
-                for (Bullet bullet:cannon1.cannonBullets){
-                    bullet.deleteBullet();
-                }
-                for (Bullet bullet:defendedCannon.defendedCannonBullets){
-                    bullet.deleteBullet();
-                }
-                for (Biter biter:biters){
+                for (Biter biter : biters) {
                     biter.deleted();
                 }
-                for (Cactus cactus:cactuses){
+                for (Cactus cactus : cactuses) {
                     cactus.deleted();
+                }
+                for (Bullet bullet : cannon1.cannonBullets) {
+                    bullet.deleteBullet();
+                }
+                for (Bullet bullet:cannon2.cannonBullets){
+                    bullet.deleteBullet();
+                }
+                for (Bullet bullet:playerBullets){
+                    bullet.deleteBullet();
                 }
                 game.setScreen(new DeathScreen(game));
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-                if (Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 20/PPM, 5/PPM);
-                    bullet.bulletBody.setLinearVelocity(4f, 0);
-                    playerBullets.add(bullet);
-                    isShot = true;
-                    bulletCounter++;
-                    timer = 0;
+            } else {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                    isPaused = !isPaused;
                 }
-                else if(!Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -20/PPM, 5/PPM);
-                    bullet.bulletBody.setLinearVelocity(-4f, 0);
-                    playerBullets.add(bullet);
-                    isShot = true;
-                    bulletCounter++;
-                    timer = 0;
-                }
-            }
-        } else {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-                isPaused = !isPaused;
             }
         }
-    }
 
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
         destroyTimer += dt;
-        if(isShot) {
-            bullet.update();
-            for(Bullet bullet : playerBullets) {
-                bullet.update();
-                if(bullet.isDestroyed()) {
-                    playerBullets.removeValue(bullet, true);
-                    bulletCounter--;
-                }
-            }
-        }
         for (Cannon cannon:cannons) {
             cannon.update(dt);
             if(cannon.cannonBullets.isEmpty() && cannon.isDestroyed()){
@@ -232,12 +182,14 @@ public class GameScreenLevel4 implements Screen {
         for (Biter biter:biters){
             biter.update(dt, player.b2body.getPosition().x);
             if(biter.isDestroyed() && destroyTimer > 0.4f){
+                enemies.removeValue(biter, true);
                 biters.removeValue(biter, true);
             }
         }
         for (Cactus cactus:cactuses){
             cactus.update(dt);
             if(cactus.isDestroyed() && destroyTimer > 0.4f){
+                enemies.removeValue(cactus, true);
                 cactuses.removeValue(cactus, true);
             }
         }
@@ -257,9 +209,14 @@ public class GameScreenLevel4 implements Screen {
             }
             game.setScreen(new GameScreenLevel4(game));
         }
-        chest.update(dt);
+        luxuryChest.update(dt);
+        if(luxuryChest.isTouched){
+            game.preferences.putBoolean("fastShotgun", true);
+            game.preferences.flush();
+        }
         player.update(dt);
         familiar.update(dt);
+        weapon.update(dt, player.b2body.getPosition());
         camera.update();
         renderer.setView(camera);
     }
@@ -290,14 +247,17 @@ public class GameScreenLevel4 implements Screen {
                     for (Bullet bullet:cannon1.cannonBullets){
                         bullet.deleteBullet();
                     }
-                    for (Bullet bullet:defendedCannon.defendedCannonBullets){
-                        bullet.deleteBullet();
-                    }
                     for (Biter biter:biters){
                         biter.deleted();
                     }
                     for (Cactus cactus:cactuses){
                         cactus.deleted();
+                    }
+                    for (Bullet bullet:cannon2.cannonBullets){
+                        bullet.deleteBullet();
+                    }
+                    for (Bullet bullet:playerBullets){
+                        bullet.deleteBullet();
                     }
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;
@@ -369,11 +329,7 @@ public class GameScreenLevel4 implements Screen {
 
             game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
             game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
-            if(isShot) {
-                for (Bullet bullet : playerBullets) {
-                    bullet.draw(game.batch);
-                }
-            }
+            weapon.drawBullet();
             for (Cannon cannon:cannons) {
                 cannon.draw(game.batch);
                 game.batch.draw(cannon.babax(), cannon.b2body.getPosition().x - 15/PPM, cannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
@@ -402,7 +358,7 @@ public class GameScreenLevel4 implements Screen {
                     game.batch.draw(cactus.spriteCactus(delta), cactus.b2body.getPosition().x - 37/PPM, cactus.b2body.getPosition().y - 45/PPM, 80/PPM, 80/PPM);
                 }
             }
-            chest.draw(game.batch);
+            luxuryChest.draw(game.batch);
             portal.draw(game.batch);
             game.batch.end();
             stage.act();

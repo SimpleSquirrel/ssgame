@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Levels.Level4.GameScreenLevel4;
 
 import static com.mygdx.game.MyGame.*;
 import static com.mygdx.game.MyGame.PLAYER_BIT;
@@ -63,6 +64,7 @@ public class Cactus extends Enemy {
             b2body.setLinearVelocity(0, 0);
             world.destroyBody(b2body);
             GameScreenLevel3.destroyTimer = 0;
+            GameScreenLevel4.destroyTimer = 0;
             destroyed = true;
             HUD.SCORE+=35;
         }

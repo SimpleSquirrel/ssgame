@@ -26,6 +26,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;
 import com.mygdx.game.Objects.Portal;
+import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Screens.LoadScreen;
@@ -40,12 +41,11 @@ public class GameScreenLevel1 implements Screen {
     private MyGame game;
     private static Stage stage;
     private Familiar familiar;
+    private Weapon weapon;
 
     private Player player;
-    private Bullet bullet;
 
     public static boolean isPaused;
-    private static boolean isShot;
 
     private OrthographicCamera camera;
 
@@ -54,13 +54,10 @@ public class GameScreenLevel1 implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
-    private final static float  BULLET_WAIT_TIME = 0.1f;
     private Cannon cannon;
     private DefendedCannon defendedCannon;
     private Portal portal;
     private Chest chest;
-    private static int bulletCounter;
-    private float timer;
 
     public GameScreenLevel1(MyGame game) {
         this.game = game;
@@ -68,11 +65,23 @@ public class GameScreenLevel1 implements Screen {
         game.preferences.putInteger("location", 1);
         game.preferences.putString("weapon", "gun");
         game.preferences.putInteger("Score", 0);
+        game.preferences.putBoolean("doubleGun", false);
+        game.preferences.putBoolean("tripleGun", false);
+        game.preferences.putBoolean("quadraGun", false);
+        game.preferences.putBoolean("pentaGun", false);
+        game.preferences.putBoolean("fastGun", false);
+        game.preferences.putBoolean("doubleFastGun", false);
+        game.preferences.putBoolean("tripleFastGun", false);
+        game.preferences.putBoolean("quadraFastGun", false);
+        game.preferences.putBoolean("veryFastGun", false);
+        game.preferences.putBoolean("veryFastDoubleGun", false);
+        game.preferences.putBoolean("ultraFastGun", false);
+        game.preferences.putBoolean("shotgun", false);
+        game.preferences.putBoolean("fastShotgun", false);
+        game.preferences.flush();
         hud = new HUD();
         hud=new HUD();
         stage = new Stage(new ScreenViewport());
-        isShot = false;
-        bulletCounter = 0;
 
         camera = new OrthographicCamera();
 
@@ -102,10 +111,12 @@ public class GameScreenLevel1 implements Screen {
         verticalCannons.add(verticalCannon2);
         VerticalCannon verticalCannon3 = new VerticalCannon(world, (32 * 34) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon3);
-        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM, false);
+        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM, false, game);
         portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM, false);
 
         familiar = new Familiar(game, player);
+
+        weapon = new Weapon(game, world);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -115,26 +126,7 @@ public class GameScreenLevel1 implements Screen {
     }
 
     private void input(float dt) {
-        timer +=dt;
         if (!isPaused) {
-            if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-                Player.swordAttack = true;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3) {
-                player.b2body.applyLinearImpulse(new Vector2(0.3f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3) {
-                player.b2body.applyLinearImpulse(new Vector2(-0.3f, 0), player.b2body.getWorldCenter(), true);
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                player.jump();
-
-
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-                isPaused = !isPaused;
-
-            }
             if (player.b2body.getPosition().y < -10 || player.isDead()) {
                 for (Bullet bullet:cannon.cannonBullets){
                     bullet.deleteBullet();
@@ -171,25 +163,10 @@ public class GameScreenLevel1 implements Screen {
                 for (VerticalCannon verticalCannon:verticalCannons){
                     verticalCannon.deleted();
                 }
+                for (Bullet bullet:playerBullets){
+                    bullet.deleteBullet();
+                }
                 game.setScreen(new DeathScreen(game));
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-                if (Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, 20/PPM, 5/PPM);
-                    bullet.bulletBody.setLinearVelocity(4f, 0);
-                    playerBullets.add(bullet);
-                    isShot = true;
-                    bulletCounter++;
-                    timer = 0;
-                }
-                else if(!Player.runningRight && bulletCounter < 1 && timer >= BULLET_WAIT_TIME) {
-                    bullet = new Bullet(world, player.b2body.getPosition().x, player.b2body.getPosition().y, -20/PPM, 5/PPM);
-                    bullet.bulletBody.setLinearVelocity(-4f, 0);
-                    playerBullets.add(bullet);
-                    isShot = true;
-                    bulletCounter++;
-                    timer = 0;
-                }
             }
         } else {
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -201,16 +178,6 @@ public class GameScreenLevel1 implements Screen {
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
-        if(isShot) {
-            bullet.update();
-            for(Bullet bullet : playerBullets) {
-                bullet.update();
-                if(bullet.isDestroyed()) {
-                    playerBullets.removeValue(bullet, true);
-                    bulletCounter--;
-                }
-            }
-        }
         for (Cannon cannon:cannons) {
             cannon.update(dt);
             if(cannon.cannonBullets.isEmpty() && cannon.isDestroyed()){
@@ -274,6 +241,7 @@ public class GameScreenLevel1 implements Screen {
         chest.update(dt);
         player.update(dt);
         familiar.update(dt);
+        weapon.update(dt, player.b2body.getPosition());
         camera.update();
         renderer.setView(camera);
     }
@@ -325,6 +293,9 @@ public class GameScreenLevel1 implements Screen {
                         }
                         for (VerticalCannon verticalCannon:verticalCannons){
                             verticalCannon.deleted();
+                        }
+                        for (Bullet bullet:playerBullets){
+                            bullet.deleteBullet();
                         }
                         game.setScreen(new MenuScreen(game)); //changing screen
                         isPaused=false;
@@ -399,11 +370,7 @@ public class GameScreenLevel1 implements Screen {
 
                 game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 18/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
                 game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 18/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
-                if(isShot) {
-                    for (Bullet bullet : playerBullets) {
-                        bullet.draw(game.batch);
-                    }
-                }
+                weapon.drawBullet();
                 for (Cannon cannon:cannons) {
                     cannon.draw(game.batch);
                     game.batch.draw(cannon.babax(), cannon.b2body.getPosition().x - 15/PPM, cannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);

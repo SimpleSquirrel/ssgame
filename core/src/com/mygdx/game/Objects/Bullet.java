@@ -23,8 +23,8 @@ public class Bullet extends Sprite {
         createBullet(x, y, checkX, checkY);
     }
     public void update(){
-        if(bulletBody.getLinearVelocity().x == 0){
-            deleteBullet();
+        if(bulletBody.getPosition().y < -10/PPM || bulletBody.getPosition().y > 1000/PPM || bulletBody.getPosition().x < 0 || bulletBody.getPosition().x > 1600/PPM){
+            setToDelete = true;
         }
         if(setToDelete && !deleted){
             world.destroyBody(bulletBody);

@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
+import com.mygdx.game.Levels.Level4.GameScreenLevel4;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -97,9 +98,10 @@ public class Biter extends Enemy {
             attack = false;
             GameScreenLevel2.destroyTimer = 0;
             GameScreenLevel3.destroyTimer = 0;
+            GameScreenLevel4.destroyTimer = 0;
             destroyed = true;
         }
-        else if(!destroyed && !setToDestroy){
+        else if(!destroyed && !setToDestroy && !FOURboolean){
             if(attack){
                 if(position < b2body.getPosition().x){
                     b2body.setLinearVelocity(-2, 0);
@@ -112,7 +114,7 @@ public class Biter extends Enemy {
                 b2body.setLinearVelocity(velocity);
             }
         }
-        if(FOURboolean){
+        else if(FOURboolean && !setToDestroy){
             System.out.println(timer);
             if(stateTimer <= FOURtimer) {
                 b2body.setLinearVelocity(0, 0);
@@ -167,7 +169,7 @@ public class Biter extends Enemy {
         fixtureDef.shape = shape1;
         fixtureDef.isSensor = true;
         fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
-        fixtureDef.filter.maskBits = GROUND_BIT | PLAYER_BIT;
+        fixtureDef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape sensor = new PolygonShape();
         Vector2[] vertice1 = new Vector2[4];
@@ -187,12 +189,15 @@ public class Biter extends Enemy {
     public void bulletHit() {
         if(rageActive){
             HP = 0;
+            if(HP <= 0){
+                deleted();
+            }
         }
         else {
             HP -= 17;
-        }
-        if(HP <= 0){
-            deleted();
+            if(HP <= 0){
+                deleted();
+            }
         }
     }
 

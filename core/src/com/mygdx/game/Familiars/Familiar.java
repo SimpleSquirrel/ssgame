@@ -90,11 +90,13 @@ public class Familiar extends Sprite {
         if(currentFamiliar2 == Familiar2.RAGE && Enemy.rageActive){
             if (timer2 >= 3f){
                 Enemy.rageActive = false;
+                timer2 = 0;
             }
         }
         if(currentFamiliar1 == Familiar1.RAGE && Enemy.rageActive){
             if (timer2 >= 3f){
                 Enemy.rageActive = false;
+                timer2 = 0;
             }
         }
         if(stop){
