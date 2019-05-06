@@ -8,22 +8,7 @@ public class Assets {
     //MenuScreen
     public static Texture textureMenuScreenBack;
     public static Sprite spriteMenuScreenBack;
-    public static Texture textureNewGameButtonActive;
-    public static Texture textureContinueGameButtonActive;
-    public static Texture texturePreferencesButtonActive;
-    public static Texture textureExitButtonActive;
-    public static Sprite spriteNewGameButtonActive;
-    public static Sprite spriteContinueGameButtonActive;
-    public static Sprite spritePreferencesButtonActive;
-    public static Sprite spriteExitButtonActive;
-    public static Texture textureNewGameButtonInactive;
-    public static Texture textureContinueGameButtonInactive;
-    public static Texture texturePreferencesButtonInactive;
-    public static Texture textureExitButtonInactive;
-    public static Sprite spriteNewGameButtonInactive;
-    public static Sprite spriteContinueGameButtonInactive;
-    public static Sprite spritePreferencesButtonInactive;
-    public static Sprite spriteExitButtonInactive;
+    public static Texture textureMenuScreenSestesnya;
 
 
     //Game Itself
@@ -144,6 +129,7 @@ public class Assets {
     public static Texture textureTurnDownInactive;
     public static Sprite spriteTurnDownInactive;
 
+
     //Loading
     public static Texture textureLoad1;
     public static Texture textureLoad2;
@@ -190,50 +176,16 @@ public class Assets {
     public static Sprite spriteDetal;
     public static void load() {
         //Menu
-        textureMenuScreenBack = new Texture(Gdx.files.internal("MenuScreen/Back.jpg"));
+        textureMenuScreenBack = new Texture(Gdx.files.internal("MenuScreen/Back.png"));
         textureMenuScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteMenuScreenBack = new Sprite(textureMenuScreenBack);
         spriteMenuScreenBack.flip(false, true);
 
-        textureNewGameButtonActive = new Texture(Gdx.files.internal("MenuScreen/NewGame.png"));
-        textureNewGameButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteNewGameButtonActive = new Sprite(textureNewGameButtonActive);
-        spriteNewGameButtonActive.flip(false, true);
+        textureMenuScreenSestesnya = new Texture(Gdx.files.internal("MenuScreen/S.png"));
+        textureMenuScreenSestesnya.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        textureContinueGameButtonActive = new Texture(Gdx.files.internal("MenuScreen/ContinueGame.png"));
-        textureContinueGameButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteContinueGameButtonActive = new Sprite(textureContinueGameButtonActive);
-        spriteContinueGameButtonActive.flip(false, true);
 
-        texturePreferencesButtonActive = new Texture(Gdx.files.internal("MenuScreen/Preferences.png"));
-        texturePreferencesButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spritePreferencesButtonActive = new Sprite(texturePreferencesButtonActive);
-        spritePreferencesButtonActive.flip(false, true);
 
-        textureExitButtonActive = new Texture(Gdx.files.internal("MenuScreen/Exit.png"));
-        textureExitButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteExitButtonActive = new Sprite(textureExitButtonActive);
-        spriteExitButtonActive.flip(false, true);
-
-        textureNewGameButtonInactive = new Texture(Gdx.files.internal("MenuScreen/NewGame0.png"));
-        textureNewGameButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteNewGameButtonInactive = new Sprite(textureNewGameButtonInactive);
-        spriteNewGameButtonInactive.flip(false, true);
-
-        textureContinueGameButtonInactive = new Texture(Gdx.files.internal("MenuScreen/ContinueGame0.png"));
-        textureContinueGameButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteContinueGameButtonInactive = new Sprite(textureContinueGameButtonInactive);
-        spriteContinueGameButtonInactive.flip(false, true);
-
-        texturePreferencesButtonInactive = new Texture(Gdx.files.internal("MenuScreen/Preferences0.png"));
-        texturePreferencesButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spritePreferencesButtonInactive = new Sprite(texturePreferencesButtonInactive);
-        spritePreferencesButtonInactive.flip(false, true);
-
-        textureExitButtonInactive = new Texture(Gdx.files.internal("MenuScreen/Exit0.png"));
-        textureExitButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteExitButtonInactive = new Sprite(textureExitButtonInactive);
-        spriteExitButtonInactive.flip(false, true);
         //Preferences
         texturePreferencesScreenBack = new Texture(Gdx.files.internal("PreferencesScreen/Back.jpg"));
         texturePreferencesScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

@@ -73,7 +73,7 @@ public class PreferencesScreen implements Screen {
         game.batch.draw(Assets.spriteTurnDownInactive, 657, 117,100,50);
         game.batch.draw(Assets.spriteTurnUpInactive, 767, 117,100,50);
         if(Gdx.input.getX() <645  && Gdx.input.getX() > 561 && Gdx.input.getY() >258   && Gdx.input.getY() <316 ) { //setting bounds of NewGameButton
-            game.batch.draw(Assets.spriteTurnDownActive1,657 ,Gdx.graphics.getHeight()-240 ); //Drawing Active
+            game.batch.draw(Assets.spriteTurnDownActive1, 657, 532,100,50);
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
                 if(timer>freeze) {
                     MyGame.MUZIC--;
@@ -83,7 +83,7 @@ public class PreferencesScreen implements Screen {
             }
         }
         if(Gdx.input.getX() <739  && Gdx.input.getX() > 655 && Gdx.input.getY() >257   && Gdx.input.getY() <316 ) { //setting bounds of NewGameButton
-            game.batch.draw(Assets.spriteTurnUpActive1,767 ,Gdx.graphics.getHeight()-240 ); //Drawing Active
+            game.batch.draw(Assets.spriteTurnUpActive1, 767, 532,100,50);
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
                 if(timer>freeze) {
                     MyGame.MUZIC++;
@@ -142,7 +142,7 @@ public class PreferencesScreen implements Screen {
                 break;
         }
         if(Gdx.input.getX() <645  && Gdx.input.getX() > 561 && Gdx.input.getY() >611   && Gdx.input.getY() <672 ) { //setting bounds of NewGameButton
-            game.batch.draw(Assets.spriteTurnDownActive2, 657, Gdx.graphics.getHeight()-655);
+            game.batch.draw(Assets.spriteTurnDownActive2, 657, 117,100,50);
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
                 if(timer>freeze) {
                     MyGame.SOUND--;
@@ -152,7 +152,7 @@ public class PreferencesScreen implements Screen {
             }
         }
         if(Gdx.input.getX() <739  && Gdx.input.getX() > 655 && Gdx.input.getY() >611   && Gdx.input.getY() <670 ) { //setting bounds of NewGameButton
-            game.batch.draw(Assets.spriteTurnUpActive2, 767, Gdx.graphics.getHeight()-655); //Drawing Active
+            game.batch.draw(Assets.spriteTurnUpActive2, 767, 117,100,50);
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
                 if(timer>freeze) {
                     MyGame.SOUND++;
