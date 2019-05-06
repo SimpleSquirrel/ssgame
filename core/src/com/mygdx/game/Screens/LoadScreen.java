@@ -11,6 +11,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
+import com.mygdx.game.Levels.Level4.GameScreenLevel4;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Player.Player;
@@ -88,6 +89,9 @@ public class LoadScreen implements Screen
                 case 1:
                     switch (game.preferences.getInteger("location")){
                         case 1:
+                            game.preferences.putInteger("familiar1", 1);
+                            game.preferences.putInteger("familiar2", 5);
+                            game.preferences.flush();
                             game.setScreen(new GameScreenLevel1(game));
                             break;
                         case 2:
@@ -97,6 +101,7 @@ public class LoadScreen implements Screen
                             game.setScreen(new GameScreenLevel3(game));
                             break;
                         case 4:
+                            game.setScreen(new GameScreenLevel4(game));
                             break;
                         case 5:
                             break;

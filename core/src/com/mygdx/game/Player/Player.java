@@ -43,12 +43,19 @@ public class Player extends Sprite {
     public static int MAX_HP;
     public static boolean swordAttack;
     private FixtureDef fSwordDef = new FixtureDef();
+    private FixtureDef shieldDef = new FixtureDef();
     private float swordTimer;
     private float swordAnimationTimer;
+    private float x;
+    private float y;
+    public boolean shield;
+    private int counter;
 
-    public Player(World world){
+    public Player(World world, float x, float y){
         HP = 25;
-        MAX_HP=HP;
+        MAX_HP = HP;
+        this.x = x;
+        this.y = y;
         this.world = world;
         atlas = new TextureAtlas("Animations/Robot.txt");
         spriteRobotStand = atlas.createSprite("Run1");
@@ -95,6 +102,8 @@ public class Player extends Sprite {
         frames.clear();
         isDead = false;
         swordAttack = false;
+        shield = false;
+        counter = 1;
         definePlayer();
     }
     public void update(float delta) {
@@ -103,6 +112,14 @@ public class Player extends Sprite {
             for (Fixture fixture : b2body.getFixtureList()) {
                 if (fixture.getFilterData().categoryBits == SWORD_BIT) {
                     b2body.destroyFixture(fixture);
+                }
+            }
+        }
+        if(!shield){
+            for (Fixture fixture : b2body.getFixtureList()){
+                if(fixture.getFilterData().categoryBits == SHIELD_BIT){
+                    b2body.destroyFixture(fixture);
+                    counter = 1;
                 }
             }
         }
@@ -140,6 +157,16 @@ public class Player extends Sprite {
                 swordTimer = 0;
                 swordAttack = false;
             }
+        }
+        if(shield){
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(20/PPM, 35/PPM);
+
+            shieldDef.shape = shape;
+            shieldDef.filter.categoryBits = SHIELD_BIT;
+            shieldDef.filter.maskBits = SPIKE_BIT | BULLET_BIT | ENEMY_BIT;
+            shieldDef.isSensor = true;
+            b2body.createFixture(shieldDef).setUserData(this);
         }
     }
     public Sprite getFrameLegs(float delta){
@@ -220,7 +247,7 @@ public class Player extends Sprite {
 
     private void definePlayer(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32/PPM, 32/PPM);
+        bdef.position.set(x, y);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -255,11 +282,24 @@ public class Player extends Sprite {
         HP -= 25;
     }
     public void hitByEnemy(float x){
-        if(x > 0){
-            b2body.applyForce(new Vector2(300, 200), b2body.getWorldCenter(), true);
+        if(counter == 1) {
+            x = b2body.getPosition().x - x;
+            if (x > 0) {
+                b2body.applyForce(new Vector2(300, 200), b2body.getWorldCenter(), true);
+            } else {
+                b2body.applyForce(new Vector2(-300, 200), b2body.getWorldCenter(), true);
+            }
+            System.out.println("Contact");
+            counter++;
         }
-        else {
-            b2body.applyForce(new Vector2(-300, 200), b2body.getWorldCenter(), true);
-        }
+    }
+    public void heal(){
+        HP += 10;
+    }
+    public void shield(){
+        shield = true;
+    }
+    public void destroyShield(){
+        shield = false;
     }
 }

@@ -1,7 +1,6 @@
 package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -27,7 +26,7 @@ public abstract class InteractiveCircleObject {
 
         circleShape.setRadius(ellipse.height/2/PPM);
         fixtureDef.filter.categoryBits = SPIKE_BIT;
-        fixtureDef.filter.maskBits = PLAYER_BIT | GROUND_BIT | SPIKE_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | GROUND_BIT | SPIKE_BIT | SHIELD_BIT;
         fixtureDef.shape = circleShape;
         fixtureDef.restitution = 0.5f;
         body.createFixture(fixtureDef);

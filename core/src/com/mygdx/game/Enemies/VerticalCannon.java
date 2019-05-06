@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Graphics.Assets;
-import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Graphics.HUD;
 
@@ -84,8 +83,10 @@ public class VerticalCannon extends Enemy {
                 stateTimer = 0;
             }
         }
+        else if(FOURboolean){
+        }
         for (Bullet bullet:verticalCannonBullets){
-            bullet.update(delta);
+            bullet.update();
             if(bullet.isDestroyed())
                 playerBullets.removeValue(bullet, true);
         }
@@ -148,6 +149,8 @@ public class VerticalCannon extends Enemy {
     }
     @Override
     public boolean isDestroyed(){return destroyed;}
+
+
     public Sprite babax(){
         Sprite sprite;
         if(setToDestroy && !destroyed){

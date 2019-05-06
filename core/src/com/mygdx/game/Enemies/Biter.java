@@ -34,16 +34,15 @@ public class Biter extends Enemy {
     private Animation biterAnimationLeft;
     private boolean setToDestroy;
     private boolean destroyed;
-    private boolean attack;
     private float timer;
     public float positionX;
     public float positionY;
+    private float stateTimer;
     public Biter(World world, float x, float y, boolean flip){
         super(world, x, y, flip);
         HP = 50;
         setToDestroy = false;
         destroyed = false;
-        attack = false;
         atlas1 = new TextureAtlas("Animations/Btoom.txt");
         btoom1 = atlas1.createSprite("Btoom1");
         btoom2 = atlas1.createSprite("Btoom2");
@@ -87,7 +86,10 @@ public class Biter extends Enemy {
     }
     public void update(float delta, float position){
         timer += delta;
+        stateTimer += delta;
+        timerToZero();
         if(setToDestroy && !destroyed){
+            b2body.setLinearVelocity(0, 0);
             positionX = b2body.getPosition().x;
             positionY = b2body.getPosition().y;
             world.destroyBody(b2body);
@@ -110,8 +112,15 @@ public class Biter extends Enemy {
                 b2body.setLinearVelocity(velocity);
             }
         }
-        else if(setToDestroy){
-            b2body.setLinearVelocity(0, 0);
+        if(FOURboolean){
+            System.out.println(timer);
+            if(stateTimer <= FOURtimer) {
+                b2body.setLinearVelocity(0, 0);
+            }
+            else {
+                counter = 1;
+                FOURboolean = false;
+            }
         }
     }
     public Sprite spriteBiter(float delta){
@@ -145,7 +154,7 @@ public class Biter extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(20/PPM, 35/PPM);
         fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT | SWORD_BIT | PLAYER_HEAD_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT | SWORD_BIT | SHIELD_BIT;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape shape1 = new PolygonShape();
@@ -176,7 +185,12 @@ public class Biter extends Enemy {
 
     @Override
     public void bulletHit() {
-        HP -= 17;
+        if(rageActive){
+            HP = 0;
+        }
+        else {
+            HP -= 17;
+        }
         if(HP <= 0){
             deleted();
         }
@@ -204,6 +218,15 @@ public class Biter extends Enemy {
     public boolean isDestroyed(){
         return destroyed;
     }
+    private void timerToZero(){
+        if(FOURboolean) {
+            if(counter == 1) {
+                stateTimer = 0;
+                counter++;
+            }
+        }
+    }
+
     public boolean isSetToDestroy(){return setToDestroy;}
     public void reverseVelocity(boolean x, boolean y){
         if(x){
