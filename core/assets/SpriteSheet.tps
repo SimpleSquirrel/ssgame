@@ -181,6 +181,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">C:/Users/User/Downloads/Telegram Desktop/1Spikes.png</key>
             <key type="filename">C:/Users/User/Downloads/Telegram Desktop/MetalCor.png</key>
             <key type="filename">C:/Users/User/Downloads/Telegram Desktop/Платформа зелень 3.png</key>
             <key type="filename">C:/Users/User/Downloads/Telegram Desktop/Платформа зелень.png</key>
@@ -207,9 +208,10 @@
             <filename>C:/Users/User/Downloads/Telegram Desktop/Платформа зелень2.png</filename>
             <filename>C:/Users/User/Downloads/Telegram Desktop/Платформа зелень4.png</filename>
             <filename>C:/Users/User/Downloads/Telegram Desktop/Платформа зелень5.png</filename>
-            <filename>C:/Users/User/Downloads/Telegram Desktop/MetalCor.png</filename>
             <filename>C:/Users/User/Downloads/Telegram Desktop/Платформа зелень 3.png</filename>
             <filename>C:/Users/User/Downloads/Telegram Desktop/Платформа зелень.png</filename>
+            <filename>C:/Users/User/Downloads/Telegram Desktop/MetalCor.png</filename>
+            <filename>C:/Users/User/Downloads/Telegram Desktop/1Spikes.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -3,6 +3,7 @@ package com.mygdx.game.Objects;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -18,12 +19,19 @@ public class Chest extends Sprite {
     private TextureAtlas atlas;
     private float stateTimer;
     public boolean isTouched;
+    private boolean JastOpen=true;
+    private boolean isFlip;
 
-    public Chest(World world, float x, float y, float CheckX, float CheckY) {
+    public Chest(World world, float x, float y, float CheckX, float CheckY, boolean flip) {
         this.world = world;
+        isFlip = flip;
         atlas = new TextureAtlas("Objects/WoodenChest.txt");
         chestClosed = atlas.createSprite("ChestClosed");
         chestOpened = atlas.createSprite("ChestOpen");
+        if(isFlip){
+            chestClosed.flip(true, false);
+            chestOpened.flip(true, false);
+        }
         setBounds(0, 0, 32 / PPM, 32 / PPM);
         currentState = State.CLOSED;
         previousState = State.CLOSED;
@@ -43,6 +51,10 @@ public class Chest extends Sprite {
         switch (currentState){
             case OPENED:
                 sprite = chestOpened;
+                if(JastOpen) {
+                    HUD.SCORE += 200;
+                    JastOpen=false;
+                }
                 break;
             case CLOSED:
                 sprite = chestClosed;
@@ -74,7 +86,7 @@ public class Chest extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 13/PPM);
         fdef.filter.categoryBits = CHEST_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }

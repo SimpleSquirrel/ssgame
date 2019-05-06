@@ -10,55 +10,9 @@ public class Assets {
     //MenuScreen
     public static Texture textureMenuScreenBack;
     public static Sprite spriteMenuScreenBack;
-    public static Texture textureNewGameButtonActive;
-    public static Texture textureContinueGameButtonActive;
-    public static Texture texturePreferencesButtonActive;
-    public static Texture textureExitButtonActive;
-    public static Sprite spriteNewGameButtonActive;
-    public static Sprite spriteContinueGameButtonActive;
-    public static Sprite spritePreferencesButtonActive;
-    public static Sprite spriteExitButtonActive;
-    public static Texture textureNewGameButtonInactive;
-    public static Texture textureContinueGameButtonInactive;
-    public static Texture texturePreferencesButtonInactive;
-    public static Texture textureExitButtonInactive;
-    public static Sprite spriteNewGameButtonInactive;
-    public static Sprite spriteContinueGameButtonInactive;
-    public static Sprite spritePreferencesButtonInactive;
-    public static Sprite spriteExitButtonInactive;
-    //PreferencesScreen
-    public static Texture texturePreferencesScreenBack;
-    public static Sprite spritePreferencesScreenBack;
-    public static Texture textureMusicButtonActive;
-    public static Sprite spriteMusicButtonActive;
-    public static Texture textureMusicButtonInactive;
-    public static Sprite spriteMusicButtonInactive;
-    public static Texture textureMusicScroller0;
-    public static Sprite spriteMusicScroller0;
-    public static Texture textureMusicScroller10;
-    public static Sprite spriteMusicScroller10;
-    public static Texture textureMusicScroller20;
-    public static Sprite spriteMusicScroller20;
-    public static Texture textureMusicScroller30;
-    public static Sprite spriteMusicScroller30;
-    public static Texture textureMusicScroller40;
-    public static Sprite spriteMusicScroller40;
-    public static Texture textureMusicScroller50;
-    public static Sprite spriteMusicScroller50;
-    public static Texture textureMusicScroller60;
-    public static Sprite spriteMusicScroller60;
-    public static Texture textureMusicScroller70;
-    public static Sprite spriteMusicScroller70;
-    public static Texture textureMusicScroller80;
-    public static Sprite spriteMusicScroller80;
-    public static Texture textureMusicScroller90;
-    public static Sprite spriteMusicScroller90;
-    public static Texture textureMusicScroller100;
-    public static Sprite spriteMusicScroller100;
-    public static Texture textureTurnUp;
-    public static Sprite spriteTurnUp;
-    public static Texture textureTurnDown;
-    public static Sprite spriteTurnDown;
+    public static Texture textureMenuScreenSestesnya;
+
+
     //Game Itself
     public static Texture textureMC;
     public static Sprite spriteMC;
@@ -98,7 +52,8 @@ public class Assets {
 
     public static Texture loadAnimation;
 
-
+    public static Texture textureHeadGG;
+    public static Sprite spriteHeadGG;
     //Familiar
         //1
     public static Sprite spriteFamiliar1Active;
@@ -110,6 +65,83 @@ public class Assets {
     public static Texture textureFamiliar2Active;
     public static Sprite spriteFamiliar2Inactive;
     public static Texture textureFamiliar2Inactive;
+    //3
+    public static Sprite spriteFamiliar3Active;
+    public static Texture textureFamiliar3Active;
+    public static Sprite spriteFamiliar3Inactive;
+    public static Texture textureFamiliar3Inactive;
+    //4
+    public static Sprite spriteFamiliar4Active;
+    public static Texture textureFamiliar4Active;
+    public static Sprite spriteFamiliar4Inactive;
+    public static Texture textureFamiliar4Inactive;
+
+    //Preferences Screen
+
+    public static Texture texturePreferencesScreenBack;
+    public static Sprite spritePreferencesScreenBack;
+
+    public static Sprite spriteShesternyaVerh;
+    public static Texture textureShesternyaVerh;
+
+    public static Sprite spriteShesternyaNiz;
+    public static Texture textureShesternyaNiz;
+
+    public static Sprite spriteBigSkalaVerh;
+    public static Texture textureBigSkalaVerh;
+
+    public static Sprite spriteBigSkalaNiz;
+    public static Texture textureBigSkalaNiz;
+
+    public static Sprite spriteGrom;
+    public static Texture textureGrom;
+
+    public static Sprite spriteGuchnistMuz;
+    public static Texture textureGuchnistMuz;
+
+    public static Sprite spriteGuchnistZv;
+    public static Texture textureGuchnistZv;
+
+    public static Sprite spriteNadpisMusica;
+    public static Texture textureNadpisMuzica;
+
+    public static Sprite spriteNadpisZvuki;
+    public static Texture textureNadpisZvuki;
+
+    public static Sprite spriteNoteList;
+    public static Texture textureNoteList;
+
+    public static Sprite spritePoleProtsNiz;
+    public static Texture texturePoleProtsNiz;
+
+    public static Sprite spritePoleProtsVerh;
+    public static Texture texturePoleProtsVerh;
+
+    public static Sprite spriteSkalaNiz;
+    public static Texture textureSkalaNiz;
+
+    public static Sprite spriteSkalaVerh;
+    public static Texture textureSkalaVerh;
+
+    public static Texture textureTurnUpActive1;
+    public static Sprite spriteTurnUpActive1;
+
+    public static Texture textureTurnDownActive1;
+    public static Sprite spriteTurnDownActive1;
+
+    public static Texture textureTurnUpActive2;
+    public static Sprite spriteTurnUpActive2;
+
+    public static Texture textureTurnDownActive2;
+    public static Sprite spriteTurnDownActive2;
+
+    public static Texture textureTurnUpInactive;
+    public static Sprite spriteTurnUpInactive;
+
+    public static Texture textureTurnDownInactive;
+    public static Sprite spriteTurnDownInactive;
+
+
     //Loading
     public static Texture textureLoad1;
     public static Texture textureLoad2;
@@ -119,6 +151,32 @@ public class Assets {
     public static Sprite spriteLoad2;
     public static Sprite spriteLoad3;
     public static Sprite spriteLoad4;
+    public static Texture textureEmpty;
+    public static Sprite spriteEmpty;
+    //Health Bar
+    public static Texture textureHealthBar1;
+    public static Sprite spriteHealthBar1;
+
+    public static Texture textureHealthBar2;
+    public static Sprite spriteHealthBar2;
+
+    public static Texture textureHealthBar3;
+    public static Sprite spriteHealthBar3;
+
+    public static Texture textureHealthBar4;
+    public static Sprite spriteHealthBar4;
+
+    public static Texture textureHealthBar5;
+    public static Sprite spriteHealthBar5;
+
+    public static Texture textureHealthBar6;
+    public static Sprite spriteHealthBar6;
+
+    public static Texture textureHealthBar7;
+    public static Sprite spriteHealthBar7;
+
+    public static Texture textureHealthBar8;
+    public static Sprite spriteHealthBar8;
 
     //Novel
     public static Texture textureCatSilence;
@@ -126,133 +184,62 @@ public class Assets {
     public static Texture textureNovelBox;
     public static Sprite spriteNovelBox;
 
+    public static Texture textureHealthBar9;
+    public static Sprite spriteHealthBar9;
 
+    public static Texture textureHealthBar10;
+    public static Sprite spriteHealthBar10;
+
+    public static Texture textureDetal;
+    public static Sprite spriteDetal;
     public static void load() {
         //Menu
-        textureMenuScreenBack = new Texture(Gdx.files.internal("MenuScreen/Back.jpg"));
+        textureMenuScreenBack = new Texture(Gdx.files.internal("MenuScreen/Back.png"));
         textureMenuScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteMenuScreenBack = new Sprite(textureMenuScreenBack);
         spriteMenuScreenBack.flip(false, true);
 
-        textureNewGameButtonActive = new Texture(Gdx.files.internal("MenuScreen/NewGame.png"));
-        textureNewGameButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteNewGameButtonActive = new Sprite(textureNewGameButtonActive);
-        spriteNewGameButtonActive.flip(false, true);
+        textureMenuScreenSestesnya = new Texture(Gdx.files.internal("MenuScreen/S.png"));
+        textureMenuScreenSestesnya.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        textureContinueGameButtonActive = new Texture(Gdx.files.internal("MenuScreen/ContinueGame.png"));
-        textureContinueGameButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteContinueGameButtonActive = new Sprite(textureContinueGameButtonActive);
-        spriteContinueGameButtonActive.flip(false, true);
 
-        texturePreferencesButtonActive = new Texture(Gdx.files.internal("MenuScreen/Preferences.png"));
-        texturePreferencesButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spritePreferencesButtonActive = new Sprite(texturePreferencesButtonActive);
-        spritePreferencesButtonActive.flip(false, true);
 
-        textureExitButtonActive = new Texture(Gdx.files.internal("MenuScreen/Exit.png"));
-        textureExitButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteExitButtonActive = new Sprite(textureExitButtonActive);
-        spriteExitButtonActive.flip(false, true);
-
-        textureNewGameButtonInactive = new Texture(Gdx.files.internal("MenuScreen/NewGame0.png"));
-        textureNewGameButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteNewGameButtonInactive = new Sprite(textureNewGameButtonInactive);
-        spriteNewGameButtonInactive.flip(false, true);
-
-        textureContinueGameButtonInactive = new Texture(Gdx.files.internal("MenuScreen/ContinueGame0.png"));
-        textureContinueGameButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteContinueGameButtonInactive = new Sprite(textureContinueGameButtonInactive);
-        spriteContinueGameButtonInactive.flip(false, true);
-
-        texturePreferencesButtonInactive = new Texture(Gdx.files.internal("MenuScreen/Preferences0.png"));
-        texturePreferencesButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spritePreferencesButtonInactive = new Sprite(texturePreferencesButtonInactive);
-        spritePreferencesButtonInactive.flip(false, true);
-
-        textureExitButtonInactive = new Texture(Gdx.files.internal("MenuScreen/Exit0.png"));
-        textureExitButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteExitButtonInactive = new Sprite(textureExitButtonInactive);
-        spriteExitButtonInactive.flip(false, true);
         //Preferences
         texturePreferencesScreenBack = new Texture(Gdx.files.internal("PreferencesScreen/Back.jpg"));
         texturePreferencesScreenBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spritePreferencesScreenBack = new Sprite(texturePreferencesScreenBack);
         spritePreferencesScreenBack.flip(false, true);
 
-        textureMusicButtonActive = new Texture(Gdx.files.internal("PreferencesScreen/Button.png"));
-        textureMusicButtonActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicButtonActive = new Sprite(textureMusicButtonActive);
-        spriteMusicButtonActive.flip(false, true);
 
-        textureMusicButtonInactive = new Texture(Gdx.files.internal("PreferencesScreen/Button0.png"));
-        textureMusicButtonInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicButtonInactive = new Sprite(textureMusicButtonInactive);
-        spriteMusicButtonInactive.flip(false, true);
+        textureTurnUpActive1 = new Texture(Gdx.files.internal("PreferencesScreen/TurnUpActive.png"));
+        textureTurnUpActive1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteTurnUpActive1 = new Sprite(textureTurnUpActive1);
+        //spriteTurnUp.flip(false, true);
 
-        textureMusicScroller0 = new Texture(Gdx.files.internal("PreferencesScreen/Sound0.png"));
-        textureMusicScroller0.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller0 = new Sprite(textureMusicScroller0);
-        spriteMusicScroller0.flip(false, true);
+        textureTurnUpActive2 = new Texture(Gdx.files.internal("PreferencesScreen/TurnUpActive.png"));
+        textureTurnUpActive2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteTurnUpActive2 = new Sprite(textureTurnUpActive2);
+        //spriteTurnUp.flip(false, true);
 
-        textureMusicScroller10 = new Texture(Gdx.files.internal("PreferencesScreen/Sound10.png"));
-        textureMusicScroller10.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller10 = new Sprite(textureMusicScroller10);
-        spriteMusicScroller10.flip(false, true);
+        textureTurnUpInactive = new Texture(Gdx.files.internal("PreferencesScreen/TurnUpInactive.png"));
+        textureTurnUpInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteTurnUpInactive = new Sprite(textureTurnUpInactive);
+        //spriteTurnUp.flip(false, true);
 
-        textureMusicScroller20 = new Texture(Gdx.files.internal("PreferencesScreen/Sound20.png"));
-        textureMusicScroller20.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller20 = new Sprite(textureMusicScroller20);
-        spriteMusicScroller20.flip(false, true);
+        textureTurnDownActive1 = new Texture(Gdx.files.internal("PreferencesScreen/TurnDownActive.png"));
+        textureTurnDownActive1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteTurnDownActive1 = new Sprite(textureTurnDownActive1);
+       // spriteTurnDown.flip(false, true);
 
-        textureMusicScroller30 = new Texture(Gdx.files.internal("PreferencesScreen/Sound30.png"));
-        textureMusicScroller30.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller30 = new Sprite(textureMusicScroller30);
-        spriteMusicScroller30.flip(false, true);
+        textureTurnDownActive2 = new Texture(Gdx.files.internal("PreferencesScreen/TurnDownActive.png"));
+        textureTurnDownActive2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteTurnDownActive2 = new Sprite(textureTurnDownActive2);
+        // spriteTurnDown.flip(false, true);
 
-        textureMusicScroller40 = new Texture(Gdx.files.internal("PreferencesScreen/Sound40.png"));
-        textureMusicScroller40.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller40 = new Sprite(textureMusicScroller40);
-        spriteMusicScroller40.flip(false, true);
-
-        textureMusicScroller50 = new Texture(Gdx.files.internal("PreferencesScreen/Sound50.png"));
-        textureMusicScroller50.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller50 = new Sprite(textureMusicScroller50);
-        spriteMusicScroller50.flip(false, true);
-
-        textureMusicScroller60 = new Texture(Gdx.files.internal("PreferencesScreen/Sound60.png"));
-        textureMusicScroller60.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller60 = new Sprite(textureMusicScroller60);
-        spriteMusicScroller60.flip(false, true);
-
-        textureMusicScroller70 = new Texture(Gdx.files.internal("PreferencesScreen/Sound70.png"));
-        textureMusicScroller70.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller70 = new Sprite(textureMusicScroller70);
-        spriteMusicScroller70.flip(false, true);
-
-        textureMusicScroller80 = new Texture(Gdx.files.internal("PreferencesScreen/Sound80.png"));
-        textureMusicScroller80.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller80 = new Sprite(textureMusicScroller80);
-        spriteMusicScroller80.flip(false, true);
-
-        textureMusicScroller90 = new Texture(Gdx.files.internal("PreferencesScreen/Sound90.png"));
-        textureMusicScroller90.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller90 = new Sprite(textureMusicScroller90);
-        spriteMusicScroller90.flip(false, true);
-
-        textureMusicScroller100 = new Texture(Gdx.files.internal("PreferencesScreen/Sound100.png"));
-        textureMusicScroller100.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteMusicScroller100 = new Sprite(textureMusicScroller100);
-        spriteMusicScroller100.flip(false, true);
-
-        textureTurnUp = new Texture(Gdx.files.internal("PreferencesScreen/TurnUp.png"));
-        textureTurnUp.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteTurnUp = new Sprite(textureTurnUp);
-        spriteTurnUp.flip(false, true);
-
-        textureTurnDown = new Texture(Gdx.files.internal("PreferencesScreen/TurnDown.png"));
-        textureTurnDown.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        spriteTurnDown = new Sprite(textureTurnDown);
-        spriteTurnDown.flip(false, true);
+        textureTurnDownInactive = new Texture(Gdx.files.internal("PreferencesScreen/TurnDownInactive.png"));
+        textureTurnDownInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteTurnDownInactive = new Sprite(textureTurnDownInactive);
+        // spriteTurnDown.flip(false, true);
 
         textureMC = new Texture(Gdx.files.internal("Game/MC.png"));
         spriteMC = new Sprite(textureMC);
@@ -314,11 +301,78 @@ public class Assets {
         textureFamiliar2Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Active = new Sprite(textureFamiliar2Active);
 
-        textureLoadBack = new Texture(Gdx.files.internal("LoadScreen/loadBack.png"));
-        textureLoadBack.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         textureFamiliar2Inactive= new Texture(Gdx.files.internal("Familiar/2I.png"));
         textureFamiliar2Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteFamiliar2Inactive = new Sprite(textureFamiliar2Inactive);
+        //3
+        textureFamiliar3Active= new Texture(Gdx.files.internal("Familiar/familiar3Active.png"));
+        textureFamiliar3Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar3Active = new Sprite(textureFamiliar3Active);
+
+        textureFamiliar3Inactive= new Texture(Gdx.files.internal("Familiar/familiar3Inactive.png"));
+        textureFamiliar3Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar3Inactive = new Sprite(textureFamiliar3Inactive);
+        //4
+        textureFamiliar4Active= new Texture(Gdx.files.internal("Familiar/familiar4Active.png"));
+        textureFamiliar4Active.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar4Active = new Sprite(textureFamiliar4Active);
+
+        textureFamiliar4Inactive= new Texture(Gdx.files.internal("Familiar/familiar4Inactive.png"));
+        textureFamiliar4Inactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteFamiliar4Inactive = new Sprite(textureFamiliar4Inactive);
+        //Preferences Scereen
+
+        textureShesternyaNiz= new Texture(Gdx.files.internal("PreferencesScreen/SestNiz.png"));
+        textureShesternyaNiz.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteShesternyaNiz = new Sprite(textureShesternyaNiz);
+        textureShesternyaVerh= new Texture(Gdx.files.internal("PreferencesScreen/SestVerh.png"));
+        textureShesternyaVerh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteShesternyaVerh = new Sprite(textureShesternyaVerh);
+
+        textureBigSkalaNiz= new Texture(Gdx.files.internal("PreferencesScreen/BigSkalaNiz.png"));
+        textureBigSkalaNiz.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteBigSkalaNiz = new Sprite(textureBigSkalaNiz);
+        textureBigSkalaVerh= new Texture(Gdx.files.internal("PreferencesScreen/BigSkalaVerh.png"));
+        textureBigSkalaVerh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteBigSkalaVerh = new Sprite(textureBigSkalaVerh);
+
+        textureGrom= new Texture(Gdx.files.internal("PreferencesScreen/Grom.png"));
+        textureGrom.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteGrom = new Sprite(textureGrom);
+
+        textureGuchnistMuz= new Texture(Gdx.files.internal("PreferencesScreen/GuchnistMuz.png"));
+        textureGuchnistMuz.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteGuchnistMuz = new Sprite(textureGuchnistMuz);
+
+        textureGuchnistZv= new Texture(Gdx.files.internal("PreferencesScreen/GuchnistZv.png"));
+        textureGuchnistZv.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteGuchnistZv = new Sprite(textureGuchnistZv);
+
+        textureNadpisMuzica= new Texture(Gdx.files.internal("PreferencesScreen/NadpisMuzica.png"));
+        textureNadpisMuzica.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteNadpisMusica = new Sprite(textureNadpisMuzica);
+
+        textureNadpisZvuki= new Texture(Gdx.files.internal("PreferencesScreen/NadpisZvuki.png"));
+        textureNadpisZvuki.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteNadpisZvuki = new Sprite(textureNadpisZvuki);
+
+        textureNoteList= new Texture(Gdx.files.internal("PreferencesScreen/NoteList.png"));
+        textureNoteList.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteNoteList = new Sprite(textureNoteList);
+
+        texturePoleProtsNiz= new Texture(Gdx.files.internal("PreferencesScreen/PoleProtsNiz.png"));
+        texturePoleProtsNiz.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spritePoleProtsNiz = new Sprite(texturePoleProtsNiz);
+        texturePoleProtsVerh= new Texture(Gdx.files.internal("PreferencesScreen/PoleProtsVerh.png"));
+        texturePoleProtsVerh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spritePoleProtsVerh = new Sprite(texturePoleProtsVerh);
+
+        textureSkalaNiz= new Texture(Gdx.files.internal("PreferencesScreen/SkalaNiz.png"));
+        textureSkalaNiz.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteSkalaNiz = new Sprite(textureSkalaNiz);
+        textureSkalaVerh= new Texture(Gdx.files.internal("PreferencesScreen/SkalaVerh.png"));
+        textureSkalaVerh.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteSkalaVerh = new Sprite(textureSkalaVerh);
         //Loading
         textureLoad1 = new Texture(Gdx.files.internal("Loading/Load0.png"));
         textureLoad1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -345,6 +399,59 @@ public class Assets {
 
         textureNovelBox = new Texture(Gdx.files.internal("Novel/novelBox.png"));
         spriteNovelBox = new Sprite(textureNovelBox);
+
+
+        textureEmpty = new Texture(Gdx.files.internal("Animations/Empty.png"));
+        textureEmpty.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteEmpty = new Sprite(textureEmpty);
+        //Health Bar
+        textureHealthBar1= new Texture(Gdx.files.internal("HUD/HealthBar1.png"));
+        textureHealthBar1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar1 = new Sprite(textureHealthBar1);
+
+        textureHealthBar2= new Texture(Gdx.files.internal("HUD/HealthBar2.png"));
+        textureHealthBar2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar2 = new Sprite(textureHealthBar2);
+
+        textureHealthBar3= new Texture(Gdx.files.internal("HUD/HealthBar3.png"));
+        textureHealthBar3.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar3 = new Sprite(textureHealthBar3);
+
+        textureHealthBar4= new Texture(Gdx.files.internal("HUD/HealthBar4.png"));
+        textureHealthBar4.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar4= new Sprite(textureHealthBar4);
+
+        textureHealthBar5= new Texture(Gdx.files.internal("HUD/HealthBar5.png"));
+        textureHealthBar5.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar5= new Sprite(textureHealthBar5);
+
+        textureHealthBar6= new Texture(Gdx.files.internal("HUD/HealthBar6.png"));
+        textureHealthBar6.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar6 = new Sprite(textureHealthBar6);
+
+        textureHealthBar7= new Texture(Gdx.files.internal("HUD/HealthBar7.png"));
+        textureHealthBar7.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar7 = new Sprite(textureHealthBar7);
+
+        textureHealthBar8= new Texture(Gdx.files.internal("HUD/HealthBar8.png"));
+        textureHealthBar8.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar8 = new Sprite(textureHealthBar8);
+
+        textureHealthBar9= new Texture(Gdx.files.internal("HUD/HealthBar9.png"));
+        textureHealthBar9.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar9 = new Sprite(textureHealthBar9);
+
+        textureHealthBar10= new Texture(Gdx.files.internal("HUD/HealthBar10.png"));
+        textureHealthBar10.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHealthBar10 = new Sprite(textureHealthBar10);
+
+        textureHeadGG= new Texture(Gdx.files.internal("HUD/HeadGG.png"));
+        textureHeadGG.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteHeadGG = new Sprite(textureHeadGG);
+
+        textureDetal= new Texture(Gdx.files.internal("HUD/Detal.png"));
+        textureDetal.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDetal = new Sprite(textureDetal);
 
     }
 }

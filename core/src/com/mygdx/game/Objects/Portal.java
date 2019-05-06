@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
 
 import static com.mygdx.game.MyGame.*;
-import static com.mygdx.game.MyGame.ENEMY_BIT;
 
 public class Portal extends Sprite {
     public World world;
@@ -13,11 +12,16 @@ public class Portal extends Sprite {
     private Texture texturePortal;
     private Sprite spritePortal;
     public boolean isTouched;
+    private boolean isFlip;
 
-    public Portal(World world, float x, float y, float CheckX, float CheckY) {
+    public Portal(World world, float x, float y, float CheckX, float CheckY, boolean flip) {
         this.world = world;
+        isFlip = flip;
         texturePortal = new Texture("Objects/Portal.png");
         spritePortal = new Sprite(texturePortal);
+        if(isFlip){
+            spritePortal.flip(true, false);
+        }
         setBounds(0, 0, 32 / PPM, 58 / PPM);
         isTouched = false;
         definePortal(x, y, CheckX, CheckY);
@@ -38,7 +42,7 @@ public class Portal extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 28/PPM);
         fdef.filter.categoryBits = PORTAL_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }

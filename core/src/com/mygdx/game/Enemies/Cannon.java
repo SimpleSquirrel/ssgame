@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Objects.Bullet;
+import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -24,7 +26,7 @@ public class Cannon extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean attack;
-    private static final float shootTimer = 2f;
+    private static final float shootTimer = 1f;
     private float stateTimer;
     private float timer;
     private Animation BTOOM;
@@ -33,9 +35,8 @@ public class Cannon extends Enemy {
     private Sprite btoom3;
     public Array<Bullet> cannonBullets = new Array<Bullet>();
 
-    public Cannon(World world, float x, float y) {
-        super(world, x, y);
-        System.out.println(x  + " " + y);
+    public Cannon(World world, float x, float y, boolean flip) {
+        super(world, x, y, flip);
         HP = 10;
         atlas = new TextureAtlas("Animations/Btoom.txt");
         btoom1 = atlas.createSprite("Btoom1");
@@ -45,9 +46,12 @@ public class Cannon extends Enemy {
         frames.add(btoom1);
         frames.add(btoom2);
         frames.add(btoom3);
-        BTOOM = new Animation(0.5f, frames);
+        BTOOM = new Animation(0.05f, frames);
         textureCannon = new Texture("Enemies/Cannon.png");
         spriteCannon = new Sprite(textureCannon);
+        if(isFlip){
+            spriteCannon.flip(true, false);
+        }
         setBounds(getX(), getY(), 32/PPM, 32/PPM);
         setToDestroy = false;
         destroyed = false;
@@ -56,21 +60,17 @@ public class Cannon extends Enemy {
     public void update(float delta){
         stateTimer += delta;
         timer += delta;
-        if(setToDestroy && !destroyed){
+        if(setToDestroy && !destroyed && stateTimer > 0.3f){
+            HUD.SCORE+=25;
             world.destroyBody(b2body);
             attack = false;
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            setRegion((Sprite)BTOOM.getKeyFrame(timer, false));
             stateTimer = 0;
             destroyed = true;
         }
-        else if(!destroyed) {
-            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-            setRegion(spriteCannon);
-        }
         if(attack){
             if (stateTimer >= shootTimer) {
-                if (!spriteCannon.isFlipX()) {
+                if (!isFlip) {
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM, 8/PPM);
                     bullet.bulletBody.setLinearVelocity(4f, 0);
                     cannonBullets.add(bullet);
@@ -82,17 +82,16 @@ public class Cannon extends Enemy {
                 stateTimer = 0;
             }
         }
+        else if(FOURboolean){
+        }
         for (Bullet bullet:cannonBullets){
-            bullet.update(delta);
+            bullet.update();
             if(bullet.isDestroyed())
                 playerBullets.removeValue(bullet, true);
         }
         }
 
     public void draw(Batch batch){
-        if((stateTimer < 1 || !destroyed)){
-            super.draw(batch);
-        }
         for (Bullet bullet:cannonBullets){
             if(!bullet.isDestroyed()) {
                 bullet.draw(batch);
@@ -147,12 +146,36 @@ public class Cannon extends Enemy {
     @Override
     public void deleted(){
         setToDestroy = true;
+        stateTimer = 0;
+    }
+
+    @Override
+    public void reverseVelocity(boolean x, boolean y) {
+
     }
 
     public void fire(){
         attack = true;
     }
+    @Override
     public boolean isDestroyed(){
+        if(destroyed){
+
+        }
         return destroyed;
+    }
+
+    public Sprite babax(){
+        Sprite sprite;
+        if(setToDestroy && !destroyed){
+            sprite = (Sprite) BTOOM.getKeyFrame(stateTimer, false);
+        }
+        else if (destroyed){
+            sprite = Assets.spriteEmpty;
+        }
+        else {
+            sprite = spriteCannon;
+        }
+        return sprite;
     }
 }

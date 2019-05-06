@@ -1,25 +1,33 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
 
 public class PreferencesScreen implements Screen {
-    MyGame game;
-    OrthographicCamera camera;
+    MyGame game;    //MyGame constructor
+    OrthographicCamera camera; //Creating a camera
+    SpriteBatch batch;
 
-    int music = 10;
-    int sound = 10;
-
+    double testX;
+    double testY;
+    double freeze=0.15f;
+    double timer=0;
+    Viewport viewport;
     public PreferencesScreen(MyGame game){
         this.game = game;
 
-        camera = new OrthographicCamera();
-
-        camera.setToOrtho(true, 1600, 900);
+        camera = new OrthographicCamera(); //Initialising camera
+        camera.setToOrtho(false, 1600, 900); //setting sizes for camera
+        batch = new SpriteBatch();
+        viewport=new FitViewport(1600,900 );
     }
 
     @Override
@@ -29,121 +37,167 @@ public class PreferencesScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl20.glClearColor(0,0,0,0);
-        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        timer+=delta;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            testX=Gdx.input.getX();
+            testY=Gdx.input.getY();
+            System.out.print(testX +"  "+(Gdx.graphics.getHeight()-testY));
+            System.out.println();
+        }
+        Gdx.gl.glClearColor(0, 0, 0.2f, 1); //setting bg color
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
 
+        camera.update(); //idk
+        game.batch.setProjectionMatrix(camera.combined); //idk
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new MenuScreen(game));
+        }
         camera.update();
-
         game.batch.begin();
-            game.batch.draw(Assets.spritePreferencesScreenBack, 0, 0);
-            if(sound != 0) {
-                game.batch.draw(Assets.spriteMusicButtonActive, 200, 250, 100, 100);
-                if(Gdx.input.isTouched()){
-                    game.batch.draw(Assets.spriteMusicScroller0, 600, 250, 800, 100);
+        game.batch.draw(Assets.spritePreferencesScreenBack, 0, 0,1600,900);
+        game.batch.draw(Assets.spriteBigSkalaNiz, 0, 0);
+        game.batch.draw(Assets.spriteBigSkalaVerh, 0, 0);
+        game.batch.draw(Assets.spriteGrom, 0, 0);
+        game.batch.draw(Assets.spriteGuchnistMuz, 0, 0);
+        game.batch.draw(Assets.spriteGuchnistZv, 0, 0);
+        game.batch.draw(Assets.spriteNadpisMusica, 0, 0);
+        game.batch.draw(Assets.spriteNadpisZvuki, 0, 0);
+        game.batch.draw(Assets.spriteNoteList, 0, 0);
+        game.batch.draw(Assets.spritePoleProtsVerh, 0, 0);
+        game.batch.draw(Assets.spritePoleProtsNiz, 0, 0);
+        game.batch.draw(Assets.spriteSkalaVerh, 0, 0);
+        game.batch.draw(Assets.spriteSkalaNiz, 0, 0);
+        game.batch.draw(Assets.spriteTurnDownInactive, 657, 532,100,50);
+        game.batch.draw(Assets.spriteTurnUpInactive, 767, 532,100,50);
+        game.batch.draw(Assets.spriteTurnDownInactive, 657, 117,100,50);
+        game.batch.draw(Assets.spriteTurnUpInactive, 767, 117,100,50);
+        if(Gdx.input.getX() <645  && Gdx.input.getX() > 561 && Gdx.input.getY() >258   && Gdx.input.getY() <316 ) { //setting bounds of NewGameButton
+            game.batch.draw(Assets.spriteTurnDownActive1, 657, 532,100,50);
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
+                if(timer>freeze) {
+                    MyGame.MUZIC--;
+                    timer=0;
+
                 }
             }
-            else {
-                game.batch.draw(Assets.spriteMusicButtonInactive, 200, 250, 100, 100);
-            }
-            if(music != 0) {
-                game.batch.draw(Assets.spriteMusicButtonActive, 200, 550, 100, 100);
-                if(Gdx.input.isTouched()){
-                    game.batch.draw(Assets.spriteMusicScroller0, 600, 550, 800, 100);
+        }
+        if(Gdx.input.getX() <739  && Gdx.input.getX() > 655 && Gdx.input.getY() >257   && Gdx.input.getY() <316 ) { //setting bounds of NewGameButton
+            game.batch.draw(Assets.spriteTurnUpActive1, 767, 532,100,50);
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
+                if(timer>freeze) {
+                    MyGame.MUZIC++;
+                    timer=0;
                 }
             }
-            else{
-                game.batch.draw(Assets.spriteMusicButtonInactive, 200, 550, 100, 100);
-            }
-            if(sound >= 0) {
-                game.batch.draw(Assets.spriteTurnDown, 600, 350);
-                if(Gdx.input.isTouched() && sound != 0){
-                    sound -= 1;
+        }
+        if(MyGame.MUZIC<0){
+            MyGame.MUZIC=0;
+        }
+        if(MyGame.MUZIC>11){
+            MyGame.MUZIC=11;
+        }
+        if(MyGame.SOUND<0){
+            MyGame.SOUND=0;
+        }
+        if(MyGame.SOUND>11){
+            MyGame.SOUND=11;
+        }
+        switch (MyGame.MUZIC){
+            case 0:
+                game.batch.draw(Assets.spriteShesternyaVerh, 0, 0);
+                break;
+            case 1:
+                game.batch.draw(Assets.spriteShesternyaVerh, 66, 0);
+                break;
+            case 2:
+                game.batch.draw(Assets.spriteShesternyaVerh, 132, 0);
+                break;
+            case 3:
+                game.batch.draw(Assets.spriteShesternyaVerh, 198, 0);
+                break;
+            case 4:
+                game.batch.draw(Assets.spriteShesternyaVerh, 264, 0);
+                break;
+            case 5:
+                game.batch.draw(Assets.spriteShesternyaVerh, 330, 0);
+                break;
+            case 6:
+                game.batch.draw(Assets.spriteShesternyaVerh, 396, 0);
+                break;
+            case 7:
+                game.batch.draw(Assets.spriteShesternyaVerh, 462, 0);
+                break;
+            case 8:
+                game.batch.draw(Assets.spriteShesternyaVerh, 528, 0);
+                break;
+            case 9:
+                game.batch.draw(Assets.spriteShesternyaVerh, 594, 0);
+                break;
+            case 10:
+                game.batch.draw(Assets.spriteShesternyaVerh, 700, 0);
+                break;
+            case 11:
+                game.batch.draw(Assets.spriteShesternyaVerh, 760, 0);
+                break;
+        }
+        if(Gdx.input.getX() <645  && Gdx.input.getX() > 561 && Gdx.input.getY() >611   && Gdx.input.getY() <672 ) { //setting bounds of NewGameButton
+            game.batch.draw(Assets.spriteTurnDownActive2, 657, 117,100,50);
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
+                if(timer>freeze) {
+                    MyGame.SOUND--;
+                    timer=0;
+
                 }
             }
-            if(sound <= 10) {
-                game.batch.draw(Assets.spriteTurnUp, 680, 350);
-                if(Gdx.input.isTouched() && sound != 10){
-                    sound += 1;
+        }
+        if(Gdx.input.getX() <739  && Gdx.input.getX() > 655 && Gdx.input.getY() >611   && Gdx.input.getY() <670 ) { //setting bounds of NewGameButton
+            game.batch.draw(Assets.spriteTurnUpActive2, 767, 117,100,50);
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { //creating an event
+                if(timer>freeze) {
+                    MyGame.SOUND++;
+                    timer=0;
                 }
             }
-            if(music >= 0) {
-                game.batch.draw(Assets.spriteTurnDown, 600, 650);
-                if(Gdx.input.isTouched() && music != 0){
-                    music -= 1;
-                }
-            }
-            if(music <= 10) {
-                game.batch.draw(Assets.spriteTurnUp, 680, 650);
-                if(Gdx.input.isTouched() && music != 10){
-                    music += 1;
-                }
-            }
-            if(sound == 10) {
-                game.batch.draw(Assets.spriteMusicScroller100, 600, 250, 800, 100);
-            }
-            if(music == 10) {
-                game.batch.draw(Assets.spriteMusicScroller100, 600, 550, 800, 100);
-            }
-            if(sound == 9) {
-                game.batch.draw(Assets.spriteMusicScroller90, 600, 250, 800, 100);
-            }
-            if(music == 9) {
-            game.batch.draw(Assets.spriteMusicScroller90, 600, 550, 800, 100);
-            }
-            if(sound == 8) {
-                game.batch.draw(Assets.spriteMusicScroller80, 600, 250, 800, 100);
-            }
-            if(music == 8) {
-                game.batch.draw(Assets.spriteMusicScroller80, 600, 550, 800, 100);
-            }
-            if(sound == 7) {
-                game.batch.draw(Assets.spriteMusicScroller70, 600, 250, 800, 100);
-            }
-            if(music == 7) {
-                game.batch.draw(Assets.spriteMusicScroller70, 600, 550, 800, 100);
-            }
-            if(sound == 6) {
-                game.batch.draw(Assets.spriteMusicScroller60, 600, 250, 800, 100);
-            }
-            if(music == 6) {
-                game.batch.draw(Assets.spriteMusicScroller60, 600, 550, 800, 100);
-            }
-            if(sound == 5) {
-                game.batch.draw(Assets.spriteMusicScroller50, 600, 250, 800, 100);
-            }
-            if(music == 5) {
-                game.batch.draw(Assets.spriteMusicScroller50, 600, 550, 800, 100);
-            }
-            if(sound == 4) {
-                game.batch.draw(Assets.spriteMusicScroller40, 600, 250, 800, 100);
-            }
-            if(music == 4) {
-                game.batch.draw(Assets.spriteMusicScroller40, 600, 550, 800, 100);
-            }
-            if(sound == 3) {
-                game.batch.draw(Assets.spriteMusicScroller30, 600, 250, 800, 100);
-            }
-            if(music == 3) {
-                game.batch.draw(Assets.spriteMusicScroller30, 600, 550, 800, 100);
-            }
-            if(sound == 2) {
-                game.batch.draw(Assets.spriteMusicScroller20, 600, 250, 800, 100);
-            }
-            if(music == 2) {
-                game.batch.draw(Assets.spriteMusicScroller20, 600, 550, 800, 100);
-            }
-            if(sound == 1) {
-                game.batch.draw(Assets.spriteMusicScroller10, 600, 250, 800, 100);
-            }
-            if(music == 1) {
-                game.batch.draw(Assets.spriteMusicScroller10, 600, 550, 800, 100);
-            }
-            if(sound == 0) {
-                game.batch.draw(Assets.spriteMusicScroller0, 600, 250, 800, 100);
-            }
-            if(music == 0) {
-                game.batch.draw(Assets.spriteMusicScroller0, 600, 550, 800, 100);
-            }
+        }
+        switch (MyGame.SOUND){
+            case 0:
+                game.batch.draw(Assets.spriteShesternyaNiz, -10, 0);
+                break;
+            case 1:
+                game.batch.draw(Assets.spriteShesternyaNiz, 66, 0);
+                break;
+            case 2:
+                game.batch.draw(Assets.spriteShesternyaNiz, 132, 0);
+                break;
+            case 3:
+                game.batch.draw(Assets.spriteShesternyaNiz, 198, 0);
+                break;
+            case 4:
+                game.batch.draw(Assets.spriteShesternyaNiz, 264, 0);
+                break;
+            case 5:
+                game.batch.draw(Assets.spriteShesternyaNiz, 330, 0);
+                break;
+            case 6:
+                game.batch.draw(Assets.spriteShesternyaNiz, 396, 0);
+                break;
+            case 7:
+                game.batch.draw(Assets.spriteShesternyaNiz, 462, 0);
+                break;
+            case 8:
+                game.batch.draw(Assets.spriteShesternyaNiz, 528, 0);
+                break;
+            case 9:
+                game.batch.draw(Assets.spriteShesternyaNiz, 594, 0);
+                break;
+            case 10:
+                game.batch.draw(Assets.spriteShesternyaNiz, 700, 0);
+                break;
+            case 11:
+                game.batch.draw(Assets.spriteShesternyaNiz, 760, 0);
+                break;
+        }
         game.batch.end();
     }
 
@@ -153,7 +207,7 @@ public class PreferencesScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override

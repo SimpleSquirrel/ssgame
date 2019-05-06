@@ -1,0 +1,33 @@
+Biter.png
+size: 60, 320
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Biter1
+  rotate: false
+  xy: 0, 0
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+Biter2
+  rotate: false
+  xy: 0, 80
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+Biter3
+  rotate: false
+  xy: 0, 160
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+Biter4
+  rotate: false
+  xy: 0, 240
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1

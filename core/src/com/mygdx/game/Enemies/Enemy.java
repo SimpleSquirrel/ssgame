@@ -1,18 +1,30 @@
 package com.mygdx.game.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 
 public abstract class Enemy extends Sprite {
     protected World world;
-    protected GameScreenLevel1 screen;
     public Body b2body;
+    public boolean attack;
+    protected boolean isFlip;
     protected int HP;
-    public Enemy(World world, float x, float y){
+    protected Vector2 velocity;
+    protected float check;
+    public static boolean rageActive;
+    protected final static float FOURtimer = 1f;
+    public static boolean FOURboolean;
+    protected int counter;
+    public Enemy(World world, float x, float y, boolean flip){
+        isFlip = flip;
         this.world = world;
         setPosition(x, y);
+        rageActive = false;
+        FOURboolean = false;
+        attack = false;
+        counter = 1;
         defineEnemy();
     }
 
@@ -21,4 +33,6 @@ public abstract class Enemy extends Sprite {
     public abstract void swordHit();
     public abstract void fire();
     public abstract void deleted();
+    public abstract void reverseVelocity(boolean x, boolean y);
+    public abstract boolean isDestroyed();
 }
