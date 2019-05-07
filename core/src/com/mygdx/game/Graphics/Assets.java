@@ -178,12 +178,6 @@ public class Assets {
     public static Texture textureHealthBar8;
     public static Sprite spriteHealthBar8;
 
-    //Novel
-    public static Texture textureCatSilence;
-    public static Sprite spriteCatSilence;
-    public static Texture textureNovelBox;
-    public static Sprite spriteNovelBox;
-
     public static Texture textureHealthBar9;
     public static Sprite spriteHealthBar9;
 
@@ -192,6 +186,27 @@ public class Assets {
 
     public static Texture textureDetal;
     public static Sprite spriteDetal;
+
+    //Novel
+    public static Texture textureCatSilence;
+    public static Sprite spriteCatSilence;
+    public static Texture textureNovelBox;
+    public static Sprite spriteNovelBox;
+
+    //Weapon
+    public static Texture textureLable;
+    public static Sprite spriteLable;
+    public static Texture textureLightLable;
+    public static Sprite spriteLightLable;
+    public static Texture texturePaper;
+    public static Sprite spritePaper;
+    public static Texture textureRobot;
+    public static Sprite spriteRobot;
+    public static Texture textureClosedDoor;
+    public static Sprite spriteClosedDoor;
+    public static Texture textureOpenedDoor;
+    public static Sprite spriteOpenedDoor;
+
     public static void load() {
         //Menu
         textureMenuScreenBack = new Texture(Gdx.files.internal("MenuScreen/Back.png"));
@@ -453,5 +468,22 @@ public class Assets {
         textureDetal.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteDetal = new Sprite(textureDetal);
 
+        textureLable = new Texture(Gdx.files.internal("WeaponScreen/defaultBox.png"));
+        spriteLable = new Sprite(textureLable);
+
+        textureLightLable = new Texture(Gdx.files.internal("WeaponScreen/lightBox.png"));
+        spriteLightLable = new Sprite(textureLightLable);
+
+        texturePaper = new Texture(Gdx.files.internal("WeaponScreen/paper.png"));
+        spritePaper = new Sprite(texturePaper);
+
+        textureRobot = new Texture(Gdx.files.internal("WeaponScreen/robot.png"));
+        spriteRobot = new Sprite(textureRobot);
+
+        textureClosedDoor = new Texture(Gdx.files.internal("WeaponScreen/closedDoor.png"));
+        spriteClosedDoor = new Sprite(textureClosedDoor);
+
+        textureOpenedDoor = new Texture(Gdx.files.internal("WeaponScreen/openedDoor.png"));
+        spriteOpenedDoor = new Sprite(textureOpenedDoor);
     }
 }

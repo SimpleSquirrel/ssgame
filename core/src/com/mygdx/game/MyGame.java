@@ -9,7 +9,12 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
+import com.mygdx.game.Objects.Walls;
 import com.mygdx.game.Screens.MenuScreen;
+import com.mygdx.game.Screens.NovelScreen;
+import com.mygdx.game.Screens.WeaponScreen;
+
+import java.awt.*;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
@@ -46,8 +51,8 @@ public class MyGame extends Game {
 	public void create() {
 		Assets.load();
 		batch = new SpriteBatch();
-		this.setScreen(new MenuScreen(this));
 		preferences = Gdx.app.getPreferences("SaveData");
+		this.setScreen(new MenuScreen(this));
 
 	}
 	public void render(){
