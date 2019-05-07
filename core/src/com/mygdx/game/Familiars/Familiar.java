@@ -2,6 +2,7 @@ package com.mygdx.game.Familiars;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Enemies.Enemy;
@@ -27,7 +28,8 @@ public class Familiar extends Sprite {
     public static float timer1=couldownRage;
     public static float timer2=couldownRage;
     private boolean stop;
-    private final float FOURtimer = 0.5f;
+    private final float FOURtimer = 1f;
+    private Sound FOUR = Gdx.audio.newSound(Gdx.files.internal("Sound/FOUR.wav"));
     public Familiar(MyGame game, Player player){
         this.game = game;
         batch=game.batch;
@@ -153,6 +155,7 @@ public class Familiar extends Sprite {
             case FOUR:
                 if(timer2 >= couldownFOUR) {
                     stop = true;
+                    FOUR.play(0.2f);
                     timer2 = 0;
                 }
                 break;

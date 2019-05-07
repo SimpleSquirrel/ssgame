@@ -79,7 +79,6 @@ public class GameScreenLevel2 implements Screen {
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 2);
-        game.preferences.putString("weapon", "fastShotgun");
         game.preferences.flush();
         stage = new Stage(new ScreenViewport());
 
@@ -168,6 +167,9 @@ public class GameScreenLevel2 implements Screen {
                 for (Biter biter:biters){
                     biter.deleted();
                 }
+                for (Bullet bullet:playerBullets){
+                    bullet.deleteBullet();
+                }
                 game.setScreen(new DeathScreen(game));
             }
         } else {
@@ -231,6 +233,9 @@ public class GameScreenLevel2 implements Screen {
             for (Biter biter:biters){
                 biter.deleted();
             }
+            for (Bullet bullet:playerBullets){
+                bullet.deleteBullet();
+            }
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);
@@ -285,6 +290,9 @@ public class GameScreenLevel2 implements Screen {
                     }
                     for (Biter biter:biters){
                         biter.deleted();
+                    }
+                    for (Bullet bullet:playerBullets){
+                        bullet.deleteBullet();
                     }
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;

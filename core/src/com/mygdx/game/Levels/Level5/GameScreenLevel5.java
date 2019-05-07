@@ -55,6 +55,7 @@ public class GameScreenLevel5 implements Screen {
 
     private VedmeDIO vedmeDIO;
     public static float destroyTimer;
+    private float timer;
     public GameScreenLevel5(MyGame game){
         this.game = game;
         hud = new HUD();
@@ -77,7 +78,7 @@ public class GameScreenLevel5 implements Screen {
 
         vedmeDIO = new VedmeDIO(world, 32*46.5f/PPM, 32/PPM, false);
 
-        player = new Player(world, 32*49/PPM, 32*6/PPM);
+        player = new Player(world, 32*44/PPM, 32*6/PPM);
 
         weapon = new Weapon(game, world);
 
@@ -85,7 +86,7 @@ public class GameScreenLevel5 implements Screen {
     }
     private void input(float dt) {
         if (!isPaused) {
-            if (player.b2body.getPosition().y < -10 || player.isDead()) {
+            if (player.b2body.getPosition().y < -10 || (player.isDead() && timer > 2f)) {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
@@ -99,11 +100,18 @@ public class GameScreenLevel5 implements Screen {
         }
 
     public void update(float dt) {
+        timer += dt;
         input(dt);
         world.step(1 / 60f, 6, 2);
         destroyTimer += dt;
         vedmeDIO.update(dt);
+        if(vedmeDIO.isDestroyed()){
+            timer = 0;
+        }
         player.update(dt);
+        if(player.isDead()){
+            timer = 0;
+        }
         weapon.update(dt, player.b2body.getPosition());
         camera.update();
         renderer.setView(camera);
@@ -152,7 +160,7 @@ public class GameScreenLevel5 implements Screen {
 
             renderer.render();
 
-            b2dr.render(world, camera.combined);
+            //b2dr.render(world, camera.combined);
 
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
@@ -192,16 +200,15 @@ public class GameScreenLevel5 implements Screen {
             else if(HUD.hp()>90&&HUD.hp()<=100){
                 game.batch.draw(Assets.spriteHealthBar10, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
             }
-
-            game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
-            game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
-            weapon.drawBullet();
             if(!vedmeDIO.isDestroyed()) {
                 game.batch.draw(vedmeDIO.getSpriteStand(delta), vedmeDIO.b2body.getPosition().x - 35 / PPM, vedmeDIO.b2body.getPosition().y - 55 / PPM, 65 / PPM, 125 / PPM);
             }
             else {
                 game.batch.draw(vedmeDIO.getSpriteFall(delta), vedmeDIO.b2body.getPosition().x - 35 / PPM, vedmeDIO.b2body.getPosition().y - 55 / PPM, 150 / PPM, 125 / PPM);
             }
+            game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 32 / PPM, 64 / PPM);
+            game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 32 / PPM, 64 / PPM);
+            weapon.drawBullet();
             game.batch.end();
             stage.act();
             stage.draw();

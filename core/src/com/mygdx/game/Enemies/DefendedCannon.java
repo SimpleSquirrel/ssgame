@@ -156,6 +156,7 @@ public class DefendedCannon extends Enemy {
         HP -= 0;
         if(HP <= 0) {
             deleted();
+            explosion.play(0.1f);
         }
     }
 
@@ -163,6 +164,7 @@ public class DefendedCannon extends Enemy {
     public void swordHit() {
         HP -= 10;
         if(HP <= 0) {
+            explosion.play(0.1f);
             deleted();
         }
     }

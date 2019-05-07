@@ -190,12 +190,14 @@ public class Biter extends Enemy {
         if(rageActive){
             HP = 0;
             if(HP <= 0){
+                explosion.play(0.1f);
                 deleted();
             }
         }
         else {
             HP -= 17;
             if(HP <= 0){
+                explosion.play(0.1f);
                 deleted();
             }
         }
@@ -205,6 +207,7 @@ public class Biter extends Enemy {
     public void swordHit() {
         HP -= 50;
         if(HP <= 0){
+            explosion.play(0.1f);
             deleted();
         }
     }

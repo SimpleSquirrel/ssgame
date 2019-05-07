@@ -135,6 +135,9 @@ public class GameScreenLevel3 implements Screen {
                 for (Cactus cactus:cactuses){
                     cactus.deleted();
                 }
+                for (Bullet bullet:playerBullets){
+                    bullet.deleteBullet();
+                }
                 game.setScreen(new DeathScreen(game));
             }
         } else {
@@ -186,6 +189,9 @@ public class GameScreenLevel3 implements Screen {
             for (Cactus cactus:cactuses){
                 cactus.deleted();
             }
+            for (Bullet bullet:playerBullets){
+                bullet.deleteBullet();
+            }
             game.preferences.putInteger("score", hud.SCORE);
             game.preferences.putInteger("location", 4);
             game.preferences.flush();
@@ -228,6 +234,9 @@ public class GameScreenLevel3 implements Screen {
                     }
                     for (Cactus cactus:cactuses){
                         cactus.deleted();
+                    }
+                    for (Bullet bullet:playerBullets){
+                        bullet.deleteBullet();
                     }
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;

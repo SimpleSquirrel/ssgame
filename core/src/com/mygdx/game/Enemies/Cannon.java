@@ -132,6 +132,7 @@ public class Cannon extends Enemy {
     public void bulletHit() {
         HP -= 10;
         if(HP <= 0) {
+            explosion.play(0.1f);
             deleted();
         }
     }
@@ -140,6 +141,7 @@ public class Cannon extends Enemy {
     public void swordHit() {
         HP -= 20;
         if(HP <= 0) {
+            explosion.play(0.1f);
             deleted();
         }
     }

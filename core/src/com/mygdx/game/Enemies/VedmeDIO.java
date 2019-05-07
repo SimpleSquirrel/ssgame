@@ -43,7 +43,7 @@ public class VedmeDIO extends Enemy {
         Array<Sprite> frames = new Array<Sprite>();
         frames.add(spriteBearStand1);
         frames.add(spriteBearStand2);
-        animationBearStand = new Animation(0.1f, frames);
+        animationBearStand = new Animation(0.2f, frames);
         frames.clear();
         atlasFall = new TextureAtlas("Enemies/BearDioFall.txt");
         spriteBearFall1 = atlasFall.createSprite("BearFall1");

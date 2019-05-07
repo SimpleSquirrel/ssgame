@@ -1,5 +1,7 @@
 package com.mygdx.game.Enemies;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -17,6 +19,7 @@ public abstract class Enemy extends Sprite {
     protected final static float FOURtimer = 1f;
     public static boolean FOURboolean;
     protected int counter;
+    protected Sound explosion = Gdx.audio.newSound(Gdx.files.internal("Sound/explosion.mp3"));
     public Enemy(World world, float x, float y, boolean flip){
         isFlip = flip;
         this.world = world;
