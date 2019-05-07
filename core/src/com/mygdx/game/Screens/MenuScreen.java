@@ -100,10 +100,28 @@ public class MenuScreen implements Screen {
 
                 if (Gdx.input.isTouched()) { //creating an event
                     if(game.preferences.getInteger("level") != 1 || game.preferences.getInteger("location") != 1){
+                        game.preferences.putBoolean("WoodenChest1IsOpened", false);
+                        game.preferences.putBoolean("WoodenChest2IsOpened", false);
+                        game.preferences.putBoolean("WoodenChest3IsOpened", false);
+                        game.preferences.putBoolean("PrestigeChest1IsOpened", false);
+                        game.preferences.putBoolean("IronChest1IsOpened", false);
+                        game.preferences.putBoolean("IronChest2IsOpened", false);
+                        game.preferences.putBoolean("IronChest3IsOpened", false);
+                        game.preferences.putBoolean("PrestigeChest2IsOpened", false);
+                        game.preferences.flush();
                         game.setScreen(new NewGameScreen(game));
                         this.dispose();
                     }
                     else {
+                        game.preferences.putBoolean("WoodenChest1IsOpened", false);
+                        game.preferences.putBoolean("WoodenChest2IsOpened", false);
+                        game.preferences.putBoolean("WoodenChest3IsOpened", false);
+                        game.preferences.putBoolean("PrestigeChest1IsOpened", false);
+                        game.preferences.putBoolean("IronChest1IsOpened", false);
+                        game.preferences.putBoolean("IronChest2IsOpened", false);
+                        game.preferences.putBoolean("IronChest3IsOpened", false);
+                        game.preferences.putBoolean("PrestigeChest2IsOpened", false);
+                        game.preferences.flush();
                         game.setScreen(new GameScreenLevel1(game)); //changing screen
                         this.dispose();
                     }

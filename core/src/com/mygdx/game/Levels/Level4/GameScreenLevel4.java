@@ -25,6 +25,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.*;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.Graphics.HUD.score;
@@ -121,7 +122,7 @@ public class GameScreenLevel4 implements Screen {
         cactuses.add(cactus2);
         enemies.add(cactus2);
         portal = new Portal(world, 32*50/PPM, 32*16/PPM, 0, 29/PPM, true);
-        luxuryChest = new LuxuryChest(world, 32*11/PPM, 32*24/PPM, 0, 16/PPM, true);
+        luxuryChest = new LuxuryChest(world, 32*11/PPM, 32*24/PPM, 0, 16/PPM, true, game, game.preferences.getBoolean("PrestigeChest1IsOpened"));
         player = new Player(world, 32/PPM, 32*6/PPM);
 
         familiar = new Familiar(game, player);
@@ -207,11 +208,13 @@ public class GameScreenLevel4 implements Screen {
             for (Cactus cactus:cactuses){
                 cactus.deleted();
             }
-            game.setScreen(new GameScreenLevel4(game));
+            game.preferences.putInteger("location", 5);
+            game.preferences.flush();
+            game.setScreen(new LoadScreen(game));
         }
         luxuryChest.update(dt);
-        if(luxuryChest.isTouched){
-            game.preferences.putBoolean("fastShotgun", true);
+        if(luxuryChest.thisChestIsOpened()){
+            game.preferences.putBoolean("PrestigeChest1IsOpened", true);
             game.preferences.flush();
         }
         player.update(dt);

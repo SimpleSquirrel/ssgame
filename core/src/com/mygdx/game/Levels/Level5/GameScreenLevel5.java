@@ -1,4 +1,4 @@
-package com.mygdx.game.Levels.Level3;
+package com.mygdx.game.Levels.Level5;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,28 +20,27 @@ import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
+import com.mygdx.game.Levels.Level4.WorldCreatorLevel4;
 import com.mygdx.game.Levels.WorldContactListener;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Bullet;
-import com.mygdx.game.Objects.Chest;
+import com.mygdx.game.Objects.LuxuryChest;
 import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
-import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.Graphics.HUD.score;
 import static com.mygdx.game.MyGame.*;
 
-public class GameScreenLevel3 implements Screen {
+public class GameScreenLevel5 implements Screen {
     private MyGame game;
     private static HUD hud;
     private static Stage stage;
-    private Familiar familiar;
-    private Weapon weapon;
 
     private Player player;
+    private Weapon weapon;
 
     private static boolean isPaused;
 
@@ -53,26 +52,13 @@ public class GameScreenLevel3 implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
-    private Biter biter;
-    private Biter biter1;
-    private Biter biter2;
-    private Biter biter3;
-    private Cactus cactus;
-    private Cactus cactus1;
-    private Cactus cactus2;
-    private Cactus cactus3;
-    private Cactus cactus4;
-    private Cactus cactus5;
-    private Portal portal;
-    private Chest chest;
+
+    private VedmeDIO vedmeDIO;
     public static float destroyTimer;
-    public GameScreenLevel3(MyGame game){
+    public GameScreenLevel5(MyGame game){
         this.game = game;
         hud = new HUD();
         hud.SCORE = game.preferences.getInteger("score");
-        game.preferences.putInteger("familiar1", 1);
-        game.preferences.putInteger("familiar2", 3);
-        game.preferences.flush();
         stage = new Stage(new ScreenViewport());
 
         camera = new OrthographicCamera();
@@ -82,39 +68,16 @@ public class GameScreenLevel3 implements Screen {
         viewPort = new FitViewport(1600 / PPM, 900 / PPM, camera);
 
         TmxMapLoader mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Level1Loc3.tmx");
+        map = mapLoader.load("Level1Loc5.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / PPM);
 
         world = new World(new Vector2(0, -40), true);
         b2dr = new Box2DDebugRenderer();
-        new WorldCreatorLevel3(world, map);
+        new WorldCreatorLevel5(world, map);
 
-        biter = new Biter(world, 32*22/PPM, 32*4/PPM, false);
-        biters.add(biter);
-        biter1 = new Biter(world, 32*24/PPM, 32*4/PPM, false);
-        biters.add(biter1);
-        biter2 = new Biter(world, 32*33/PPM, 32*4/PPM, false);
-        biters.add(biter2);
-        biter3 = new Biter(world, 32*49/PPM, 32*4/PPM, false);
-        biters.add(biter3);
-        cactus = new Cactus(world, 32*25/PPM, 32*25/PPM, false);
-        cactuses.add(cactus);
-        cactus1 = new Cactus(world, 32*45/PPM, 32*10/PPM, false);
-        cactuses.add(cactus1);
-        cactus2 = new Cactus(world, 32*30/PPM, 32*20/PPM, false);
-        cactuses.add(cactus2);
-        cactus3 = new Cactus(world, 32*18/PPM, 32*16/PPM, false);
-        cactuses.add(cactus3);
-        cactus4 = new Cactus(world, 32*8/PPM, 32*12/PPM, false);
-        cactuses.add(cactus4);
-        cactus5 = new Cactus(world, 32*30/PPM, 32*25/PPM, false);
-        cactuses.add(cactus5);
-        portal = new Portal(world, 16/PPM, 32*16/PPM, 0, 29/PPM, true);
-        chest = new Chest(world, 32*16/PPM, 32*24/PPM, 0, 16/PPM, true, game, game.preferences.getBoolean("WoodenChest3IsOpened"));
+        vedmeDIO = new VedmeDIO(world, 32*46.5f/PPM, 32/PPM, false);
 
-        player = new Player(world, 32/PPM, 32/PPM);
-
-        familiar = new Familiar(game, player);
+        player = new Player(world, 32*49/PPM, 32*6/PPM);
 
         weapon = new Weapon(game, world);
 
@@ -123,81 +86,24 @@ public class GameScreenLevel3 implements Screen {
     private void input(float dt) {
         if (!isPaused) {
             if (player.b2body.getPosition().y < -10 || player.isDead()) {
-                for (Cannon cannon:cannons){
-                    cannon.deleted();
-                }
-                for (DefendedCannon defendedCannon:defendedCannons){
-                    defendedCannon.deleted();
-                }
-                for (Biter biter:biters){
-                    biter.deleted();
-                }
-                for (Cactus cactus:cactuses){
-                    cactus.deleted();
+                for (Bullet bullet:playerBullets){
+                    bullet.deleteBullet();
                 }
                 game.setScreen(new DeathScreen(game));
             }
-        } else {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-                isPaused = !isPaused;
+            } else {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                    isPaused = !isPaused;
+                }
             }
         }
-    }
 
     public void update(float dt) {
         input(dt);
         world.step(1 / 60f, 6, 2);
         destroyTimer += dt;
-        for (Cannon cannon:cannons) {
-            cannon.update(dt);
-            if(cannon.cannonBullets.isEmpty() && cannon.isDestroyed()){
-                cannons.removeValue(cannon, true);
-            }
-        }
-        for (DefendedCannon defendedCannon:defendedCannons){
-            defendedCannon.update(dt);
-            if(defendedCannon.defendedCannonBullets.isEmpty() && defendedCannon.isDestroyed()){
-                defendedCannons.removeValue(defendedCannon, true);
-            }
-        }
-        for (Biter biter:biters){
-            biter.update(dt, player.b2body.getPosition().x);
-            if(biter.isDestroyed() && destroyTimer > 0.4f){
-                biters.removeValue(biter, true);
-            }
-        }
-        for (Cactus cactus:cactuses){
-            cactus.update(dt);
-            if(cactus.isDestroyed() && destroyTimer > 0.4f){
-                cactuses.removeValue(cactus, true);
-            }
-        }
-        portal.update();
-        if(portal.isTouched){
-            for (Cannon cannon:cannons){
-                cannon.deleted();
-            }
-            for (DefendedCannon defendedCannon:defendedCannons){
-                defendedCannon.deleted();
-            }
-            for (Biter biter:biters){
-                biter.deleted();
-            }
-            for (Cactus cactus:cactuses){
-                cactus.deleted();
-            }
-            game.preferences.putInteger("score", hud.SCORE);
-            game.preferences.putInteger("location", 4);
-            game.preferences.flush();
-            game.setScreen(new LoadScreen(game));
-        }
-        chest.update(dt);
-        if(chest.thisChestIsTouched()){
-            game.preferences.putBoolean("WoodenChest3IsOpened", true);
-            game.preferences.flush();
-        }
+        vedmeDIO.update(dt);
         player.update(dt);
-        familiar.update(dt);
         weapon.update(dt, player.b2body.getPosition());
         camera.update();
         renderer.setView(camera);
@@ -217,17 +123,8 @@ public class GameScreenLevel3 implements Screen {
             if(Gdx.input.getX() <250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
                 game.batch.draw(Assets.spriteDeathScreenDaActive, 300/PPM, 200/PPM, 300/PPM, 150/PPM); //Drawing Active
                 if (Gdx.input.isTouched()) { //creating an event
-                    for (Cannon cannon:cannons){
-                        cannon.deleted();
-                    }
-                    for (DefendedCannon defendedCannon:defendedCannons){
-                        defendedCannon.deleted();
-                    }
-                    for (Biter biter:biters){
-                        biter.deleted();
-                    }
-                    for (Cactus cactus:cactuses){
-                        cactus.deleted();
+                    for (Bullet bullet:playerBullets){
+                        bullet.deleteBullet();
                     }
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;
@@ -259,11 +156,9 @@ public class GameScreenLevel3 implements Screen {
 
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
-            familiar.drawFamiliar(delta,Familiar.currentFamiliar1,Familiar.currentFamiliar2);
             game.batch.begin();
             game.batch.draw(Assets.spriteHeadGG, 30 / PPM, 840 / PPM, 40 / PPM, 40 / PPM);
             game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
-            //familiar reload
             hud.render();
             stage.addActor(score);
             //Health bar
@@ -297,39 +192,16 @@ public class GameScreenLevel3 implements Screen {
             else if(HUD.hp()>90&&HUD.hp()<=100){
                 game.batch.draw(Assets.spriteHealthBar10, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);
             }
-            weapon.drawBullet();
+
             game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
             game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
-            for (Cannon cannon:cannons) {
-                cannon.draw(game.batch);
-                game.batch.draw(cannon.babax(), cannon.b2body.getPosition().x - 15/PPM, cannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
+            weapon.drawBullet();
+            if(!vedmeDIO.isDestroyed()) {
+                game.batch.draw(vedmeDIO.getSpriteStand(delta), vedmeDIO.b2body.getPosition().x - 35 / PPM, vedmeDIO.b2body.getPosition().y - 55 / PPM, 65 / PPM, 125 / PPM);
             }
-            for (DefendedCannon defendedCannon:defendedCannons){
-                defendedCannon.draw(game.batch);
-                game.batch.draw(defendedCannon.babax(), defendedCannon.b2body.getPosition().x - 15/PPM, defendedCannon.b2body.getPosition().y - 16/PPM, 32/PPM, 32/PPM);
+            else {
+                game.batch.draw(vedmeDIO.getSpriteFall(delta), vedmeDIO.b2body.getPosition().x - 35 / PPM, vedmeDIO.b2body.getPosition().y - 55 / PPM, 150 / PPM, 125 / PPM);
             }
-            for (VerticalCannon verticalCannon:verticalCannons){
-                verticalCannon.draw(game.batch);
-                game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 15/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
-            }
-            for (Biter biter:biters){
-                if(biter.isSetToDestroy()){
-                    game.batch.draw(biter.babax(delta), biter.positionX - 30/PPM, biter.positionY - 45/PPM, 60/PPM, 80/PPM);
-                }
-                else {
-                    game.batch.draw(biter.spriteBiter(delta), biter.b2body.getPosition().x - 30/PPM, biter.b2body.getPosition().y - 45/PPM, 60/PPM, 80/PPM);
-                }
-            }
-            for (Cactus cactus:cactuses){
-                if(cactus.isSetToDestroy()){
-                    game.batch.draw(cactus.babax(delta), cactus.positionX - 37/PPM, cactus.positionY - 45/PPM, 80/PPM, 80/PPM);
-                }
-                else {
-                    game.batch.draw(cactus.spriteCactus(delta), cactus.b2body.getPosition().x - 37/PPM, cactus.b2body.getPosition().y - 45/PPM, 80/PPM, 80/PPM);
-                }
-            }
-            chest.draw(game.batch);
-            portal.draw(game.batch);
             game.batch.end();
             stage.act();
             stage.draw();

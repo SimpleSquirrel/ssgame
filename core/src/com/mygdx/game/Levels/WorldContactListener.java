@@ -1,7 +1,6 @@
 package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Enemies.Biter;
 import com.mygdx.game.Enemies.Enemy;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;
@@ -136,21 +135,10 @@ public class WorldContactListener implements ContactListener {
                 if(fixA.getFilterData().categoryBits == PLAYER_BIT){
                     ((Player)fixA.getUserData()).swordHit();
                     ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getLinearVelocity().x);
-                    System.out.println(fixB.getBody().getLinearVelocity().x);
                 }
                 else {
                     ((Player)fixB.getUserData()).swordHit();
                     ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getLinearVelocity().x);
-                    System.out.println(fixA.getBody().getLinearVelocity().x);
-                }
-            case SHIELD_BIT | SPIKE_BIT:
-                if(fixA.getFilterData().categoryBits == SHIELD_BIT){
-                    ((Player)fixA.getUserData()).destroyShield();
-                    ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getPosition().x);
-                }
-                else {
-                    ((Player)fixB.getUserData()).destroyShield();
-                    ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getPosition().x);
                 }
                 break;
             case SHIELD_BIT | BULLET_BIT:
@@ -171,6 +159,14 @@ public class WorldContactListener implements ContactListener {
                 else {
                     ((Player)fixB.getUserData()).destroyShield();
                     ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getPosition().x);
+                }
+                break;
+            case BOSS_BIT | PLAYER_BIT:
+                if(fixA.getFilterData().categoryBits == PLAYER_BIT){
+                    ((Player)fixA.getUserData()).vedmeDIOhit();
+                }
+                else {
+                    ((Player)fixB.getUserData()).vedmeDIOhit();
                 }
                 break;
         }

@@ -111,7 +111,7 @@ public class GameScreenLevel1 implements Screen {
         verticalCannons.add(verticalCannon2);
         VerticalCannon verticalCannon3 = new VerticalCannon(world, (32 * 34) / PPM, (10 * 32) / PPM, false);
         verticalCannons.add(verticalCannon3);
-        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM, false, game);
+        chest = new Chest(world, 32*47/PPM, 32*22/PPM, 0, 16/PPM, false, game, game.preferences.getBoolean("WoodenChest1IsOpened"));
         portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM, false);
 
         familiar = new Familiar(game, player);
@@ -239,6 +239,10 @@ public class GameScreenLevel1 implements Screen {
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);
+        if(chest.thisChestIsTouched()){
+            game.preferences.putBoolean("WoodenChest1IsOpened", true);
+            game.preferences.flush();
+        }
         player.update(dt);
         familiar.update(dt);
         weapon.update(dt, player.b2body.getPosition());
@@ -323,7 +327,7 @@ public class GameScreenLevel1 implements Screen {
 
                 renderer.render();
 
-                b2dr.render(world, camera.combined);
+                //b2dr.render(world, camera.combined);
 
                 camera.update();
                 game.batch.setProjectionMatrix(camera.combined);

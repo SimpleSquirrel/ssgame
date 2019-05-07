@@ -167,8 +167,8 @@ public class Weapon {
             }
         }
         else if(currentGun.equals("ultraFastGun")){
-            bulletSpeed = new Vector2(15f, 0);
-            bulletSpeedLeft = new Vector2(-15f, 0);
+            bulletSpeed = new Vector2(16f, 0);
+            bulletSpeedLeft = new Vector2(-16f, 0);
             bulletCounter = 1;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
@@ -197,7 +197,7 @@ public class Weapon {
             if(Player.runningRight && bullets < bulletCounter && timer >= bulletReload && bullets == 0) {
                 isShot = true;
                 while (bullets < bulletCounter) {
-                    bullet = new Bullet(world, position.x, position.y, 20/PPM + bullets*20/PPM, 5/PPM + yVelocity[bullets]/PPM);
+                    bullet = new Bullet(world, position.x, position.y, 25/PPM + bullets*20/PPM, 5/PPM + yVelocity[bullets]/PPM);
                     bullet.bulletBody.setLinearVelocity(bulletSpeed.x, yVelocity[bullets]);
                     playerBullets.add(bullet);
                     bullets++;

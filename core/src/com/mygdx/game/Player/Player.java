@@ -13,7 +13,7 @@ import com.mygdx.game.Objects.Weapon;
 import static com.mygdx.game.MyGame.*;
 
 public class Player extends Sprite {
-    public enum State { RUNNING, FALLING, JUMPING, STANDING}
+    public enum State { RUNNING, FALLING, JUMPING, STANDING, DEAD}
     private State currentState;
     private State previousState;
     public World world;
@@ -258,15 +258,15 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(9/PPM, 27/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT | LUXURY_CHEST_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT | LUXURY_CHEST_BIT | BOSS_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }
     public void jump(){
-       // if(currentState != State.JUMPING && currentState != State.FALLING){
+        //if(currentState != State.JUMPING && currentState != State.FALLING){
             b2body.applyLinearImpulse(new Vector2(0, 10f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
-       // }
+     //   }
     }
 
     public void bulletHit(){
@@ -288,11 +288,10 @@ public class Player extends Sprite {
         if(counter == 1) {
             x = b2body.getPosition().x - x;
             if (x > 0) {
-                b2body.applyForce(new Vector2(300, 200), b2body.getWorldCenter(), true);
+                b2body.applyForce(new Vector2(150, 200), b2body.getWorldCenter(), true);
             } else {
-                b2body.applyForce(new Vector2(-300, 200), b2body.getWorldCenter(), true);
+                b2body.applyForce(new Vector2(-150, 200), b2body.getWorldCenter(), true);
             }
-            System.out.println("Contact");
             counter++;
         }
     }
@@ -318,5 +317,8 @@ public class Player extends Sprite {
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             swordAttack = true;
         }
+    }
+    public void vedmeDIOhit(){
+        b2body.applyForce(new Vector2(-10000f, 2500f), b2body.getWorldCenter(), true);
     }
 }

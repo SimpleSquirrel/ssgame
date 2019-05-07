@@ -12,6 +12,7 @@ import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Levels.Level4.GameScreenLevel4;
+import com.mygdx.game.Levels.Level5.GameScreenLevel5;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Player.Player;
@@ -104,6 +105,7 @@ public class LoadScreen implements Screen
                             game.setScreen(new GameScreenLevel4(game));
                             break;
                         case 5:
+                            game.setScreen(new GameScreenLevel5(game));
                             break;
                     }
                 case 2:

@@ -32,8 +32,8 @@ public class Familiar extends Sprite {
         this.game = game;
         batch=game.batch;
         this.player = player;
-        timer1 = 0;
-        timer2 = 0;
+        timer1 = 10f;
+        timer2 = 10f;
         stop = false;
         switch (game.preferences.getInteger("familiar1")){
             case 1:
@@ -152,7 +152,6 @@ public class Familiar extends Sprite {
                 break;
             case FOUR:
                 if(timer2 >= couldownFOUR) {
-                    System.out.println("4");
                     stop = true;
                     timer2 = 0;
                 }

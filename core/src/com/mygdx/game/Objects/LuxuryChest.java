@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.MiniGames.GameOfFifteen;
+import com.mygdx.game.MyGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import static com.mygdx.game.MyGame.*;
 
 public class LuxuryChest extends Sprite {
     public enum State {OPENED, CLOSED}
-
+    private MyGame game;
     public State currentState;
     public State previousState;
     public World world;
@@ -26,9 +27,15 @@ public class LuxuryChest extends Sprite {
     private boolean JastOpen=true;
     private boolean isFlip;
     private boolean runMiniGame;
+    private boolean created15;
+    private boolean isSolved;
+    JFrame frame = new JFrame();
+    private GameOfFifteen gameOfFifteen = new GameOfFifteen(4, 550, 30);
 
-    public LuxuryChest(World world, float x, float y, float CheckX, float CheckY, boolean flip) {
+    public LuxuryChest(World world, float x, float y, float CheckX, float CheckY, boolean flip, MyGame game, boolean isSolved) {
         this.world = world;
+        this.game = game;
+        this.isSolved = isSolved;
         isFlip = flip;
         atlas = new TextureAtlas("Objects/LuxuryChest.txt");
         chestClosed = atlas.createSprite("LuxChestClosed");
@@ -38,28 +45,46 @@ public class LuxuryChest extends Sprite {
             chestOpened.flip(true, false);
         }
         setBounds(0, 0, 32 / PPM, 32 / PPM);
-        currentState = State.CLOSED;
-        previousState = State.CLOSED;
+        if(isSolved) {
+            isTouched = true;
+            currentState = State.OPENED;
+            previousState = State.OPENED;
+        }
+        else {
+            isTouched = false;
+            currentState = State.CLOSED;
+            previousState = State.CLOSED;
+        }
         stateTimer = 0;
-        isTouched = false;
         runMiniGame = false;
+        created15 = false;
         defineChest(x, y, CheckX, CheckY);
     }
 
     public void update(float delta){
+        stateTimer += delta;
         setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
         setRegion(getSprite(delta));
-        if(runMiniGame){
-            JFrame frame = new JFrame();
+        if(runMiniGame && !isSolved){
+            stateTimer = 0;
+            created15 = true;
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setTitle("Game of Fifteen");
             frame.setResizable(false);
-            frame.add(new GameOfFifteen(4, 550, 30), BorderLayout.CENTER);
+            frame.add(gameOfFifteen, BorderLayout.CENTER);
             frame.pack();
             // center on the screen
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
             runMiniGame = false;
+        }
+        if(created15 && stateTimer > 300f){
+            frame.dispose();
+        }
+        if(gameOfFifteen.isSolved()){
+            game.preferences.putBoolean("fastShotgun", true);
+            game.preferences.flush();
+            frame.dispose();
         }
     }
 
@@ -112,5 +137,9 @@ public class LuxuryChest extends Sprite {
 
     public void contact(){
         isTouched = true;
+    }
+
+    public boolean thisChestIsOpened(){
+        return gameOfFifteen.isSolved();
     }
 }

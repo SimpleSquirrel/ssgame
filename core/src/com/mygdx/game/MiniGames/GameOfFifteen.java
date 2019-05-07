@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities;
 public class GameOfFifteen extends JPanel { // our grid will be drawn in a dedicated Panel
 
     // Size of our Game of Fifteen instance
+    public static boolean win;
     private int size;
     // Number of tiles
     private int nbTiles;

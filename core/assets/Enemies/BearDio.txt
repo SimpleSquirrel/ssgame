@@ -1,0 +1,19 @@
+BearDio.png
+size: 100, 400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bear1
+  rotate: false
+  xy: 0, 0
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: -1
+Bear2
+  rotate: false
+  xy: 0, 200
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: -1

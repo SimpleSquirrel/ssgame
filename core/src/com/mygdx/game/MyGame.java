@@ -10,7 +10,6 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
-import com.mygdx.game.Screens.NovelScreen;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
@@ -38,6 +37,7 @@ public class MyGame extends Game {
 	public static final short WALKING_ENEMY_BIT = 2048;
 	public static final short SHIELD_BIT = 4096;
 	public static final short LUXURY_CHEST_BIT = 8192;
+	public static final short BOSS_BIT = 16384;
 	public static  int SOUND=0;
 	public static  int Score=0;
 	public static  short MUZIC=0;

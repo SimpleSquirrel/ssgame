@@ -36,7 +36,6 @@ import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.Graphics.HUD.score;
 import static com.mygdx.game.MyGame.*;
-import static com.mygdx.game.MyGame.playerBullets;
 
 public class GameScreenLevel2 implements Screen {
     private MyGame game;
@@ -80,6 +79,7 @@ public class GameScreenLevel2 implements Screen {
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 2);
+        game.preferences.putString("weapon", "fastShotgun");
         game.preferences.flush();
         stage = new Stage(new ScreenViewport());
 
@@ -128,7 +128,7 @@ public class GameScreenLevel2 implements Screen {
         biter8 = new Biter(world, 17*32/PPM, 27*32/PPM, false);
         biters.add(biter8);
         portal = new Portal(world, 49*32/PPM, 25*32/PPM, 0, 29/PPM, false);
-        chest = new Chest(world, 31*32/PPM, 26*32/PPM, 0, 16/PPM, false, game);
+        chest = new Chest(world, 31*32/PPM, 26*32/PPM, 0, 16/PPM, false, game, game.preferences.getBoolean("WoodenChest2IsOpened"));
 
         player = new Player(world, 32/PPM, 32/PPM);
 
@@ -234,6 +234,10 @@ public class GameScreenLevel2 implements Screen {
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);
+        if(chest.thisChestIsTouched()){
+            game.preferences.putBoolean("WoodenChest2IsOpened", true);
+            game.preferences.flush();
+        }
         player.update(dt);
         familiar.update(dt);
         weapon.update(dt, player.b2body.getPosition());
