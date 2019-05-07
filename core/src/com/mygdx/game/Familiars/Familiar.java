@@ -20,12 +20,12 @@ public class Familiar extends Sprite {
     public enum Familiar2{HEAL, RAGE, SHIELD, FOUR, NONE}
     public static Familiar1 currentFamiliar1;
     public static Familiar2 currentFamiliar2;
-    private final static float couldownRage = 10f;
-    private final static float couldownHeal = 5f;
-    private final static float couldownShield = 5f;
-    private final static float couldownFOUR = 4f;
-    private float timer1=couldownRage;
-    private float timer2=couldownRage;
+    public final static float couldownRage = 10f;
+    public final static float couldownHeal = 5f;
+    public final static float couldownShield = 5f;
+    public final static float couldownFOUR = 4f;
+    public static float timer1=couldownRage;
+    public static float timer2=couldownRage;
     private boolean stop;
     private final float FOURtimer = 0.5f;
     public Familiar(MyGame game, Player player){

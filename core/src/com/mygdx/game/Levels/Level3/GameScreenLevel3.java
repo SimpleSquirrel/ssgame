@@ -31,7 +31,7 @@ import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
-import static com.mygdx.game.Graphics.HUD.score;
+import static com.mygdx.game.Graphics.HUD.*;
 import static com.mygdx.game.MyGame.*;
 
 public class GameScreenLevel3 implements Screen {
@@ -68,7 +68,7 @@ public class GameScreenLevel3 implements Screen {
     public static float destroyTimer;
     public GameScreenLevel3(MyGame game){
         this.game = game;
-        hud = new HUD();
+
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 3);
@@ -115,7 +115,7 @@ public class GameScreenLevel3 implements Screen {
         player = new Player(world, 32/PPM, 32/PPM);
 
         familiar = new Familiar(game, player);
-
+        hud = new HUD();
         weapon = new Weapon(game, world);
 
         world.setContactListener(new WorldContactListener());
@@ -266,6 +266,8 @@ public class GameScreenLevel3 implements Screen {
             //familiar reload
             hud.render();
             stage.addActor(score);
+            stage.addActor(timer1);
+            stage.addActor(timer2);
             //Health bar
             if(HUD.hp()>0&&HUD.hp()<=10){
                 game.batch.draw(Assets.spriteHealthBar1, 80 / PPM, 850 / PPM, 200 / PPM, 20 / PPM);

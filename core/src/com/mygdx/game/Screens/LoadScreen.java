@@ -90,9 +90,7 @@ public class LoadScreen implements Screen
                 case 1:
                     switch (game.preferences.getInteger("location")){
                         case 1:
-                            game.preferences.putInteger("familiar1", 1);
-                            game.preferences.putInteger("familiar2", 5);
-                            game.preferences.flush();
+
                             game.setScreen(new GameScreenLevel1(game));
                             break;
                         case 2:

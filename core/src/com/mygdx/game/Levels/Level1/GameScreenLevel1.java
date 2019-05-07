@@ -32,7 +32,7 @@ import com.mygdx.game.Screens.DeathScreen;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
-import static com.mygdx.game.Graphics.HUD.score;
+import static com.mygdx.game.Graphics.HUD.*;
 import static com.mygdx.game.MyGame.*;
 
 public class GameScreenLevel1 implements Screen {
@@ -61,6 +61,9 @@ public class GameScreenLevel1 implements Screen {
 
     public GameScreenLevel1(MyGame game) {
         this.game = game;
+        game.preferences.putInteger("familiar1", 1);
+        game.preferences.putInteger("familiar2", 5);
+        game.preferences.flush();
         game.preferences.putInteger("level", 1);
         game.preferences.putInteger("location", 1);
         game.preferences.putString("weapon", "gun");
@@ -79,8 +82,8 @@ public class GameScreenLevel1 implements Screen {
         game.preferences.putBoolean("shotgun", false);
         game.preferences.putBoolean("fastShotgun", false);
         game.preferences.flush();
-        hud = new HUD();
-        hud=new HUD();
+
+
         stage = new Stage(new ScreenViewport());
 
         camera = new OrthographicCamera();
@@ -115,7 +118,7 @@ public class GameScreenLevel1 implements Screen {
         portal = new Portal(world, 32*47/PPM, 32*6/PPM, 0, 29/PPM, false);
 
         familiar = new Familiar(game, player);
-
+        hud = new HUD();
         weapon = new Weapon(game, world);
 
         world.setContactListener(new WorldContactListener());
@@ -337,6 +340,8 @@ public class GameScreenLevel1 implements Screen {
                 game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
                 hud.render();
                 stage.addActor(score);
+                stage.addActor(timer1);
+                stage.addActor(timer2);
 
                 //Health bar
                 if(HUD.hp()>0&&HUD.hp()<=10){

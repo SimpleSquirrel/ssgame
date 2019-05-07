@@ -69,7 +69,7 @@ public class LuxuryChest extends Sprite {
             stateTimer = 0;
             created15 = true;
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setTitle("Game of Fifteen");
+            frame.setTitle("Game of The Thrones");
             frame.setResizable(false);
             frame.add(gameOfFifteen, BorderLayout.CENTER);
             frame.pack();
