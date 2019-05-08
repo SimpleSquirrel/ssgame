@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import java.awt.*;
 
 public class Assets {
+    //Check
+    public static Texture textureCheker;
+    public static Sprite spriteCheker;
     //MenuScreen
     public static Texture textureMenuScreenBack;
     public static Sprite spriteMenuScreenBack;
@@ -217,6 +220,8 @@ public class Assets {
         textureMenuScreenSestesnya = new Texture(Gdx.files.internal("MenuScreen/S.png"));
         textureMenuScreenSestesnya.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        textureCheker = new Texture(Gdx.files.internal("HUD/Cheker.png"));
+        textureCheker.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
 
         //Preferences

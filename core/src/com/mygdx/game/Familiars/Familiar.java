@@ -170,10 +170,13 @@ public class Familiar extends Sprite {
     }
     public void drawFamiliar(float dt,Familiar1 currentFamiliar1,Familiar2 currentFamiliar2){
         game.batch.begin();
+        game.batch.draw(Assets.textureCheker,1450/PPM,850/PPM,1/PPM,1/PPM);
+        game.batch.draw(Assets.textureCheker,1520/PPM,850/PPM,1/PPM,1/PPM);
 
         if (currentFamiliar1==Familiar1.HEAL){
             if(timer1>=couldownHeal){
                 game.batch.draw(Assets.textureFamiliar1Active,1450/PPM,850/PPM,32/PPM,32/PPM);
+
             }
             else {
                 game.batch.draw(Assets.textureFamiliar1Inactive,1450/PPM,850/PPM,32/PPM,32/PPM);

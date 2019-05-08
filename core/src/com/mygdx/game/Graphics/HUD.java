@@ -119,14 +119,15 @@ public class HUD  {
 
         //countOfDeath=new Label(String.format("%03d",COUNT_OF_DEATH),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         score.setSize(3,1);
-        score.setPosition(67,Gdx.graphics.getHeight()-60);
+        score.setPosition(74,Gdx.graphics.getHeight()-70);
         score.setColor(1,1,1,1);
         timer1.setSize(3,1);
-        timer1.setPosition(1242,715);
+        timer1.setPosition(Gdx.graphics.getWidth()-120,Gdx.graphics.getHeight()-50);
         timer1.setColor(1,1,1,1);
         timer2.setSize(3,1);
-        timer2.setPosition(1302,715);
+        timer2.setPosition(Gdx.graphics.getWidth()-55,Gdx.graphics.getHeight()-50);
         timer2.setColor(1,1,1,1);
+        System.out.println(Gdx.graphics.getWidth()+"  "+Gdx.graphics.getHeight());
     }
     public static void HealthBar(){
 
