@@ -39,16 +39,20 @@ public class HUD  {
     private static  float Max2;
     private final String ukr = "абвгдеєжзиіїйклмнопрстуфхцчшщьюяabcdefghijklmnopqrstuvwxyzАБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
     private static  float Max1;
-    private  static  String NONE="  ggпріврпвыtydf";
+    private  static  String NONE="  ";
     public  Label countOfDeath;
     private static Stage stage;
     private static Label.LabelStyle labelStyle;
     private MyGame game;
     public HUD(){
         this.game=game;
-       // camera.setToOrtho(false,1600/PPM, 900/PPM);
-        viewport = new FitViewport(1600/PPM, 900/PPM); //camera);
-        stage = new Stage(viewport);
+        stage = new Stage(new ScreenViewport());
+
+        camera = new OrthographicCamera();
+
+        camera.setToOrtho(false, 1600 / PPM, 900 / PPM);
+
+        viewport = new FitViewport(1600 / PPM, 900 / PPM, camera);
         WORLD_TIME=0;
         SCORE=MyGame.Score;
         COUNT_OF_DEATH=0;
@@ -163,6 +167,8 @@ public class HUD  {
         vhp=vhp*100;
         return vhp;
     }
-
+    public void resize ( int width, int height){
+        viewport.update(width, height);
+    }
 
 }

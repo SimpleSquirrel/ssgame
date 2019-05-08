@@ -187,6 +187,7 @@ public class Familiar extends Sprite {
         if (currentFamiliar1==Familiar1.RAGE){
             if(timer1>=couldownRage){
                 game.batch.draw(Assets.textureFamiliar3Active,1450/PPM,850/PPM,32/PPM,32/PPM);
+
             }
             else {
                 game.batch.draw(Assets.textureFamiliar3Inactive,1450/PPM,850/PPM,32/PPM,32/PPM);
