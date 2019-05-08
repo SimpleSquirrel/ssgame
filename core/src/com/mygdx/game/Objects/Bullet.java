@@ -1,5 +1,7 @@
 package com.mygdx.game.Objects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
@@ -12,6 +14,7 @@ public class Bullet extends Sprite {
     public World world;
     private boolean setToDelete;
     public boolean deleted;
+    private Sound bulletShot = Gdx.audio.newSound(Gdx.files.internal("Sound/shot.wav"));
 
     public Bullet(World world, float x, float y, float checkX, float checkY) {
         textureBullet = new Texture("Bullets/Bullet.png");
@@ -50,6 +53,7 @@ public class Bullet extends Sprite {
         fdef.shape = shape;
         bulletBody.createFixture(fdef).setUserData(this);
         bulletBody.setGravityScale(0);
+        bulletShot.play(0.05f);
     }
     public void deleteBullet(){
         setToDelete = true;

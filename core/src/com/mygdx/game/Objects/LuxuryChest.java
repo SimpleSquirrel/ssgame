@@ -29,7 +29,7 @@ public class LuxuryChest extends Sprite {
     private boolean runMiniGame;
     private boolean created15;
     private boolean isSolved;
-    JFrame frame = new JFrame();
+    public JFrame frame = new JFrame();
     private GameOfFifteen gameOfFifteen = new GameOfFifteen(4, 550, 30);
 
     public LuxuryChest(World world, float x, float y, float CheckX, float CheckY, boolean flip, MyGame game, boolean isSolved) {

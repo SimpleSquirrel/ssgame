@@ -151,6 +151,7 @@ public class Cactus extends Enemy {
             HP -= 10;
         }
         if(HP <= 0){
+            explosion.play(0.1f);
             deleted();
         }
     }
@@ -159,6 +160,7 @@ public class Cactus extends Enemy {
     public void swordHit() {
         HP -= 50;
         if(HP <= 0){
+            explosion.play(0.1f);
             deleted();
         }
     }

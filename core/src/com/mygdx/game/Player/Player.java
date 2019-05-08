@@ -2,6 +2,7 @@ package com.mygdx.game.Player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -22,6 +23,7 @@ public class Player extends Sprite {
     private Animation robotRun;
     private Animation robotHit;
     private TextureAtlas atlas;
+    private TextureAtlas atlasBabax;
     private float stateTimer;
     private boolean isDead;
     public static boolean runningRight;
@@ -39,8 +41,12 @@ public class Player extends Sprite {
     private Sprite spriteStatic;
     private Sprite spriteStatic0;
     private Sprite spriteStatic1;
+    private Sprite btoom1;
+    private Sprite btoom2;
+    private Sprite bttom3;
     private Animation robotStatic;
     private Animation robotStatic1;
+    private Animation animationBtoom;
     public static int HP;
     public static int MAX_HP;
     public static boolean swordAttack;
@@ -52,6 +58,9 @@ public class Player extends Sprite {
     private float y;
     public boolean shield;
     private int counter;
+    private boolean shieldIsDestroyed;
+    private float timer;
+    private Sound swordHit = Gdx.audio.newSound(Gdx.files.internal("Sound/sword.wav"));
 
     public Player(World world, float x, float y){
         HP = 25000;
@@ -102,6 +111,15 @@ public class Player extends Sprite {
         frames.add(spriteStatic);
         robotStatic1 = new Animation(0.5f, frames);
         frames.clear();
+        atlasBabax = new TextureAtlas("Animations/Btoom.txt");
+        btoom1 = atlas.createSprite("Btoom1");
+        btoom2 = atlas.createSprite("Btoom2");
+        bttom3 = atlas.createSprite("Btoom3");
+        frames.add(btoom1);
+        frames.add(btoom2);
+        frames.add(bttom3);
+        animationBtoom = new Animation(0.1f, frames);
+        frames.clear();
         isDead = false;
         swordAttack = false;
         shield = false;
@@ -118,7 +136,7 @@ public class Player extends Sprite {
                 }
             }
         }
-        if(!shield){
+        if(shieldIsDestroyed){
             for (Fixture fixture : b2body.getFixtureList()){
                 if(fixture.getFilterData().categoryBits == SHIELD_BIT){
                     b2body.destroyFixture(fixture);
@@ -127,6 +145,7 @@ public class Player extends Sprite {
             }
         }
         if (swordAttack) {
+            swordHit.play(0.1f);
             if (runningRight) {
                 PolygonShape sword = new PolygonShape();
                 Vector2[] swordHitbox = new Vector2[4];
@@ -170,6 +189,8 @@ public class Player extends Sprite {
             shieldDef.filter.maskBits = SPIKE_BIT | BULLET_BIT | ENEMY_BIT;
             shieldDef.isSensor = true;
             b2body.createFixture(shieldDef).setUserData(this);
+            shieldIsDestroyed = false;
+            shield = false;
         }
     }
     public Sprite getFrameLegs(float delta){
@@ -263,10 +284,10 @@ public class Player extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
     public void jump(){
-        //if(currentState != State.JUMPING && currentState != State.FALLING){
+      //  if(currentState != State.JUMPING && currentState != State.FALLING){
             b2body.applyLinearImpulse(new Vector2(0, 10f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
-     //   }
+        //}
     }
 
     public void bulletHit(){
@@ -302,7 +323,7 @@ public class Player extends Sprite {
         shield = true;
     }
     public void destroyShield(){
-        shield = false;
+        shieldIsDestroyed = true;
     }
     private void input(){
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 3) {
@@ -319,6 +340,6 @@ public class Player extends Sprite {
         }
     }
     public void vedmeDIOhit(){
-        b2body.applyForce(new Vector2(-10000f, 2500f), b2body.getWorldCenter(), true);
+        b2body.applyForce(new Vector2(-2000f, 1000f), b2body.getWorldCenter(), true);
     }
 }

@@ -239,6 +239,9 @@ public class GameScreenLevel1 implements Screen {
             for (VerticalCannon verticalCannon:verticalCannons){
                 verticalCannon.deleted();
             }
+            for (Bullet bullet:playerBullets){
+                bullet.deleteBullet();
+            }
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);

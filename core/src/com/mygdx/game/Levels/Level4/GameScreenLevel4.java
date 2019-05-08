@@ -109,7 +109,7 @@ public class GameScreenLevel4 implements Screen {
         biter4 = new Biter(world, 32*44/PPM, 32*9/PPM, false);
         biters.add(biter4);
         enemies.add(biter4);
-        biter5 = new Biter(world, 32*47/PPM, 32*16/PPM, false);
+        biter5 = new Biter(world, 32*47/PPM, 32*17/PPM, false);
         biters.add(biter5);
         enemies.add(biter5);
         cactus = new Cactus(world, 32*24/PPM, 32*9/PPM, false);
@@ -121,7 +121,7 @@ public class GameScreenLevel4 implements Screen {
         cactus2 = new Cactus(world, 32*35/PPM, 32*25/PPM, false);
         cactuses.add(cactus2);
         enemies.add(cactus2);
-        portal = new Portal(world, 32*50/PPM, 32*16/PPM, 0, 29/PPM, true);
+        portal = new Portal(world, 32*50/PPM, 32*17/PPM, -20/PPM, 29/PPM, false);
         luxuryChest = new LuxuryChest(world, 32*11/PPM, 32*24/PPM, 0, 16/PPM, true, game, game.preferences.getBoolean("PrestigeChest1IsOpened"));
         player = new Player(world, 32/PPM, 32*6/PPM);
 
@@ -155,6 +155,10 @@ public class GameScreenLevel4 implements Screen {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
+                for (Bullet bullet:playerBullets){
+                    bullet.deleteBullet();
+                }
+                luxuryChest.frame.dispose();
                 game.setScreen(new DeathScreen(game));
             }
             } else {
@@ -208,6 +212,9 @@ public class GameScreenLevel4 implements Screen {
             for (Cactus cactus:cactuses){
                 cactus.deleted();
             }
+            for (Bullet bullet:playerBullets){
+                bullet.deleteBullet();
+            }
             game.preferences.putInteger("location", 5);
             game.preferences.flush();
             game.setScreen(new LoadScreen(game));
@@ -233,6 +240,7 @@ public class GameScreenLevel4 implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0); //setting bg color
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
         if(isPaused){
+            luxuryChest.frame.setVisible(false);
             game.batch.begin(); //start of rendering
             game.batch.draw(Assets.spriteExitScreenBack, 0, 0,Assets.spriteExitScreenBack.getWidth()/PPM,Assets.spriteExitScreenBack.getHeight()/PPM);
             if(Gdx.input.getX() <250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
@@ -262,6 +270,10 @@ public class GameScreenLevel4 implements Screen {
                     for (Bullet bullet:playerBullets){
                         bullet.deleteBullet();
                     }
+                    for (Bullet bullet:playerBullets){
+                        bullet.deleteBullet();
+                    }
+                    luxuryChest.frame.dispose();
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;
                 }
@@ -272,6 +284,7 @@ public class GameScreenLevel4 implements Screen {
             if(Gdx.input.getX() <650 + 300 && Gdx.input.getX() > 650 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
                 game.batch.draw(Assets.spriteNoActive, 750/PPM, 200/PPM, 300/PPM, 150/PPM); //Drawing Active
                 if (Gdx.input.isTouched()) { //creating an even
+                    luxuryChest.frame.dispose();
                     GameScreenLevel1.isPaused=false;
                 }
             }
