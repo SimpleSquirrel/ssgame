@@ -1,4 +1,4 @@
-package com.mygdx.game.Screens;
+package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -8,10 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
-import com.mygdx.game.Levels.Level6.GameScreenLevel6;
-import com.mygdx.game.Levels.Level7.GameScreenLevel7;
-import com.mygdx.game.Levels.Level8.GameScreenLevel8;
-import com.mygdx.game.Levels.Level9.GameScreenLevel9;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
 
@@ -45,7 +41,6 @@ public class MyGame extends Game {
 	public static final short LUXURY_CHEST_BIT = 8192;
 	public static final short BOSS_BIT = 16384;
 	public static  int SOUND=0;
-	//public static  int Score=0;
 	public static  short MUZIC=0;
 	public final  static float PPM = 100;
 

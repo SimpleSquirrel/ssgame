@@ -85,6 +85,19 @@ public class GameScreenLevel1 implements Screen {
         game.preferences.putBoolean("ultraFastGun", false);
         game.preferences.putBoolean("shotgun", false);
         game.preferences.putBoolean("fastShotgun", false);
+        game.preferences.putBoolean("doubleGunBought", false);
+        game.preferences.putBoolean("tripleGunBought", false);
+        game.preferences.putBoolean("quadraGunBought", false);
+        game.preferences.putBoolean("pentaGunBought", false);
+        game.preferences.putBoolean("fastGunBought", false);
+        game.preferences.putBoolean("doubleFastGunBought", false);
+        game.preferences.putBoolean("tripleFastGunBought", false);
+        game.preferences.putBoolean("quadraFastGunBought", false);
+        game.preferences.putBoolean("veryFastGunBought", false);
+        game.preferences.putBoolean("veryFastDoubleGunBought", false);
+        game.preferences.putBoolean("ultraFastGunBought", false);
+        game.preferences.putBoolean("shotgunBought", false);
+        game.preferences.putBoolean("fastShotgunBought", false);
         game.preferences.flush();
 
 
