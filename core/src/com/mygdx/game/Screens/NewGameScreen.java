@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.Screens.DialogScreens.FirstMeet;
 
 public class NewGameScreen implements Screen {
     MyGame game;    //MyGame constructor
@@ -40,7 +41,10 @@ public class NewGameScreen implements Screen {
             batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 300, 150); //Drawing Active
             if (Gdx.input.isTouched()) { //creating an event
                 this.dispose();
-                game.setScreen(new GameScreenLevel1(game)); //changing screen
+                game.preferences.putInteger("level", 1);
+                game.preferences.putInteger("location", 1);
+                game.preferences.flush();
+                game.setScreen(new FirstMeet(game)); //changing screen
             }
         }
         else{

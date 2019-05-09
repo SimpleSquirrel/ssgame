@@ -26,6 +26,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.*;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.DialogScreens.FirstBoss;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
@@ -223,7 +224,7 @@ public class GameScreenLevel4 implements Screen {
             game.preferences.putInteger("location", 5);
             game.preferences.flush();
             bgmusic.stop();
-            game.setScreen(new LoadScreen(game));
+            game.setScreen(new FirstBoss(game));
         }
         luxuryChest.update(dt);
         if(luxuryChest.thisChestIsOpened()){

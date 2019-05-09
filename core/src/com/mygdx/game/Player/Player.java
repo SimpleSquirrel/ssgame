@@ -180,7 +180,7 @@ public class Player extends Sprite {
         if(wonderTouch && timer >= 1.5f){
             isDead = true;
         }
-        if(vedmeDioHit && timer >= 0.8f){
+        if(vedmeDioHit && timer >= 0.6f){
             b2body.applyForce(new Vector2(-3000f, 800f), b2body.getWorldCenter(), true);
             vedmeDioHit = false;
         }

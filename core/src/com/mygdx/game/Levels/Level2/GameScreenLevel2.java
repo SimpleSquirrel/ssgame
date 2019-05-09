@@ -32,6 +32,7 @@ import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.DialogScreens.SquirrelFirstEncounter;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
@@ -243,7 +244,7 @@ public class GameScreenLevel2 implements Screen {
             }
             bgmusic.stop();
             congrats.play(0.2f);
-            game.setScreen(new LoadScreen(game));
+            game.setScreen(new SquirrelFirstEncounter(game));
         }
         chest.update(dt);
         if(chest.thisChestIsTouched()){

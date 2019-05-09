@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
+import com.mygdx.game.Screens.DialogScreens.FirstMeet;
 import com.mygdx.game.Screens.MenuScreen;
 import com.mygdx.game.Screens.WeaponScreen;
 

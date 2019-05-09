@@ -30,7 +30,7 @@ public class Familiar extends Sprite {
     private boolean stop;
     private final float FOURtimer = 1f;
     public static boolean rageIsActive;
-    private Sound FOUR = Gdx.audio.newSound(Gdx.files.internal("Sound/FOUR.wav"));
+    public static final Sound FOUR = Gdx.audio.newSound(Gdx.files.internal("Sound/FOUR.wav"));
     private Sound heal = Gdx.audio.newSound(Gdx.files.internal("Sound/heal.wav"));
     private Sound rage = Gdx.audio.newSound(Gdx.files.internal("Sound/rage.wav"));
     public Familiar(MyGame game, Player player){

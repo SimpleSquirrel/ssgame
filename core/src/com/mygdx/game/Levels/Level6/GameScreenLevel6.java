@@ -458,6 +458,7 @@ public class GameScreenLevel6 implements Screen {
 
             game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
             game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
+            game.batch.draw(player.shielded(), (player.b2body.getPosition().x - 23/PPM), (player.b2body.getPosition().y - 36/PPM), 48/PPM, 75/PPM);
             weapon.drawBullet();
             for (Cannon cannon:cannons) {
                 cannon.draw(game.batch);

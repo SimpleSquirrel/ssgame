@@ -130,19 +130,23 @@ public class Wonder extends Enemy {
 
     public Sprite getSprite(){
         Sprite sprite;
-        if(b2body.getLinearVelocity().x > 0) {
-            if (isTouched) {
-                sprite = (Sprite) animationAttack1.getKeyFrame(timer, false);
+        if(!destroyed) {
+            if (b2body.getLinearVelocity().x > 0) {
+                if (isTouched) {
+                    sprite = (Sprite) animationAttack1.getKeyFrame(timer, false);
+                } else {
+                    sprite = (Sprite) animationWalk1.getKeyFrame(timer, true);
+                }
             } else {
-                sprite = (Sprite) animationWalk1.getKeyFrame(timer, true);
+                if (isTouched) {
+                    sprite = (Sprite) animationAttack.getKeyFrame(timer, false);
+                } else {
+                    sprite = (Sprite) animationWalk.getKeyFrame(timer, true);
+                }
             }
         }
         else {
-            if (isTouched) {
-                sprite = (Sprite) animationAttack.getKeyFrame(timer, false);
-            } else {
-                sprite = (Sprite) animationWalk.getKeyFrame(timer, true);
-            }
+            sprite = Assets.spriteEmpty;
         }
         return sprite;
     }

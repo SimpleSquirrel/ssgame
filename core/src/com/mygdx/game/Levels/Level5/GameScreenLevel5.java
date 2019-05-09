@@ -30,6 +30,7 @@ import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.DialogScreens.FirstBossDeath;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 import com.mygdx.game.Screens.WeaponScreen;
@@ -122,7 +123,7 @@ public class GameScreenLevel5 implements Screen {
             preferences.putInteger("level", 2);
             preferences.putInteger("location", 1);
             preferences.flush();
-            game.setScreen(new WeaponScreen(game));
+            game.setScreen(new FirstBossDeath(game));
         }
         weapon.update(dt, player.b2body.getPosition());
         camera.update();

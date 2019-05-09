@@ -30,6 +30,7 @@ import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.DialogScreens.TurtleFirstEncounter;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
@@ -262,7 +263,7 @@ public class GameScreenLevel1 implements Screen {
             }
             congrats.play(0.2f);
             bgmusic.stop();
-            game.setScreen(new LoadScreen(game));
+            game.setScreen(new TurtleFirstEncounter(game));
         }
         chest.update(dt);
         if(chest.thisChestIsTouched()){

@@ -29,6 +29,7 @@ import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.DialogScreens.JhinFirstEncounter;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
@@ -181,6 +182,9 @@ public class GameScreenLevel3 implements Screen {
         }
         portal.update();
         if(portal.isTouched){
+            game.preferences.putInteger("score", HUD.SCORE);
+            game.preferences.putInteger("location", 4);
+            game.preferences.flush();
             for (Cannon cannon:cannons){
                 cannon.deleted();
             }
@@ -196,12 +200,9 @@ public class GameScreenLevel3 implements Screen {
             for (Bullet bullet:playerBullets){
                 bullet.deleteBullet();
             }
-            game.preferences.putInteger("score", HUD.SCORE);
-            game.preferences.putInteger("location", 4);
-            game.preferences.flush();
             bgmusic.stop();
             congrats.play(0.2f);
-            game.setScreen(new LoadScreen(game));
+            game.setScreen(new JhinFirstEncounter(game));
         }
         chest.update(dt);
         if(chest.thisChestIsTouched()){

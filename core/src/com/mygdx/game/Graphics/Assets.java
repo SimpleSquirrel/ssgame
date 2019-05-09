@@ -213,6 +213,16 @@ public class Assets {
     public static Sprite spriteOpenedDoor;
     private static Texture textureShield;
     public static Sprite spriteShield;
+    public static Texture textureRobotActive;
+    public static Texture textureRobotInactive;
+    public static Texture textureCatActive;
+    public static Texture textureCatInactive;
+    public static Sprite spriteRobotActive;
+    public static Sprite spriteRobotInactive;
+    public static Sprite spriteCatActive;
+    public static Sprite spriteCatInactive;
+    public static Texture textureDialogBg;
+    public static Sprite spriteDialogBg;
 
     public static void load() {
         //Menu
@@ -503,5 +513,25 @@ public class Assets {
 
         textureDeathScreenTextNo= new Texture(Gdx.files.internal("DeathScreen/No.png"));
         textureDeathScreenTextNo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureRobotActive = new Texture(Gdx.files.internal("Dialog/RobotActive.png"));
+        textureRobotActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteRobotActive = new Sprite(textureRobotActive);
+
+        textureRobotInactive = new Texture(Gdx.files.internal("Dialog/RobotInactive.png"));
+        textureRobotInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteRobotInactive = new Sprite(textureRobotInactive);
+
+        textureCatActive = new Texture(Gdx.files.internal("Dialog/CatActive.png"));
+        textureCatActive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteCatActive = new Sprite(textureCatActive);
+
+        textureCatInactive = new Texture(Gdx.files.internal("Dialog/CatInactive.png"));
+        textureCatInactive.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteCatInactive = new Sprite(textureCatInactive);
+
+        textureDialogBg = new Texture("Dialog/DialogBG.jpg");
+        textureDialogBg.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        spriteDialogBg = new Sprite(textureDialogBg);
     }
 }
