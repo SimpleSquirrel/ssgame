@@ -141,10 +141,10 @@ public class WeaponScreen implements Screen {
             labelWeaponCost.setPosition(1150,250);
             labelWeaponCost.setSize(75,0);
             //
-            labelBuy = new Label("Купить", labelStyle);
+            labelBuy = new Label("Купити", labelStyle);
             defaults(labelBuy, 1275,150);
             //
-            labelMoney = new Label("У вас деняк: " + score,labelStyle);
+            labelMoney = new Label("Запас детальок: " + score,labelStyle);
             labelMoney.setPosition(1150,275);
             labelMoney.setSize(75,0);
         }
@@ -175,42 +175,42 @@ public class WeaponScreen implements Screen {
             labelWeaponCost.setPosition(950,250);
             labelWeaponCost.setSize(75,0);
 
-            labelBuy = new Label("Купить", labelStyle);
+            labelBuy = new Label("Купити", labelStyle);
             defaults(labelBuy, 1075,150);
 
-            labelMoney = new Label("У вас деняк: " + score,labelStyle);
+            labelMoney = new Label("Запас детальок: " + score,labelStyle);
             labelMoney.setPosition(950,275);
             labelMoney.setSize(75,0);
         }
 
         //Описание оружия
-        disc[0] = "Опис першого";            
-        disc[1] = "Опис 1ааааааааа231";      
-        disc[2] = "Опис ііііііііваіва1231231";      
-        disc[3] = "Опис 1ффффффффф231231";      
-        disc[4] = "Опис фффффффффф";      
-        disc[5] = "Опис афвфпвфіва1231";      
-        disc[6] = "Опис 12фвпфівафіваф231231";      
-        disc[7] = "Опис 1фавпфівафів51231231";      
-        disc[8] = "Опис 12фівафіваф51231231";      
-        disc[9] = "Опис 123фівафівпф2312310";     
-        disc[10] = "11";    
-        disc[11] = "12";    
-        disc[12] = "13";
+        disc[0] = "Пушка, яка вистрілює дві пулі за раз.\nНайгірша зброя, яка могла випасти.";
+        disc[1] = "Три пулі за раз. Непогано.";
+        disc[2] = "Чотири пулі за раз. Джин одобрює.";
+        disc[3] = "Пентакілл! Кхм. П'ять пуль за раз.";
+        disc[4] = "Пулька одна, але летить в два рази швидше.";
+        disc[5] = "Дві пулі з подвійною швидкістю.";
+        disc[6] = "Три пулі з подійною швидкістю.";
+        disc[7] = "Чотири пулі з подвійною швидкістю.\nДжин одобрює.";
+        disc[8] = "Одна пуля з потрійною швидкістю.";
+        disc[9] = "Дві пулі з потрійною швидкістю.";
+        disc[10] = "Одна пуля, яка летить швидше Флеша.";
+        disc[11] = "Просто дробаш.";
+        disc[12] = "Ви пройшли пятнашки.\nТаке не кожному під силу.\nВашою нагородою буде дробаш,\nпулі якого летять з подвійною швидкістю.";
         //Ключ на True/False                      Стоимость                      Текст на вывод при True
-        keys[0][0]    = "doubleGun";              keys[0][2] = "1";              keys[0][1]   =   "Дибилган";
-        keys[1][0]    = "tripleGun";              keys[1][2] = "2";              keys[1][1]   =   "Трибилган";
-        keys[2][0]    = "quadraGun";              keys[2][2] = "3";              keys[2][1]   =   "Гавнаган";
-        keys[3][0]    = "pentaGun";               keys[3][2] = "4";              keys[3][1]   =   "Петяган";
-        keys[4][0]    = "fastGun";                keys[4][2] = "5";              keys[4][1]   =   "Быстраган";
-        keys[5][0]    = "doubleFastGun";          keys[5][2] = "6";              keys[5][1]   =   "Дибилбыстраган";
-        keys[6][0]    = "tripleFastGun";          keys[6][2] = "7";              keys[6][1]   =   "Трибилбыстраган";
-        keys[7][0]    = "quadraFastGun";          keys[7][2] = "8";              keys[7][1]   =   "Гавнабыстраган";
-        keys[8][0]    = "veryFastGun";            keys[8][2] = "9";              keys[8][1]   =   "Оченьбыстраган";
-        keys[9][0]    = "veryFastDoubleGun";      keys[9][2] = "10";             keys[9][1]   =   "Оченьбыстрадибилган";
-        keys[10][0]   = "ultraFastGun";           keys[10][2] = "11";            keys[10][1]  =   "Ульрабыстраган";
-        keys[11][0]   = "shotgun";                keys[11][2] = "12";            keys[11][1]  =   "Шозанахган";
-        keys[12][0]   = "fastShotgun";            keys[12][2] = "13";            keys[12][1]  =   "asd;fijasd";
+        keys[0][0]    = "doubleGun";              keys[0][2] = "500";              keys[0][1]   =   "Дібілган";
+        keys[1][0]    = "tripleGun";              keys[1][2] = "600";              keys[1][1]   =   "Трібілган";
+        keys[2][0]    = "quadraGun";              keys[2][2] = "700";              keys[2][1]   =   "Джинаган";
+        keys[3][0]    = "pentaGun";               keys[3][2] = "800";              keys[3][1]   =   "Петяган";
+        keys[4][0]    = "fastGun";                keys[4][2] = "600";              keys[4][1]   =   "Бистраган";
+        keys[5][0]    = "doubleFastGun";          keys[5][2] = "800";              keys[5][1]   =   "Дібілбистраган";
+        keys[6][0]    = "tripleFastGun";          keys[6][2] = "1000";              keys[6][1]   =   "Трібілбистраган";
+        keys[7][0]    = "quadraFastGun";          keys[7][2] = "1200";              keys[7][1]   =   "Джинабистраган";
+        keys[8][0]    = "veryFastGun";            keys[8][2] = "1000";              keys[8][1]   =   "Дужебистраган";
+        keys[9][0]    = "veryFastDoubleGun";      keys[9][2] = "1250";             keys[9][1]   =   "Дужебистрадібілган";
+        keys[10][0]   = "ultraFastGun";           keys[10][2] = "1300";            keys[10][1]  =   "Ульрабистраган";
+        keys[11][0]   = "shotgun";                keys[11][2] = "1400";            keys[11][1]  =   "Дробаган";
+        keys[12][0]   = "fastShotgun";            keys[12][2] = "1500";            keys[12][1]  =   "Дробадібілган";
 
         keys[0][3]    = "doubleGunBought";
         keys[1][3]    = "tripleGunBought";
@@ -309,13 +309,13 @@ public class WeaponScreen implements Screen {
                     Gdx.input.getY() < h - labelBuy.getY() + 25  && Gdx.input.getY() > h - labelBuy.getY() - 25) {
                 if (Gdx.input.isTouched()) {
                     if ((game.preferences.getBoolean(keys[whoIsTouched-1][0]) &&
-                            score >= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Стоимость: ", "")))) &&
+                            score >= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Ціна: ", "")))) &&
                             score > 0 &&
                             game.preferences.getBoolean(keys[whoIsTouched-1][3]) == false)
                     {
-                        score -= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Стоимость: ", "")));
-                        game.preferences.putInteger("score",score);
-                        labelMoney.setText("У вас деняк: " + score);
+                        score -= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Ціна: ", "")));
+                        game.preferences.putInteger("score", score);
+                        labelMoney.setText("Всього детальок: " + score);
                         game.preferences.putBoolean(keys[whoIsTouched-1][3], true);
                         game.preferences.flush();
                         //System.out.println(keys[whoIsTouched-1][3] + " = " + game.preferences.getBoolean(keys[whoIsTouched-1][3]));
@@ -340,13 +340,13 @@ public class WeaponScreen implements Screen {
 
                     labelDiscription.setText(line);
                     labelDiscriptionWeaponName.setText(keys[Integer.parseInt(label.getName()) - 1][1]);
-                    labelWeaponCost.setText("Стоимость: " + keys[Integer.parseInt(label.getName()) - 1][2]);
+                    labelWeaponCost.setText("Ціна: " + keys[Integer.parseInt(label.getName()) - 1][2]);
                     anyWeaponPressed = true;
 
                 } else {
                     labelDiscription.setText(unknown);
                     labelDiscriptionWeaponName.setText(unknown);
-                    labelWeaponCost.setText("Стоимость: " + unknown);
+                    labelWeaponCost.setText("Ціна: " + unknown);
                     anyWeaponPressed = true;
                 }
             }

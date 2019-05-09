@@ -123,6 +123,7 @@ public class GameScreenLevel5 implements Screen {
             preferences.putInteger("level", 2);
             preferences.putInteger("location", 1);
             preferences.flush();
+            bgmusic.stop();
             game.setScreen(new FirstBossDeath(game));
         }
         weapon.update(dt, player.b2body.getPosition());
