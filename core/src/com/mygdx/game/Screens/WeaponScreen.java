@@ -139,7 +139,8 @@ public class WeaponScreen implements Screen {
         disc[12] = "13";
 
         labelWeaponCost = new Label("",labelStyle);
-        defaults(labelWeaponCost,1150,250);
+        labelWeaponCost.setPosition(1150,250);
+        labelWeaponCost.setSize(75,0);
 
         //Ключ на True/False                      Стоимость                      Текст на вывод при True
         keys[0][0]    = "doubleGun";              keys[0][2] = "1";              keys[0][1]   =   "Дибилган";
@@ -161,9 +162,9 @@ public class WeaponScreen implements Screen {
 
         score = game.preferences.getInteger("score");
 
-        labelMoney = new Label(Integer.toString(score),labelStyle);
-        defaults(labelMoney, 500,500);
-
+        labelMoney = new Label("У вас деняк: " + score,labelStyle);
+        labelMoney.setPosition(1150,275);
+        labelMoney.setSize(75,0);
     }
 
     private void defaults(Label label, int x, int y)
@@ -233,6 +234,12 @@ public class WeaponScreen implements Screen {
         {
             batch.draw(Assets.spritePaper, 1000, 100, 600,700);
             labelBuy.draw(batch, 1);
+            labelDiscription.draw(batch,1);
+
+            labelDiscriptionWeaponName.draw(batch,1);
+
+            labelWeaponCost.draw(batch,1);
+            labelMoney.draw(batch,1);
             if (Gdx.input.getX() < labelBuy.getX() + 100 && Gdx.input.getX() > labelBuy.getX() - 100 &&
                     Gdx.input.getY() < h - labelBuy.getY() + 25  && Gdx.input.getY() > h - labelBuy.getY() - 25) {
                 if (Gdx.input.isTouched()) {
@@ -242,28 +249,18 @@ public class WeaponScreen implements Screen {
                     {
                         score -= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Стоимость: ", "")));
                         game.preferences.putInteger("score",score);
-                        labelMoney.setText(score);
+                        labelMoney.setText("У вас деняк: " + score);
                         game.preferences.putBoolean(keys[whoIsTouched-1][0], true);
                         game.preferences.flush();
                         labelDiscriptionWeaponName.setText(keys[whoIsTouched-1][1]);
                         labelDiscription.setText(disc[whoIsTouched-1]);
+
+
                     }
                 }
             }
 
         }
-        labelDiscription.draw(batch,1);
-
-        labelDiscriptionWeaponName.draw(batch,1);
-
-        labelWeaponCost.draw(batch,1);
-
-        //Купить
-
-
-        //Деньги
-        labelMoney.draw(batch,1);
-
     }
     int whoIsTouched;
     boolean anyWeaponPressed = false;
