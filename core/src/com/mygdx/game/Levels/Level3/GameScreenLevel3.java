@@ -3,6 +3,7 @@ package com.mygdx.game.Levels.Level3;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -32,6 +33,7 @@ import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.Graphics.HUD.*;
+import static com.mygdx.game.Levels.Level1.GameScreenLevel1.congrats;
 import static com.mygdx.game.MyGame.*;
 
 public class GameScreenLevel3 implements Screen {
@@ -66,9 +68,10 @@ public class GameScreenLevel3 implements Screen {
     private Portal portal;
     private Chest chest;
     public static float destroyTimer;
+    private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Music/04AllofUs.mp3"));
     public GameScreenLevel3(MyGame game){
         this.game = game;
-
+        bgmusic.loop(0.05f);
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 3);
@@ -138,6 +141,7 @@ public class GameScreenLevel3 implements Screen {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
+                bgmusic.stop();
                 game.setScreen(new DeathScreen(game));
             }
         } else {
@@ -192,9 +196,11 @@ public class GameScreenLevel3 implements Screen {
             for (Bullet bullet:playerBullets){
                 bullet.deleteBullet();
             }
-            game.preferences.putInteger("score", hud.SCORE);
+            game.preferences.putInteger("score", HUD.SCORE);
             game.preferences.putInteger("location", 4);
             game.preferences.flush();
+            bgmusic.stop();
+            congrats.play(0.2f);
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);

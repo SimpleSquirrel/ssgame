@@ -13,6 +13,10 @@ import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Levels.Level4.GameScreenLevel4;
 import com.mygdx.game.Levels.Level5.GameScreenLevel5;
+import com.mygdx.game.Levels.Level6.GameScreenLevel6;
+import com.mygdx.game.Levels.Level7.GameScreenLevel7;
+import com.mygdx.game.Levels.Level8.GameScreenLevel8;
+import com.mygdx.game.Levels.Level9.GameScreenLevel9;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Player.Player;
@@ -90,7 +94,6 @@ public class LoadScreen implements Screen
                 case 1:
                     switch (game.preferences.getInteger("location")){
                         case 1:
-
                             game.setScreen(new GameScreenLevel1(game));
                             break;
                         case 2:
@@ -106,7 +109,25 @@ public class LoadScreen implements Screen
                             game.setScreen(new GameScreenLevel5(game));
                             break;
                     }
+                    break;
                 case 2:
+                    switch (game.preferences.getInteger("location")){
+                        case 1:
+                            game.setScreen(new GameScreenLevel6(game));
+                            break;
+                        case 2:
+                            game.setScreen(new GameScreenLevel7(game));
+                            break;
+                        case 3:
+                            game.setScreen(new GameScreenLevel8(game));
+                            break;
+                        case 4:
+                            game.setScreen(new GameScreenLevel9(game));
+                            break;
+                        case 5:
+                            game.setScreen(new GameScreenLevel7(game));
+                            break;
+                    }
                     break;
             }
         }

@@ -7,10 +7,11 @@ import com.badlogic.gdx.physics.box2d.*;
 import static com.mygdx.game.MyGame.*;
 
 public class Portal extends Sprite {
+    private Chest chest;
     public World world;
     public Body b2body;
     private Texture texturePortal;
-    private Sprite spritePortal;
+    public static Sprite spritePortal;
     public boolean isTouched;
     private boolean isFlip;
 

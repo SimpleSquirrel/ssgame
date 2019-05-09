@@ -209,6 +209,8 @@ public class Assets {
     public static Sprite spriteClosedDoor;
     public static Texture textureOpenedDoor;
     public static Sprite spriteOpenedDoor;
+    private static Texture textureShield;
+    public static Sprite spriteShield;
 
     public static void load() {
         //Menu
@@ -490,5 +492,8 @@ public class Assets {
 
         textureOpenedDoor = new Texture(Gdx.files.internal("WeaponScreen/openedDoor.png"));
         spriteOpenedDoor = new Sprite(textureOpenedDoor);
+
+        textureShield = new Texture(Gdx.files.internal("Objects/Shield.png"));
+        spriteShield = new Sprite(textureShield);
     }
 }

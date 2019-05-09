@@ -3,6 +3,7 @@ package com.mygdx.game.Levels.Level2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -35,6 +36,7 @@ import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
 import static com.mygdx.game.Graphics.HUD.*;
+import static com.mygdx.game.Levels.Level1.GameScreenLevel1.congrats;
 import static com.mygdx.game.MyGame.*;
 
 public class GameScreenLevel2 implements Screen {
@@ -73,9 +75,11 @@ public class GameScreenLevel2 implements Screen {
     private Portal portal;
     private Chest chest;
     public static float destroyTimer;
+    private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Music/03ChibiNinja.mp3"));
     public GameScreenLevel2(MyGame game){
         this.game = game;
 
+        bgmusic.loop(0.05f);
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 2);
@@ -170,6 +174,7 @@ public class GameScreenLevel2 implements Screen {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
+                bgmusic.stop();
                 game.setScreen(new DeathScreen(game));
             }
         } else {
@@ -203,7 +208,7 @@ public class GameScreenLevel2 implements Screen {
         }
         portal.update();
         if(portal.isTouched){
-            game.preferences.putInteger("score", hud.SCORE);
+            game.preferences.putInteger("score", HUD.SCORE);
             game.preferences.putInteger("location", 3);
             game.preferences.flush();
             for (Bullet bullet:cannon.cannonBullets){
@@ -236,6 +241,8 @@ public class GameScreenLevel2 implements Screen {
             for (Bullet bullet:playerBullets){
                 bullet.deleteBullet();
             }
+            bgmusic.stop();
+            congrats.play(0.2f);
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);
@@ -294,6 +301,7 @@ public class GameScreenLevel2 implements Screen {
                     for (Bullet bullet:playerBullets){
                         bullet.deleteBullet();
                     }
+                    bgmusic.stop();
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;
                 }
@@ -368,6 +376,7 @@ public class GameScreenLevel2 implements Screen {
 
             game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
             game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14/PPM), (player.b2body.getPosition().y - 36/PPM), 32/PPM, 64/PPM);
+            game.batch.draw(player.shielded(), (player.b2body.getPosition().x - 23/PPM), (player.b2body.getPosition().y - 36/PPM), 48/PPM, 75/PPM);
             weapon.drawBullet();
             for (Cannon cannon:cannons) {
                 cannon.draw(game.batch);

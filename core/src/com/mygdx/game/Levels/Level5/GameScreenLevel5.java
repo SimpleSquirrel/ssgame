@@ -3,6 +3,7 @@ package com.mygdx.game.Levels.Level5;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -29,7 +30,9 @@ import com.mygdx.game.Objects.Portal;
 import com.mygdx.game.Objects.Weapon;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Screens.DeathScreen;
+import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
+import com.mygdx.game.Screens.WeaponScreen;
 
 import static com.mygdx.game.Graphics.HUD.score;
 import static com.mygdx.game.MyGame.*;
@@ -56,8 +59,10 @@ public class GameScreenLevel5 implements Screen {
     private VedmeDIO vedmeDIO;
     public static float destroyTimer;
     private float timer;
+    private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Music/Killer.mp3"));
     public GameScreenLevel5(MyGame game){
         this.game = game;
+        bgmusic.loop(0.1f);
         hud = new HUD();
         hud.SCORE = game.preferences.getInteger("score");
         stage = new Stage(new ScreenViewport());
@@ -78,7 +83,7 @@ public class GameScreenLevel5 implements Screen {
 
         vedmeDIO = new VedmeDIO(world, 32*46.5f/PPM, 32/PPM, false);
 
-        player = new Player(world, 32*44/PPM, 32*6/PPM);
+        player = new Player(world, 32/PPM, 32/PPM);
 
         weapon = new Weapon(game, world);
 
@@ -90,6 +95,7 @@ public class GameScreenLevel5 implements Screen {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
+                bgmusic.stop();
                 game.setScreen(new DeathScreen(game));
             }
             } else {
@@ -111,6 +117,12 @@ public class GameScreenLevel5 implements Screen {
         player.update(dt);
         if(player.isDead()){
             timer = 0;
+        }
+        if(vedmeDIO.isDestroyed() && destroyTimer > 3f){
+            preferences.putInteger("level", 2);
+            preferences.putInteger("location", 1);
+            preferences.flush();
+            game.setScreen(new WeaponScreen(game));
         }
         weapon.update(dt, player.b2body.getPosition());
         camera.update();
@@ -134,6 +146,7 @@ public class GameScreenLevel5 implements Screen {
                     for (Bullet bullet:playerBullets){
                         bullet.deleteBullet();
                     }
+                    bgmusic.stop();
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;
                 }
@@ -202,12 +215,15 @@ public class GameScreenLevel5 implements Screen {
             }
             if(!vedmeDIO.isDestroyed()) {
                 game.batch.draw(vedmeDIO.getSpriteStand(delta), vedmeDIO.b2body.getPosition().x - 35 / PPM, vedmeDIO.b2body.getPosition().y - 55 / PPM, 65 / PPM, 125 / PPM);
+                game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 32 / PPM, 64 / PPM);
+                game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 32 / PPM, 64 / PPM);
             }
             else {
+                game.batch.draw(vedmeDIO.mcFall(delta), vedmeDIO.b2body.getPosition().x, vedmeDIO.b2body.getPosition().y - 55 / PPM, 80 / PPM, 80 / PPM);
                 game.batch.draw(vedmeDIO.getSpriteFall(delta), vedmeDIO.b2body.getPosition().x - 35 / PPM, vedmeDIO.b2body.getPosition().y - 55 / PPM, 150 / PPM, 125 / PPM);
+                game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 1 / PPM, 2 / PPM);
+                game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 1 / PPM, 2 / PPM);
             }
-            game.batch.draw(player.getFrameLegs(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 32 / PPM, 64 / PPM);
-            game.batch.draw(player.getFrameChest(delta), (player.b2body.getPosition().x - 14 / PPM), (player.b2body.getPosition().y - 36 / PPM), 32 / PPM, 64 / PPM);
             weapon.drawBullet();
             game.batch.end();
             stage.act();

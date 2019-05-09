@@ -2,6 +2,7 @@ package com.mygdx.game.Objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGame;
@@ -24,6 +25,7 @@ public class Weapon {
     private Vector2 position;
     private boolean isShot;
     private float[] yVelocity;
+    private Sound bulletShot = Gdx.audio.newSound(Gdx.files.internal("Sound/shot.wav"));
 
     public Weapon(MyGame game, World world) {
         this.game = game;
@@ -197,6 +199,7 @@ public class Weapon {
             if(Player.runningRight && bullets < bulletCounter && timer >= bulletReload && bullets == 0) {
                 isShot = true;
                 while (bullets < bulletCounter) {
+                    bulletShot.play(0.1f);
                     bullet = new Bullet(world, position.x, position.y, 25/PPM + bullets*20/PPM, 5/PPM + yVelocity[bullets]/PPM);
                     bullet.bulletBody.setLinearVelocity(bulletSpeed.x, yVelocity[bullets]);
                     playerBullets.add(bullet);
@@ -206,7 +209,8 @@ public class Weapon {
             else if(!Player.runningRight && bullets < bulletCounter && timer >= bulletReload && bullets == 0) {
                 isShot = true;
                 while (bullets < bulletCounter) {
-                    bullet = new Bullet(world, position.x, position.y, -20/PPM - bullets*20/PPM, 5/PPM + yVelocity[bullets]/PPM);
+                    bulletShot.play(0.1f);
+                    bullet = new Bullet(world, position.x, position.y, -25/PPM - bullets*20/PPM, 5/PPM + yVelocity[bullets]/PPM);
                     bullet.bulletBody.setLinearVelocity(bulletSpeedLeft.x, yVelocity[bullets]);
                     playerBullets.add(bullet);
                     bullets++;

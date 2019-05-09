@@ -1,5 +1,7 @@
 package com.mygdx.game.Enemies;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,6 +15,8 @@ import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Levels.Level4.GameScreenLevel4;
+import com.mygdx.game.Levels.Level7.GameScreenLevel7;
+import com.mygdx.game.Levels.Level9.GameScreenLevel9;
 
 import static com.mygdx.game.MyGame.*;
 import static com.mygdx.game.MyGame.PLAYER_BIT;
@@ -33,6 +37,7 @@ public class Cactus extends Enemy {
     private float checkVelocity;
     public float positionX;
     public float positionY;
+    private Sound chainsaw = Gdx.audio.newSound(Gdx.files.internal("Sound/chainsaw.wav"));
     public Cactus(World world, float x, float y, boolean flip) {
         super(world, x, y, flip);
         HP = 50;
@@ -65,6 +70,8 @@ public class Cactus extends Enemy {
             world.destroyBody(b2body);
             GameScreenLevel3.destroyTimer = 0;
             GameScreenLevel4.destroyTimer = 0;
+            GameScreenLevel7.destroyTimer = 0;
+            GameScreenLevel9.destroyTimer = 0;
             destroyed = true;
             HUD.SCORE+=35;
         }
@@ -101,7 +108,7 @@ public class Cactus extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(15/PPM, 35/PPM);
         fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT | SWORD_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | SWORD_BIT;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape shape1 = new PolygonShape();
@@ -125,20 +132,44 @@ public class Cactus extends Enemy {
         weapon1.set(weaponVector);
         fixtureDef.shape = weapon1;
         fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.categoryBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
+        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape weapon2 = new PolygonShape();
         Vector2[] weapon2Vector = new Vector2[4];
-        weapon2Vector[0] = new Vector2(0, 9).scl(1/PPM);
-        weapon2Vector[1] = new Vector2(-34, 9).scl(1/PPM);
+        weapon2Vector[0] = new Vector2(0, 12).scl(1/PPM);
+        weapon2Vector[1] = new Vector2(-34, 12).scl(1/PPM);
         weapon2Vector[2] = new Vector2(-34, -16).scl(1/PPM);
         weapon2Vector[3] = new Vector2(0, -16).scl(1/PPM);
         weapon2.set(weapon2Vector);
         fixtureDef.shape = weapon2;
         fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
+        b2body.createFixture(fixtureDef).setUserData(this);
+        PolygonShape body1 = new PolygonShape();
+        Vector2[] body1Vector = new Vector2[4];
+        body1Vector[0] = new Vector2(0, -1).scl(1/PPM);
+        body1Vector[1] = new Vector2(36, -1).scl(1/PPM);
+        body1Vector[2] = new Vector2(36, 25).scl(1/PPM);
+        body1Vector[3] = new Vector2(0, 25).scl(1/PPM);
+        body1.set(body1Vector);
+        fixtureDef.shape = body1;
+        fixtureDef.isSensor = true;
         fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.categoryBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
+        b2body.createFixture(fixtureDef).setUserData(this);
+        PolygonShape body2 = new PolygonShape();
+        Vector2[] body2Vector = new Vector2[4];
+        body2Vector[0] = new Vector2(0, 12).scl(1/PPM);
+        body2Vector[1] = new Vector2(-34, 12).scl(1/PPM);
+        body2Vector[2] = new Vector2(-34, -16).scl(1/PPM);
+        body2Vector[3] = new Vector2(0, -16).scl(1/PPM);
+        body2.set(body2Vector);
+        fixtureDef.shape = body2;
+        fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
     }
 
@@ -200,6 +231,11 @@ public class Cactus extends Enemy {
     @Override
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    @Override
+    public void playSound() {
+        chainsaw.play(0.1f);
     }
 
     public boolean isSetToDestroy(){return setToDestroy;}

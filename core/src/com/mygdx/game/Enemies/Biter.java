@@ -1,5 +1,7 @@
 package com.mygdx.game.Enemies;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,6 +15,9 @@ import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Levels.Level4.GameScreenLevel4;
+import com.mygdx.game.Levels.Level6.GameScreenLevel6;
+import com.mygdx.game.Levels.Level7.GameScreenLevel7;
+import com.mygdx.game.Levels.Level9.GameScreenLevel9;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -39,6 +44,7 @@ public class Biter extends Enemy {
     public float positionX;
     public float positionY;
     private float stateTimer;
+    private Sound omnomnom = Gdx.audio.newSound(Gdx.files.internal("Sound/biternom.wav"));
     public Biter(World world, float x, float y, boolean flip){
         super(world, x, y, flip);
         HP = 50;
@@ -99,15 +105,18 @@ public class Biter extends Enemy {
             GameScreenLevel2.destroyTimer = 0;
             GameScreenLevel3.destroyTimer = 0;
             GameScreenLevel4.destroyTimer = 0;
+            GameScreenLevel6.destroyTimer = 0;
+            GameScreenLevel7.destroyTimer = 0;
+            GameScreenLevel9.destroyTimer = 0;
             destroyed = true;
         }
         else if(!destroyed && !setToDestroy && !FOURboolean){
             if(attack){
                 if(position < b2body.getPosition().x){
-                    b2body.setLinearVelocity(-2, 0);
+                    b2body.setLinearVelocity(-4, -8);
                 }
                 else{
-                    b2body.setLinearVelocity(2, 0);
+                    b2body.setLinearVelocity(4, -8);
                 }
             }
             else {
@@ -156,7 +165,7 @@ public class Biter extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(20/PPM, 35/PPM);
         fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT | SWORD_BIT | SHIELD_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | SWORD_BIT | SHIELD_BIT;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape shape1 = new PolygonShape();
@@ -226,6 +235,12 @@ public class Biter extends Enemy {
     public boolean isDestroyed(){
         return destroyed;
     }
+
+    @Override
+    public void playSound() {
+        omnomnom.play(0.1f);
+    }
+
     private void timerToZero(){
         if(FOURboolean) {
             if(counter == 1) {

@@ -9,7 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Objects.Weapon;
+import com.mygdx.game.Familiars.Familiar;
+import com.mygdx.game.Graphics.Assets;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -19,11 +20,9 @@ public class Player extends Sprite {
     private State previousState;
     public World world;
     public Body b2body;
-    private Weapon weapon;
     private Animation robotRun;
     private Animation robotHit;
     private TextureAtlas atlas;
-    private TextureAtlas atlasBabax;
     private float stateTimer;
     private boolean isDead;
     public static boolean runningRight;
@@ -41,12 +40,27 @@ public class Player extends Sprite {
     private Sprite spriteStatic;
     private Sprite spriteStatic0;
     private Sprite spriteStatic1;
-    private Sprite btoom1;
-    private Sprite btoom2;
-    private Sprite bttom3;
+    private TextureAtlas atlasRage;
+    private Sprite spriteRageRobotStand;
+    private Sprite spriteRageRobotRun1;
+    private Sprite spriteRageRobotRun2;
+    private Sprite spriteRageRobotRun3;
+    private Sprite spriteRageRobotRun4;
+    private Sprite spriteRageRobotRun5;
+    private Sprite spriteRageRobotHit0;
+    private Sprite spriteRageRobotHit1;
+    private Sprite spriteRageRobotHit2;
+    private Sprite spriteRageRobotHit3;
+    private Sprite spriteRageRobotHit4;
+    private Sprite spriteRageStatic;
+    private Sprite spriteRageStatic0;
+    private Sprite spriteRageStatic1;
+    private Animation robotRageRun;
+    private Animation robotRageHit;
+    private Animation robotRageStatic;
+    private Animation robotRageStatic1;
     private Animation robotStatic;
     private Animation robotStatic1;
-    private Animation animationBtoom;
     public static int HP;
     public static int MAX_HP;
     public static boolean swordAttack;
@@ -60,7 +74,10 @@ public class Player extends Sprite {
     private int counter;
     private boolean shieldIsDestroyed;
     private float timer;
-    private Sound swordHit = Gdx.audio.newSound(Gdx.files.internal("Sound/sword.wav"));
+    private boolean vedmeDioHit;
+    private boolean wonderTouch;
+    private Sound swordHit = Gdx.audio.newSound(Gdx.files.internal("Sound/sword.mp3"));
+    private Sound bulletHit = Gdx.audio.newSound(Gdx.files.internal("Sound/playerBulletHit.wav"));
 
     public Player(World world, float x, float y){
         HP = 25000;
@@ -83,7 +100,6 @@ public class Player extends Sprite {
         spriteStatic = atlas.createSprite("Static");
         spriteStatic0 = atlas.createSprite("Static0");
         spriteStatic1 = atlas.createSprite("Static1");
-        setBounds(0, 0, 32/PPM, 64/PPM);
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
@@ -111,24 +127,63 @@ public class Player extends Sprite {
         frames.add(spriteStatic);
         robotStatic1 = new Animation(0.5f, frames);
         frames.clear();
-        atlasBabax = new TextureAtlas("Animations/Btoom.txt");
-        btoom1 = atlas.createSprite("Btoom1");
-        btoom2 = atlas.createSprite("Btoom2");
-        bttom3 = atlas.createSprite("Btoom3");
-        frames.add(btoom1);
-        frames.add(btoom2);
-        frames.add(bttom3);
-        animationBtoom = new Animation(0.1f, frames);
+        atlasRage = new TextureAtlas("Animations/RageRobot.txt");
+        spriteRageRobotStand = atlasRage.createSprite("RageRun1");
+        spriteRageRobotRun1 = atlasRage.createSprite("RageRun1");
+        spriteRageRobotRun2 = atlasRage.createSprite("RageRun2");
+        spriteRageRobotRun3 = atlasRage.createSprite("RageRun3");
+        spriteRageRobotRun4 = atlasRage.createSprite("RageRun4");
+        spriteRageRobotRun5 = atlasRage.createSprite("RageRun5");
+        spriteRageRobotHit0 = atlasRage.createSprite("RageSword0");
+        spriteRageRobotHit1 = atlasRage.createSprite("RageSword1");
+        spriteRageRobotHit2 = atlasRage.createSprite("RageSword2");
+        spriteRageRobotHit3 = atlasRage.createSprite("RageSword3");
+        spriteRageRobotHit4 = atlasRage.createSprite("RageSword4");
+        spriteRageStatic = atlasRage.createSprite("RageStatic");
+        spriteRageStatic0 = atlasRage.createSprite("RageStatic0");
+        spriteRageStatic1 = atlasRage.createSprite("RageStatic1");
+        frames.add(spriteRageRobotRun1);
+        frames.add(spriteRageRobotRun2);
+        frames.add(spriteRageRobotRun3);
+        frames.add(spriteRageRobotRun4);
+        frames.add(spriteRageRobotRun5);
+        robotRageRun = new Animation(0.3f, frames);
+        frames.clear();
+        frames.add(spriteRageRobotHit0);
+        frames.add(spriteRageRobotHit1);
+        frames.add(spriteRageRobotHit2);
+        frames.add(spriteRageRobotHit3);
+        frames.add(spriteRageRobotHit4);
+        robotRageHit = new Animation(0.1f, frames);
+        frames.clear();
+        frames.add(spriteRageStatic0);
+        frames.add(spriteRageStatic1);
+        robotRageStatic = new Animation(0.5f, frames);
+        frames.clear();
+        frames.add(spriteRageRobotHit0);
+        frames.add(spriteRageStatic);
+        robotRageStatic1 = new Animation(0.5f, frames);
         frames.clear();
         isDead = false;
         swordAttack = false;
         shield = false;
         counter = 1;
+        vedmeDioHit = false;
+        shieldIsDestroyed = true;
+        wonderTouch = false;
         definePlayer();
     }
     public void update(float delta) {
         swordTimer += delta;
+        timer += delta;
         input();
+        if(wonderTouch && timer >= 1.5f){
+            isDead = true;
+        }
+        if(vedmeDioHit && timer >= 0.8f){
+            b2body.applyForce(new Vector2(-3000f, 800f), b2body.getWorldCenter(), true);
+            vedmeDioHit = false;
+        }
         if(swordTimer > 0.1f && !swordAttack) {
             for (Fixture fixture : b2body.getFixtureList()) {
                 if (fixture.getFilterData().categoryBits == SWORD_BIT) {
@@ -141,11 +196,12 @@ public class Player extends Sprite {
                 if(fixture.getFilterData().categoryBits == SHIELD_BIT){
                     b2body.destroyFixture(fixture);
                     counter = 1;
+                    bulletHit.play(0.25f);
                 }
             }
         }
         if (swordAttack) {
-            swordHit.play(0.1f);
+            swordHit.play(0.01f);
             if (runningRight) {
                 PolygonShape sword = new PolygonShape();
                 Vector2[] swordHitbox = new Vector2[4];
@@ -193,24 +249,54 @@ public class Player extends Sprite {
             shield = false;
         }
     }
+    public Sprite shielded(){
+        Sprite sprite;
+        if(!shieldIsDestroyed){
+            sprite = Assets.spriteShield;
+        }
+        else {
+            sprite = Assets.spriteEmpty;
+        }
+        return sprite;
+    }
     public Sprite getFrameLegs(float delta){
         currentState = getState();
         Sprite sprite;
-        switch (currentState){
-            case JUMPING:
-                sprite = spriteRobotRun3;
-                break;
-            case FALLING:
-                sprite = spriteRobotRun5;
-                break;
-            case STANDING:
-                sprite = (Sprite) robotStatic.getKeyFrame(stateTimer, true);
-                break;
-            case RUNNING:
-                sprite = (Sprite) robotRun.getKeyFrame(stateTimer, true);
-                break;
-            default:
-                sprite = spriteRobotRun1;
+        if(!Familiar.rageIsActive) {
+            switch (currentState) {
+                case JUMPING:
+                    sprite = spriteRobotRun3;
+                    break;
+                case FALLING:
+                    sprite = spriteRobotRun5;
+                    break;
+                case STANDING:
+                    sprite = (Sprite) robotStatic.getKeyFrame(stateTimer, true);
+                    break;
+                case RUNNING:
+                    sprite = (Sprite) robotRun.getKeyFrame(stateTimer, true);
+                    break;
+                default:
+                    sprite = spriteRobotRun1;
+            }
+        }
+        else {
+            switch (currentState) {
+                case JUMPING:
+                    sprite = spriteRageRobotRun3;
+                    break;
+                case FALLING:
+                    sprite = spriteRageRobotRun5;
+                    break;
+                case STANDING:
+                    sprite = (Sprite) robotRageStatic.getKeyFrame(stateTimer, true);
+                    break;
+                case RUNNING:
+                    sprite = (Sprite) robotRageRun.getKeyFrame(stateTimer, true);
+                    break;
+                default:
+                    sprite = spriteRageRobotRun1;
+            }
         }
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !sprite.isFlipX()){
             sprite.flip(true, false);
@@ -228,18 +314,32 @@ public class Player extends Sprite {
         swordAnimationTimer += delta;
         currentState = getState();
         Sprite sprite;
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-            swordAnimationTimer = 0;
-        }
-        if(swordAnimationTimer >= 0 && swordAnimationTimer <= 0.218f){
-            sprite = (Sprite)robotHit.getKeyFrame(stateTimer, true);
+        if(!Familiar.rageIsActive) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                swordAnimationTimer = 0;
+            }
+            if (swordAnimationTimer >= 0 && swordAnimationTimer <= 0.218f) {
+                sprite = (Sprite) robotHit.getKeyFrame(stateTimer, true);
+            } else {
+                if (b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0) {
+                    sprite = spriteRobotHit0;
+                } else {
+                    sprite = (Sprite) robotStatic1.getKeyFrame(stateTimer, true);
+                }
+            }
         }
         else {
-            if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0){
-                sprite = spriteRobotHit0;
+            if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                swordAnimationTimer = 0;
             }
-            else {
-                sprite = (Sprite) robotStatic1.getKeyFrame(stateTimer, true);
+            if (swordAnimationTimer >= 0 && swordAnimationTimer <= 0.218f) {
+                sprite = (Sprite) robotRageHit.getKeyFrame(stateTimer, true);
+            } else {
+                if (b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0) {
+                    sprite = spriteRageRobotHit0;
+                } else {
+                    sprite = (Sprite) robotRageStatic1.getKeyFrame(stateTimer, true);
+                }
             }
         }
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !sprite.isFlipX()){
@@ -279,7 +379,7 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(9/PPM, 27/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | FLOOR_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT | LUXURY_CHEST_BIT | BOSS_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT | LUXURY_CHEST_BIT | BOSS_BIT | WONDER_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }
@@ -292,12 +392,16 @@ public class Player extends Sprite {
 
     public void bulletHit(){
         HP -= 10;
+        bulletHit.play(0.25f);
     }
     public void swordHit(){
         HP -= 25;
+        System.out.println(HP);
     }
     public boolean isDead(){
         if(HP <= 0){
+            bulletHit.dispose();
+            swordHit.dispose();
             isDead = true;
         }
         return isDead;
@@ -326,20 +430,31 @@ public class Player extends Sprite {
         shieldIsDestroyed = true;
     }
     private void input(){
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 3) {
-            b2body.applyLinearImpulse(new Vector2(0.3f, 0), b2body.getWorldCenter(), true);
+        if(wonderTouch){
+            b2body.setLinearVelocity(0, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -3) {
-            b2body.applyLinearImpulse(new Vector2(-0.3f, 0), b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            jump();
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-            swordAttack = true;
+        else {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 3) {
+                b2body.applyLinearImpulse(new Vector2(0.3f, 0), b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -3) {
+                b2body.applyLinearImpulse(new Vector2(-0.3f, 0), b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                jump();
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                swordAttack = true;
+            }
         }
     }
     public void vedmeDIOhit(){
-        b2body.applyForce(new Vector2(-2000f, 1000f), b2body.getWorldCenter(), true);
+        vedmeDioHit = true;
+        timer = 0;
+    }
+
+    public void wonderTouch(){
+        timer = 0;
+        wonderTouch = true;
     }
 }

@@ -1,0 +1,47 @@
+WonderAttack.png
+size: 480, 80
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+WonderAttack1
+  rotate: false
+  xy: 0, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+WonderAttack2
+  rotate: false
+  xy: 80, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+WonderAttack3
+  rotate: false
+  xy: 160, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+WonderAttack4
+  rotate: false
+  xy: 240, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+WonderAttack5
+  rotate: false
+  xy: 320, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+WonderAttack6
+  rotate: false
+  xy: 400, 0
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1

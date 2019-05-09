@@ -29,7 +29,10 @@ public class Familiar extends Sprite {
     public static float timer2=couldownRage;
     private boolean stop;
     private final float FOURtimer = 1f;
+    public static boolean rageIsActive;
     private Sound FOUR = Gdx.audio.newSound(Gdx.files.internal("Sound/FOUR.wav"));
+    private Sound heal = Gdx.audio.newSound(Gdx.files.internal("Sound/heal.wav"));
+    private Sound rage = Gdx.audio.newSound(Gdx.files.internal("Sound/rage.wav"));
     public Familiar(MyGame game, Player player){
         this.game = game;
         batch=game.batch;
@@ -37,6 +40,7 @@ public class Familiar extends Sprite {
         timer1 = 10f;
         timer2 = 10f;
         stop = false;
+        rageIsActive = false;
         switch (game.preferences.getInteger("familiar1")){
             case 1:
                 currentFamiliar1 = Familiar1.HEAL;
@@ -92,12 +96,14 @@ public class Familiar extends Sprite {
         if(currentFamiliar2 == Familiar2.RAGE && Enemy.rageActive){
             if (timer2 >= 3f){
                 Enemy.rageActive = false;
+                rageIsActive = false;
                 timer2 = 0;
             }
         }
         if(currentFamiliar1 == Familiar1.RAGE && Enemy.rageActive){
             if (timer2 >= 3f){
                 Enemy.rageActive = false;
+                rageIsActive = false;
                 timer2 = 0;
             }
         }
@@ -114,6 +120,7 @@ public class Familiar extends Sprite {
         switch (currentFamiliar1){
             case HEAL:
                 if(timer1 >= couldownHeal) {
+                    heal.play(0.2f);
                     player.heal();
                     timer1 = 0;
                 }
@@ -121,6 +128,7 @@ public class Familiar extends Sprite {
             case RAGE:
                 if(timer1 >= couldownRage) {
                     Enemy.rageActive = true;
+                    rageIsActive = true;
                     timer1 = 0;
                 }
                 break;
@@ -142,12 +150,15 @@ public class Familiar extends Sprite {
         switch (currentFamiliar2){
             case HEAL:
                 if(timer2 >= couldownHeal) {
+                    heal.play(0.2f);
                     player.heal();
                     timer2 = 0;
                 }
                 break;
             case RAGE:
                 if(timer2 >= couldownRage) {
+                    rage.play(0.2f);
+                    rageIsActive = true;
                     Enemy.rageActive = true;
                     timer2 = 0;
                 }

@@ -2,6 +2,7 @@ package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Enemies.Enemy;
+import com.mygdx.game.Enemies.Wonder;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Objects.Chest;
 import com.mygdx.game.Objects.LuxuryChest;
@@ -135,10 +136,12 @@ public class WorldContactListener implements ContactListener {
                 if(fixA.getFilterData().categoryBits == PLAYER_BIT){
                     ((Player)fixA.getUserData()).swordHit();
                     ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getLinearVelocity().x);
+                    ((Enemy)fixB.getUserData()).playSound();
                 }
                 else {
                     ((Player)fixB.getUserData()).swordHit();
                     ((Player)fixB.getUserData()).hitByEnemy(fixA.getBody().getLinearVelocity().x);
+                    ((Enemy)fixA.getUserData()).playSound();
                 }
                 break;
             case SHIELD_BIT | BULLET_BIT:
@@ -164,11 +167,33 @@ public class WorldContactListener implements ContactListener {
             case BOSS_BIT | PLAYER_BIT:
                 if(fixA.getFilterData().categoryBits == PLAYER_BIT){
                     ((Player)fixA.getUserData()).vedmeDIOhit();
+                    ((Enemy)fixB.getUserData()).bulletHit();
                 }
                 else {
                     ((Player)fixB.getUserData()).vedmeDIOhit();
+                    ((Enemy)fixA.getUserData()).bulletHit();
                 }
                 break;
+            case PLAYER_BIT | WONDER_BIT:
+                if(fixA.getFilterData().categoryBits == PLAYER_BIT){
+                    ((Player)fixA.getUserData()).wonderTouch();
+                    ((Wonder)fixB.getUserData()).playerTouch();
+                }
+                else {
+                    ((Player)fixB.getUserData()).wonderTouch();
+                    ((Wonder)fixA.getUserData()).playerTouch();
+                }
+                break;
+            case WONDER_BIT | GROUND_BIT:
+                System.out.println("Contact");
+                if (fixA.getFilterData().categoryBits == WONDER_BIT){
+                    ((Wonder)fixA.getUserData()).reverseVelocity(true, false);
+                }
+                else {
+                    ((Wonder)fixB.getUserData()).reverseVelocity(true, false);
+                }
+                break;
+
         }
     }
 

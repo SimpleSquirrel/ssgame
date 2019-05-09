@@ -1,5 +1,7 @@
 package com.mygdx.game.Objects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.*;
@@ -11,12 +13,13 @@ import static com.mygdx.game.MyGame.*;
 public class Chest extends Sprite {
     public enum State {OPENED, CLOSED}
     private MyGame game;
+    private Portal portal;
     public State currentState;
     public State previousState;
     public World world;
     public Body b2body;
-    private Sprite chestOpened;
-    private Sprite chestClosed;
+    public static Sprite chestOpened;
+    public static Sprite chestClosed;
     private TextureAtlas atlas;
     private float stateTimer;
     public boolean isTouched;
@@ -25,6 +28,9 @@ public class Chest extends Sprite {
     private boolean getWeapon;
     private int weapon;
     private int counter;
+    private boolean isGetWeapon;
+    private Sound openSound = Gdx.audio.newSound(Gdx.files.internal("Sound/chest.wav"));
+    private Sound openMusic = Gdx.audio.newSound(Gdx.files.internal("Sound/chestSound.wav"));
 
     public Chest(World world, float x, float y, float CheckX, float CheckY, boolean flip, MyGame game, boolean isOpened) {
         this.world = world;
@@ -52,6 +58,7 @@ public class Chest extends Sprite {
         }
         stateTimer = 0;
         getWeapon = false;
+        isGetWeapon = false;
         defineChest(x, y, CheckX, CheckY);
     }
 
@@ -60,12 +67,17 @@ public class Chest extends Sprite {
         setRegion(getSprite(delta));
         if(counter == 0) {
             if (getWeapon) {
-                System.out.println("asa");
+                openSound.play(0.1f);
                 weapon = (int) (Math.random() * 12 + 1);
                 addWeapon(weapon);
                 counter++;
                 getWeapon = false;
+                stateTimer = 0;
             }
+        }
+        if(isGetWeapon && stateTimer >= 1.5f) {
+            openMusic.play(0.1f);
+            isGetWeapon = false;
         }
     }
 
@@ -125,6 +137,7 @@ public class Chest extends Sprite {
     }
 
     public void addWeapon(int weapon){
+        isGetWeapon = true;
         switch (weapon){
             case 1:
                 if(!game.preferences.getBoolean("doubleGun")) {

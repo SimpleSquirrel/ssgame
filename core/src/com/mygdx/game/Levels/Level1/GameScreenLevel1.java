@@ -3,6 +3,7 @@ package com.mygdx.game.Levels.Level1;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -58,16 +59,19 @@ public class GameScreenLevel1 implements Screen {
     private DefendedCannon defendedCannon;
     private Portal portal;
     private Chest chest;
+    private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Sound/bgmusic1.mp3"));
+    public static final Sound congrats = Gdx.audio.newSound(Gdx.files.internal("Sound/congratulations.wav"));
 
     public GameScreenLevel1(MyGame game) {
         this.game = game;
+        bgmusic.loop(0.05f);
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 5);
         game.preferences.flush();
         game.preferences.putInteger("level", 1);
         game.preferences.putInteger("location", 1);
         game.preferences.putString("weapon", "gun");
-        game.preferences.putInteger("Score", 0);
+        game.preferences.putInteger("score", 0);
         game.preferences.putBoolean("doubleGun", false);
         game.preferences.putBoolean("tripleGun", false);
         game.preferences.putBoolean("quadraGun", false);
@@ -169,6 +173,7 @@ public class GameScreenLevel1 implements Screen {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
+                bgmusic.stop();
                 game.setScreen(new DeathScreen(game));
             }
         } else {
@@ -242,6 +247,8 @@ public class GameScreenLevel1 implements Screen {
             for (Bullet bullet:playerBullets){
                 bullet.deleteBullet();
             }
+            congrats.play(0.2f);
+            bgmusic.stop();
             game.setScreen(new LoadScreen(game));
         }
         chest.update(dt);

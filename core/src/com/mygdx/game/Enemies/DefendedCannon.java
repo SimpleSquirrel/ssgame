@@ -74,10 +74,12 @@ public class DefendedCannon extends Enemy {
         if(attack){
             if (stateTimer >= shootTimer) {
                 if (!isFlip) {
+                    bulletShot.play(0.01f);
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, 24/PPM, 1/PPM);
                     bullet.bulletBody.setLinearVelocity(4f, 0);
                     defendedCannonBullets.add(bullet);
                 } else {
+                    bulletShot.play(0.01f);
                     bullet = new Bullet(world, b2body.getPosition().x, b2body.getPosition().y, -24/PPM, 1/PPM);
                     bullet.bulletBody.setLinearVelocity(-4f, 0);
                     defendedCannonBullets.add(bullet);
@@ -186,6 +188,11 @@ public class DefendedCannon extends Enemy {
     @Override
     public boolean isDestroyed(){
         return destroyed;
+    }
+
+    @Override
+    public void playSound() {
+
     }
 
     public Sprite babax(){

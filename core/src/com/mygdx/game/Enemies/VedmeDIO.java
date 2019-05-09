@@ -1,11 +1,14 @@
 package com.mygdx.game.Enemies;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Levels.Level5.GameScreenLevel5;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -27,12 +30,20 @@ public class VedmeDIO extends Enemy {
     private TextureAtlas atlasBearHit;
     private Sprite spriteBearHit1;
     private Sprite spriteBearHit2;
-    private Sprite spriteBearHit3;
-    private Sprite spriteBearHit4;
     private Animation animationBearHit;
+    private TextureAtlas atlasMCFall;
+    private Sprite spriteMCFall1;
+    private Sprite spriteMCFall2;
+    private Sprite spriteMCFall3;
+    private Sprite spriteMCFall4;
+    private Sprite spriteMCFall5;
+    private Animation animationMCFall;
     private boolean setToDestroy;
     private boolean destroyed;
     private float timer;
+    private boolean hitPlayer;
+    private Sound KONODIODA = Gdx.audio.newSound(Gdx.files.internal("Sound/konoDIOda.wav"));
+    private Sound wryyy = Gdx.audio.newSound(Gdx.files.internal("Sound/wryyy.wav"));
 
     public VedmeDIO(World world, float x, float y,boolean flip){
         super(world, x, y, flip);
@@ -62,13 +73,36 @@ public class VedmeDIO extends Enemy {
         frames.add(spriteBearFall7);
         animationBearFall = new Animation(0.2f, frames);
         frames.clear();
+        atlasBearHit = new TextureAtlas("Enemies/BearDioHit.txt");
+        spriteBearHit1 = atlasBearHit.createSprite("BearHit1");
+        spriteBearHit2 = atlasBearHit.createSprite("BearHit2");
+        frames.add(spriteBearHit1);
+        frames.add(spriteBearHit2);
+        animationBearHit = new Animation(0.5f, frames);
+        frames.clear();
+        atlasMCFall = new TextureAtlas("Animations/Death.txt");
+        spriteMCFall1 = atlasMCFall.createSprite("McFall1");
+        spriteMCFall2 = atlasMCFall.createSprite("McFall2");
+        spriteMCFall3 = atlasMCFall.createSprite("McFall3");
+        spriteMCFall4 = atlasMCFall.createSprite("McFall4");
+        spriteMCFall5 = atlasMCFall.createSprite("McFall5");
+        frames.add(spriteMCFall1);
+        frames.add(spriteMCFall2);
+        frames.add(spriteMCFall3);
+        frames.add(spriteMCFall4);
+        frames.add(spriteMCFall5);
+        animationMCFall = new Animation(0.2f, frames);
+        frames.clear();
         setToDestroy = false;
         destroyed = false;
+        hitPlayer = false;
     }
 
     public void update(float delta){
         timer += delta;
         if(setToDestroy && !destroyed){
+            GameScreenLevel5.destroyTimer = 0;
+            wryyy.play(0.2f);
             world.destroyBody(b2body);
             timer = 0;
             destroyed = true;
@@ -78,13 +112,27 @@ public class VedmeDIO extends Enemy {
     public Sprite getSpriteStand(float delta){
         timer += delta;
         Sprite sprite;
-        sprite = (Sprite) animationBearStand.getKeyFrame(timer, true);
+        if(hitPlayer){
+            sprite = (Sprite) animationBearHit.getKeyFrame(timer, false);
+            if(timer >= 1f) {
+                hitPlayer = false;
+            }
+        }
+        else {
+            sprite = (Sprite) animationBearStand.getKeyFrame(timer, true);
+        }
         return sprite;
     }
     public Sprite getSpriteFall(float delta){
         timer += delta;
         Sprite sprite;
         sprite = (Sprite) animationBearFall.getKeyFrame(timer, false);
+        return sprite;
+    }
+    public Sprite mcFall(float delta){
+        timer += delta;
+        Sprite sprite;
+        sprite = (Sprite)animationMCFall.getKeyFrame(timer, false);
         return sprite;
     }
     @Override
@@ -98,7 +146,7 @@ public class VedmeDIO extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(20/PPM, 54/PPM);
         fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | NOTHING_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape shape1 = new PolygonShape();
@@ -124,6 +172,9 @@ public class VedmeDIO extends Enemy {
 
     @Override
     public void bulletHit() {
+        hitPlayer = true;
+        KONODIODA.play(0.2f);
+        timer = 0;
     }
 
     @Override
@@ -150,5 +201,10 @@ public class VedmeDIO extends Enemy {
     @Override
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    @Override
+    public void playSound() {
+
     }
 }

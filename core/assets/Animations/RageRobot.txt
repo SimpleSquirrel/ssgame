@@ -1,0 +1,96 @@
+RageRobot.png
+size: 40, 910
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+RageRun1
+  rotate: false
+  xy: 0, 0
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageRun2
+  rotate: false
+  xy: 0, 70
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageRun3
+  rotate: false
+  xy: 0, 140
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageRun4
+  rotate: false
+  xy: 0, 210
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageRun5
+  rotate: false
+  xy: 0, 280
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageStatic
+  rotate: false
+  xy: 0, 350
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageStatic0
+  rotate: false
+  xy: 0, 420
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageStatic1
+  rotate: false
+  xy: 0, 490
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageSword0
+  rotate: false
+  xy: 0, 560
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageSword1
+  rotate: false
+  xy: 0, 630
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageSword2
+  rotate: false
+  xy: 0, 700
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageSword3
+  rotate: false
+  xy: 0, 770
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+RageSword4
+  rotate: false
+  xy: 0, 840
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1

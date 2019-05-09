@@ -20,6 +20,7 @@ public abstract class Enemy extends Sprite {
     public static boolean FOURboolean;
     protected int counter;
     protected Sound explosion = Gdx.audio.newSound(Gdx.files.internal("Sound/explosion.mp3"));
+    protected Sound bulletShot = Gdx.audio.newSound(Gdx.files.internal("Sound/shot.wav"));
     public Enemy(World world, float x, float y, boolean flip){
         isFlip = flip;
         this.world = world;
@@ -38,4 +39,5 @@ public abstract class Enemy extends Sprite {
     public abstract void deleted();
     public abstract void reverseVelocity(boolean x, boolean y);
     public abstract boolean isDestroyed();
+    public abstract void playSound();
 }

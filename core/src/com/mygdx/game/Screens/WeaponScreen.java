@@ -301,7 +301,7 @@ public class WeaponScreen implements Screen {
         {
             if (Gdx.input.isTouched())
             {
-                game.setScreen(new MenuScreen(this.game));
+                game.setScreen(new LoadScreen(this.game));
             }
         }
 

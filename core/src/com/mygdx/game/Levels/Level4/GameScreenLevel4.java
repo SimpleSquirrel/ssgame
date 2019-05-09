@@ -3,6 +3,7 @@ package com.mygdx.game.Levels.Level4;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -65,8 +66,10 @@ public class GameScreenLevel4 implements Screen {
     private Portal portal;
     private LuxuryChest luxuryChest;
     public static float destroyTimer;
+    private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Music/13DigitalNative.mp3"));
     public GameScreenLevel4(MyGame game){
         this.game = game;
+        bgmusic.loop(0.05f);
 
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
@@ -158,6 +161,7 @@ public class GameScreenLevel4 implements Screen {
                 for (Bullet bullet:playerBullets){
                     bullet.deleteBullet();
                 }
+                bgmusic.stop();
                 luxuryChest.frame.dispose();
                 game.setScreen(new DeathScreen(game));
             }
@@ -215,8 +219,10 @@ public class GameScreenLevel4 implements Screen {
             for (Bullet bullet:playerBullets){
                 bullet.deleteBullet();
             }
+            preferences.putInteger("score", HUD.SCORE);
             game.preferences.putInteger("location", 5);
             game.preferences.flush();
+            bgmusic.stop();
             game.setScreen(new LoadScreen(game));
         }
         luxuryChest.update(dt);
@@ -273,6 +279,7 @@ public class GameScreenLevel4 implements Screen {
                     for (Bullet bullet:playerBullets){
                         bullet.deleteBullet();
                     }
+                    bgmusic.stop();
                     luxuryChest.frame.dispose();
                     game.setScreen(new MenuScreen(game)); //changing screen
                     isPaused=false;

@@ -1,0 +1,33 @@
+ArmoredBiter.png
+size: 60, 320
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ArmoredBiter1
+  rotate: false
+  xy: 0, 0
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+ArmoredBiter2
+  rotate: false
+  xy: 0, 80
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+ArmoredBiter3
+  rotate: false
+  xy: 0, 160
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+ArmoredBiter4
+  rotate: false
+  xy: 0, 240
+  size: 60, 80
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
