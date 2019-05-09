@@ -45,6 +45,7 @@ public class MyGame extends Game {
 	public final  static float PPM = 100;
 
 	public void create() {
+
 		Assets.load();
 		batch = new SpriteBatch();
 		preferences = Gdx.app.getPreferences("SaveData");

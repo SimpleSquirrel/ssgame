@@ -14,6 +14,8 @@ public class DeathScreen implements Screen {
     MyGame game;    //MyGame constructor
     OrthographicCamera camera; //Creating a camera
     SpriteBatch batch;
+    private int testX,testY;
+    private boolean size;
      public DeathScreen(MyGame game){ //constructor
         this.game = game;
 
@@ -29,43 +31,89 @@ public class DeathScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1); //setting bg color
+        Gdx.gl.glClearColor(0, 0, 0, 1); //setting bg color
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Idk
 
         camera.update(); //idk
         batch.setProjectionMatrix(camera.combined); //idk
 
         batch.begin(); //start of rendering
-        batch.draw(Assets.spriteDeathScreenBack, 0, 0); //drawing bg
-        batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150); //Drawing Active NewGameButton
-        batch.draw(Assets.spriteDeathScreenNoInActive,750,200,300,150);
-        if(Gdx.input.getX() <250 + 300 && Gdx.input.getX() > 250 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
-            batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 300, 150); //Drawing Active
-            if (Gdx.input.isTouched()) { //creating an event
-                this.dispose();
-                game.setScreen(new LoadScreen(game)); //changing screen
-            }
+        batch.draw(Assets.spriteDeathScreenBack, 0, 0, 1600,900); //drawing bg
+        batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 400, 200); //Drawing Active NewGameButton
+        batch.draw(Assets.spriteDeathScreenDaInActive,750,200,400,200);
+        if (Gdx.graphics.getHeight()>800){
+            size=true;
         }
-        else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+        else {
+            size=false;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            testX=Gdx.input.getX();
+            testY=Gdx.input.getY();
+            System.out.print(testX +"  "+(Gdx.graphics.getHeight()-testY));
+            System.out.println();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             this.dispose();
-            game.setScreen(new LoadScreen(game)); //changing screen
+            game.setScreen(new LoadScreen(game));
         }
-        else{
-            batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 300, 150);
-        }
-        if(Gdx.input.getX() <650 + 300 && Gdx.input.getX() > 650 && Gdx.input.getY() > 900-200- 250  && Gdx.input.getY() < 900-300) { //setting bounds of NewGameButton
-            batch.draw(Assets.spriteDeathScreenTosheDa, 750, 200, 300, 150); //Drawing Active
-            if (Gdx.input.isTouched()) { //creating an event
-                this.dispose();
-                game.setScreen(new LoadScreen(game)); //changing screen
-            }
-        }
-        else if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             this.dispose();
             game.setScreen(new MenuScreen(game)); //changing screen
         }
-        else{
-            batch.draw(Assets.spriteDeathScreenNoInActive, 750, 200, 300, 150);
+        if(!size) {
+            if (Gdx.input.getX() < 568 && Gdx.input.getX() > 287 && Gdx.input.getY() >Gdx.graphics.getHeight()- 309 && Gdx.input.getY() <Gdx.graphics.getHeight()- 179) { //setting bounds of NewGameButton
+                batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 400, 200); //Drawing Active
+                batch.draw(Assets.textureDeathScreenTextDa, 300, 200, 400, 200); //Drawing Active
+                if (Gdx.input.isTouched()) { //creating an event
+                    this.dispose();
+                    game.setScreen(new LoadScreen(game)); //changing screen
+                }
+            }   //changing screen
+            else {
+                batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 400, 200);
+                batch.draw(Assets.textureDeathScreenTextDa, 400, 230, 200, 150); //Drawing Active
+            }
+            if (Gdx.input.getX() < 936 && Gdx.input.getX() > 672 && Gdx.input.getY() >Gdx.graphics.getHeight()-307 && Gdx.input.getY() <Gdx.graphics.getHeight()- 194) { //setting bounds of NewGameButton
+                batch.draw(Assets.spriteDeathScreenDaActive, 750, 200, 400, 200); //Drawing Active
+                batch.draw(Assets.spriteDeathScreenTosheDa, 800, 220, 300, 150);
+                if (Gdx.input.isTouched()) { //creating an event
+                    this.dispose();
+                    game.setScreen(new LoadScreen(game)); //changing screen
+                }
+            }
+            else {
+                batch.draw(Assets.spriteDeathScreenDaInActive, 750, 200, 400, 200);
+                batch.draw(Assets.textureDeathScreenTextNo, 850, 220, 200, 150); //Drawing Active
+            }
+        }
+        if(size) {
+            if (Gdx.input.getX() < 568 && Gdx.input.getX() > 287 && Gdx.input.getY() >Gdx.graphics.getHeight()- 309 && Gdx.input.getY() <Gdx.graphics.getHeight()- 179) { //setting bounds of NewGameButton
+                batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 400, 200); //Drawing Active
+                batch.draw(Assets.textureDeathScreenTextDa, 300, 200, 400, 200); //Drawing Active
+                if (Gdx.input.isTouched()) { //creating an event
+                    this.dispose();
+                    game.setScreen(new LoadScreen(game)); //changing screen
+                }
+            }   //changing screen
+            else {
+                batch.draw(Assets.spriteDeathScreenDaInActive, 300, 200, 400, 200);
+                batch.draw(Assets.textureDeathScreenTextDa, 400, 230, 200, 150); //Drawing Active
+            }
+            if (Gdx.input.getX() < 936 && Gdx.input.getX() > 672 && Gdx.input.getY() >Gdx.graphics.getHeight()-307 && Gdx.input.getY() <Gdx.graphics.getHeight()- 194) { //setting bounds of NewGameButton
+                batch.draw(Assets.spriteDeathScreenDaActive, 750, 200, 400, 200); //Drawing Active
+                batch.draw(Assets.spriteDeathScreenTosheDa, 800, 220, 300, 150);
+                if (Gdx.input.isTouched()) { //creating an event
+                    this.dispose();
+                    game.setScreen(new LoadScreen(game)); //changing screen
+                }
+            }
+            else {
+                batch.draw(Assets.spriteDeathScreenDaInActive, 750, 200, 400, 200);
+                batch.draw(Assets.textureDeathScreenTextNo, 850, 220, 200, 150); //Drawing Active
+            }
         }
         batch.end(); //ending of rendering
     }

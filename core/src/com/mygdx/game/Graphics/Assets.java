@@ -36,6 +36,8 @@ public class Assets {
     public static Texture textureDeathScreenDaInActive;
     public static Texture textureDeathScreenTosheDa;
     public static Texture textureDeathScreenNoInactive;
+    public static Texture textureDeathScreenTextDa;
+    public static Texture textureDeathScreenTextNo;
     //ExitScreen
         //Sprites
     public static Sprite spriteNoActive;
@@ -495,5 +497,11 @@ public class Assets {
 
         textureShield = new Texture(Gdx.files.internal("Objects/Shield.png"));
         spriteShield = new Sprite(textureShield);
+
+        textureDeathScreenTextDa= new Texture(Gdx.files.internal("DeathScreen/Da.png"));
+        textureDeathScreenTextDa.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureDeathScreenTextNo= new Texture(Gdx.files.internal("DeathScreen/No.png"));
+        textureDeathScreenTextNo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 }

@@ -114,6 +114,7 @@ public class WeaponScreen implements Screen {
         labelWeapon13.setName("13");
 
         //Шаблонные характеристики 1600*900
+        score = game.preferences.getInteger("score");
         if(size) {
             h=900;
             defaults(labelWeapon1, 100, 700);
@@ -211,7 +212,7 @@ public class WeaponScreen implements Screen {
         keys[11][0]   = "shotgun";                keys[11][2] = "12";            keys[11][1]  =   "Шозанахган";
         keys[12][0]   = "fastShotgun";            keys[12][2] = "13";            keys[12][1]  =   "asd;fijasd";
 
-        score = game.preferences.getInteger("score");
+
     }
 
     private void defaults(Label label, int x, int y)

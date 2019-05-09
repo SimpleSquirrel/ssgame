@@ -18,8 +18,7 @@ import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Player.Player;
 
-import static com.mygdx.game.MyGame.PLAYER_BIT;
-import static com.mygdx.game.MyGame.PPM;
+import static com.mygdx.game.MyGame.*;
 import static javax.swing.UIManager.getString;
 
 public class HUD  {
@@ -54,7 +53,7 @@ public class HUD  {
 
         viewport = new FitViewport(1600 / PPM, 900 / PPM, camera);
         WORLD_TIME=0;
-        //SCORE=MyGame.Score;
+        SCORE=preferences.getInteger("score");
         COUNT_OF_DEATH=0;
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Amble-Light.ttf"));
