@@ -52,7 +52,7 @@ public class WeaponScreen implements Screen {
     private Label labelMoney;
     private Stage stage;
     String[] disc = new String[13];
-    String[][] keys = new String[13][3];
+    String[][] keys = new String[13][4];
     private static int h ;
     int score;
     private boolean size;
@@ -114,6 +114,7 @@ public class WeaponScreen implements Screen {
         labelWeapon13.setName("13");
 
         //Шаблонные характеристики 1600*900
+        score = game.preferences.getInteger("score");
         if(size) {
             h=900;
             defaults(labelWeapon1, 100, 700);
@@ -211,7 +212,19 @@ public class WeaponScreen implements Screen {
         keys[11][0]   = "shotgun";                keys[11][2] = "12";            keys[11][1]  =   "Шозанахган";
         keys[12][0]   = "fastShotgun";            keys[12][2] = "13";            keys[12][1]  =   "asd;fijasd";
 
-        score = game.preferences.getInteger("score");
+        keys[0][3]    = "doubleGunBought";
+        keys[1][3]    = "tripleGunBought";
+        keys[2][3]    = "quadraGunBought";
+        keys[3][3]    = "pentaGunBought";
+        keys[4][3]    = "fastGunBought";
+        keys[5][3]    = "doubleFastGunBought";
+        keys[6][3]    = "tripleFastGunBought";
+        keys[7][3]    = "quadraFastGunBought";
+        keys[8][3]    = "veryFastGunBought";
+        keys[9][3]    = "veryFastDoubleGunBought";
+        keys[10][3]   = "ultraFastGunBought";
+        keys[11][3]   = "shotgunBought";
+        keys[12][3]   = "fastShotgunBought";
     }
 
     private void defaults(Label label, int x, int y)
@@ -295,15 +308,17 @@ public class WeaponScreen implements Screen {
             if (Gdx.input.getX() < labelBuy.getX() + 100 && Gdx.input.getX() > labelBuy.getX() - 100 &&
                     Gdx.input.getY() < h - labelBuy.getY() + 25  && Gdx.input.getY() > h - labelBuy.getY() - 25) {
                 if (Gdx.input.isTouched()) {
-                    if (!(game.preferences.getBoolean(keys[whoIsTouched-1][0]) &&
+                    if ((game.preferences.getBoolean(keys[whoIsTouched-1][0]) &&
                             score >= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Стоимость: ", "")))) &&
-                            score > 0)
+                            score > 0 &&
+                            game.preferences.getBoolean(keys[whoIsTouched-1][3]) == false)
                     {
                         score -= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Стоимость: ", "")));
                         game.preferences.putInteger("score",score);
                         labelMoney.setText("У вас деняк: " + score);
-                        game.preferences.putBoolean(keys[whoIsTouched-1][0], true);
+                        game.preferences.putBoolean(keys[whoIsTouched-1][3], true);
                         game.preferences.flush();
+                        //System.out.println(keys[whoIsTouched-1][3] + " = " + game.preferences.getBoolean(keys[whoIsTouched-1][3]));
                         labelDiscriptionWeaponName.setText(keys[whoIsTouched-1][1]);
                         labelDiscription.setText(disc[whoIsTouched-1]);
 
@@ -331,7 +346,7 @@ public class WeaponScreen implements Screen {
                 } else {
                     labelDiscription.setText(unknown);
                     labelDiscriptionWeaponName.setText(unknown);
-                    labelWeaponCost.setText("Стоимость: " + keys[Integer.parseInt(label.getName()) - 1][2]);
+                    labelWeaponCost.setText("Стоимость: " + unknown);
                     anyWeaponPressed = true;
                 }
             }
@@ -392,10 +407,7 @@ public class WeaponScreen implements Screen {
         batch.begin();
         checkers();
         drawWeapons();
-
-
         batch.end();
-
     }
 
     @Override

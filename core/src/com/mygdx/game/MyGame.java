@@ -10,6 +10,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.MenuScreen;
+import com.mygdx.game.Screens.WeaponScreen;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
