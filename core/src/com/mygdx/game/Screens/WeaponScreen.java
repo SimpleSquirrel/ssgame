@@ -53,8 +53,9 @@ public class WeaponScreen implements Screen {
     private Stage stage;
     String[] disc = new String[13];
     String[][] keys = new String[13][3];
-    private final int h = 900;
+    private static int h ;
     int score;
+    private boolean size;
 
     private String unknown = "???";
 
@@ -67,7 +68,12 @@ public class WeaponScreen implements Screen {
         camera.setToOrtho(false, 1600, 900); //setting sizes for camera
         batch = new SpriteBatch();
         viewport= new FitViewport(1600,900,camera);
-
+        if(Gdx.graphics.getHeight()>800){
+            size=true;
+        }
+        else {
+            size=false;
+        }
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("test.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -107,30 +113,74 @@ public class WeaponScreen implements Screen {
         labelWeapon12.setName("12");
         labelWeapon13.setName("13");
 
-        //Шаблонные характеристики
-        defaults(labelWeapon1, 100,700);
-        defaults(labelWeapon2, 300,700);
-        defaults(labelWeapon3, 500,700);
-        defaults(labelWeapon4, 100,550);
-        defaults(labelWeapon5, 300,550);
-        defaults(labelWeapon6, 500,550);
-        defaults(labelWeapon7, 100,400);
-        defaults(labelWeapon8, 300,400);
-        defaults(labelWeapon9, 500,400);
-        defaults(labelWeapon10,100,250);
-        defaults(labelWeapon11,300,250);
-        defaults(labelWeapon12,500,250);
-        defaults(labelWeapon13,300,100);
+        //Шаблонные характеристики 1600*900
+        if(size) {
+            h=900;
+            defaults(labelWeapon1, 100, 700);
+            defaults(labelWeapon2, 300, 700);
+            defaults(labelWeapon3, 500, 700);
+            defaults(labelWeapon4, 100, 550);
+            defaults(labelWeapon5, 300, 550);
+            defaults(labelWeapon6, 500, 550);
+            defaults(labelWeapon7, 100, 400);
+            defaults(labelWeapon8, 300, 400);
+            defaults(labelWeapon9, 500, 400);
+            defaults(labelWeapon10, 100, 250);
+            defaults(labelWeapon11, 300, 250);
+            defaults(labelWeapon12, 500, 250);
+            defaults(labelWeapon13, 300, 100);
+            //Название оружия
+            labelDiscriptionWeaponName = new Label("", labelStyle);
+            defaults(labelDiscriptionWeaponName, 1250,700);
+            labelDiscriptionWeaponName.setFontScale(2);
+            //Описание
+            labelDiscription = new Label("",labelStyle);
+            labelDiscription.setPosition(1150,550);
+            labelWeaponCost = new Label("",labelStyle);
+            labelWeaponCost.setPosition(1150,250);
+            labelWeaponCost.setSize(75,0);
+            //
+            labelBuy = new Label("Купить", labelStyle);
+            defaults(labelBuy, 1275,150);
+            //
+            labelMoney = new Label("У вас деняк: " + score,labelStyle);
+            labelMoney.setPosition(1150,275);
+            labelMoney.setSize(75,0);
+        }
+        if(!size) {
+            h=720;
+            //Шаблонные характеристики 1366*720
+            defaults(labelWeapon1, 50, 620);
+            defaults(labelWeapon2, 250, 620);
+            defaults(labelWeapon3, 450, 620);
+            defaults(labelWeapon4, 50, 470);
+            defaults(labelWeapon5, 250, 470);
+            defaults(labelWeapon6, 450, 470);
+            defaults(labelWeapon7, 50, 320);
+            defaults(labelWeapon8, 250, 320);
+            defaults(labelWeapon9, 450, 320);
+            defaults(labelWeapon10, 50, 170);
+            defaults(labelWeapon11, 250, 170);
+            defaults(labelWeapon12, 450, 170);
+            defaults(labelWeapon13, 250, 40);
+            //Название оружия
+            labelDiscriptionWeaponName = new Label("", labelStyle);
+            defaults(labelDiscriptionWeaponName, 1050,700);
+            labelDiscriptionWeaponName.setFontScale(2);
+            //Описание
+            labelDiscription = new Label("",labelStyle);
+            labelDiscription.setPosition(950,550);
+            labelWeaponCost = new Label("",labelStyle);
+            labelWeaponCost.setPosition(950,250);
+            labelWeaponCost.setSize(75,0);
 
-        //Название оружия
-        labelDiscriptionWeaponName = new Label("", labelStyle);
-        defaults(labelDiscriptionWeaponName, 1250,700);
-        labelDiscriptionWeaponName.setFontScale(2);
+            labelBuy = new Label("Купить", labelStyle);
+            defaults(labelBuy, 1075,150);
 
-        //Описание
-        labelDiscription = new Label("",labelStyle);
-        labelDiscription.setPosition(1150,550);
-
+            labelMoney = new Label("У вас деняк: " + score,labelStyle);
+            labelMoney.setPosition(950,275);
+            labelMoney.setSize(75,0);
+        }
 
         //Описание оружия
         disc[0] = "Опис першого";            
@@ -146,11 +196,6 @@ public class WeaponScreen implements Screen {
         disc[10] = "11";    
         disc[11] = "12";    
         disc[12] = "13";
-
-        labelWeaponCost = new Label("",labelStyle);
-        labelWeaponCost.setPosition(1150,250);
-        labelWeaponCost.setSize(75,0);
-
         //Ключ на True/False                      Стоимость                      Текст на вывод при True
         keys[0][0]    = "doubleGun";              keys[0][2] = "1";              keys[0][1]   =   "Дибилган";
         keys[1][0]    = "tripleGun";              keys[1][2] = "2";              keys[1][1]   =   "Трибилган";
@@ -166,14 +211,7 @@ public class WeaponScreen implements Screen {
         keys[11][0]   = "shotgun";                keys[11][2] = "12";            keys[11][1]  =   "Шозанахган";
         keys[12][0]   = "fastShotgun";            keys[12][2] = "13";            keys[12][1]  =   "asd;fijasd";
 
-        labelBuy = new Label("Купить", labelStyle);
-        defaults(labelBuy, 1275,150);
-
         score = game.preferences.getInteger("score");
-
-        labelMoney = new Label("У вас деняк: " + score,labelStyle);
-        labelMoney.setPosition(1150,275);
-        labelMoney.setSize(75,0);
     }
 
     private void defaults(Label label, int x, int y)
@@ -187,10 +225,10 @@ public class WeaponScreen implements Screen {
     {
         if (Gdx.input.getX() <  1100 && Gdx.input.getX() >  675 &&
                 Gdx.input.getY() < 700  && Gdx.input.getY() > 0)
-            batch.draw(Assets.spriteOpenedDoor, 0, 0);
+            batch.draw(Assets.spriteOpenedDoor, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         else
-            batch.draw(Assets.spriteClosedDoor, 0, 0);
-        batch.draw(Assets.spriteRobot,100,0);
+            batch.draw(Assets.spriteClosedDoor, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        batch.draw(Assets.spriteRobot,100,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         //Оружия
         batch.draw(Assets.spriteLable, labelWeapon1.getX()- 95, labelWeapon1.getY()- 90, 300,250);
         batch.draw(Assets.spriteLable, labelWeapon2.getX()- 95, labelWeapon2.getY()- 90, 300,250);
@@ -241,7 +279,12 @@ public class WeaponScreen implements Screen {
         //Описание
         if(anyWeaponPressed == true)
         {
-            batch.draw(Assets.spritePaper, 1000, 100, 600,700);
+            if(size) {
+                batch.draw(Assets.spritePaper, 1000, 100, 600, 700);
+            }
+            if(!size) {
+                batch.draw(Assets.spritePaper, 800, 100, 600, 700);
+            }
             labelBuy.draw(batch, 1);
             labelDiscription.draw(batch,1);
 
