@@ -45,7 +45,7 @@ public class MyGame extends Game {
 	public static final short LUXURY_CHEST_BIT = 8192;
 	public static final short BOSS_BIT = 16384;
 	public static  int SOUND=0;
-	public static  int Score=0;
+	//public static  int Score=0;
 	public static  short MUZIC=0;
 	public final  static float PPM = 100;
 

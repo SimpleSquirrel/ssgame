@@ -10,7 +10,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Objects.Chest;
@@ -23,6 +27,7 @@ public class WeaponScreen implements Screen {
     private Sprite sprite;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+    private Viewport viewport;
 
     final String ukr = "абвгдеєжзиіїйклмнопрстуфхцчшщьюяabcdefghijklmnopqrstuvwxyzАБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
     Label.LabelStyle labelStyle;
@@ -45,6 +50,7 @@ public class WeaponScreen implements Screen {
     private Label labelWeaponCost;
     private Label labelBuy;
     private Label labelMoney;
+    private Stage stage;
     String[] disc = new String[13];
     String[][] keys = new String[13][3];
     private final int h = 900;
@@ -55,10 +61,13 @@ public class WeaponScreen implements Screen {
     public WeaponScreen(MyGame game)
     {
         sprite = new Sprite();
+        stage = new Stage(new ScreenViewport());
         this.game = game;
         camera = new OrthographicCamera(); //Initialising camera
         camera.setToOrtho(false, 1600, 900); //setting sizes for camera
         batch = new SpriteBatch();
+        viewport= new FitViewport(1600,900,camera);
+
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("test.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

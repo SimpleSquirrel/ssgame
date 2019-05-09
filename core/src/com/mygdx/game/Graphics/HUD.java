@@ -54,7 +54,7 @@ public class HUD  {
 
         viewport = new FitViewport(1600 / PPM, 900 / PPM, camera);
         WORLD_TIME=0;
-        SCORE=MyGame.Score;
+        //SCORE=MyGame.Score;
         COUNT_OF_DEATH=0;
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Amble-Light.ttf"));
