@@ -1,0 +1,19 @@
+Cupcake.png
+size: 32, 80
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cupcake1
+  rotate: false
+  xy: 0, 0
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+Cupcake2
+  rotate: false
+  xy: 0, 40
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1

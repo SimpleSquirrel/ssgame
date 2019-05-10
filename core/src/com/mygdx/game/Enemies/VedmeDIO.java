@@ -158,7 +158,7 @@ public class VedmeDIO extends Enemy {
         shape1.set(vertice);
         fixtureDef.shape = shape1;
         fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = WEAK_POINT_BIT;
+        fixtureDef.filter.categoryBits = ENEMY_BIT;
         fixtureDef.filter.maskBits = SWORD_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
         EdgeShape edgeShape = new EdgeShape();

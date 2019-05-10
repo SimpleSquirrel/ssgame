@@ -2,11 +2,9 @@ package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Enemies.Enemy;
+import com.mygdx.game.Enemies.Pie;
 import com.mygdx.game.Enemies.Wonder;
-import com.mygdx.game.Objects.Bullet;
-import com.mygdx.game.Objects.Chest;
-import com.mygdx.game.Objects.LuxuryChest;
-import com.mygdx.game.Objects.Portal;
+import com.mygdx.game.Objects.*;
 import com.mygdx.game.Player.Player;
 
 import static com.mygdx.game.MyGame.*;
@@ -54,14 +52,6 @@ public class WorldContactListener implements ContactListener {
                 }
                 else {
                     ((Enemy)fixB.getUserData()).fire();
-                }
-                break;
-            case SWORD_BIT | WEAK_POINT_BIT:
-                if(fixA.getFilterData().categoryBits == SWORD_BIT){
-                    ((Enemy)fixB.getUserData()).swordHit();
-                }
-                else {
-                    ((Enemy)fixA.getUserData()).swordHit();
                 }
                 break;
             case SWORD_BIT | ENEMY_BIT:
@@ -124,15 +114,15 @@ public class WorldContactListener implements ContactListener {
                     ((Player)fixB.getUserData()).spikeHit();
                 }
                 break;
-            case WALKING_ENEMY_BIT | GROUND_BIT:
-                if (fixA.getFilterData().categoryBits == WALKING_ENEMY_BIT){
+            case ENEMY_BIT | GROUND_BIT:
+                if (fixA.getFilterData().categoryBits == ENEMY_BIT){
                     ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
                 }
                 else {
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
                 }
                 break;
-            case WALKING_ENEMY_BIT | PLAYER_BIT:
+            case ENEMY_BIT | PLAYER_BIT:
                 if(fixA.getFilterData().categoryBits == PLAYER_BIT){
                     ((Player)fixA.getUserData()).swordHit();
                     ((Player)fixA.getUserData()).hitByEnemy(fixB.getBody().getLinearVelocity().x);
@@ -185,7 +175,6 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case WONDER_BIT | GROUND_BIT:
-                System.out.println("Contact");
                 if (fixA.getFilterData().categoryBits == WONDER_BIT){
                     ((Wonder)fixA.getUserData()).reverseVelocity(true, false);
                 }
@@ -193,7 +182,36 @@ public class WorldContactListener implements ContactListener {
                     ((Wonder)fixB.getUserData()).reverseVelocity(true, false);
                 }
                 break;
-
+            case PIE_BIT | ROCKET_BIT:
+                if(fixA.getFilterData().categoryBits == BULLET_BIT){
+                    ((Rocket)fixA.getUserData()).deleteBullet();
+                    ((Pie)fixB.getUserData()).rocketHit();
+                    ((Pie)fixB.getUserData()).playSound();
+                }
+                else {
+                    ((Rocket)fixB.getUserData()).deleteBullet();
+                    ((Pie)fixA.getUserData()).rocketHit();
+                    ((Pie)fixA.getUserData()).playSound();
+                }
+                break;
+            case ROCKET_BIT | SWORD_BIT:
+                if(fixA.getFilterData().categoryBits == ROCKET_BIT){
+                    ((Rocket)fixA.getUserData()).attackPie();
+                }
+                else {
+                    ((Rocket)fixB.getUserData()).attackPie();
+                }
+                break;
+            case ROCKET_BIT | PLAYER_BIT:
+                if(fixA.getFilterData().categoryBits == PLAYER_BIT){
+                    ((Player)fixA.getUserData()).spikeHit();
+                    ((Rocket)fixB.getUserData()).deleteBullet();
+                }
+                else {
+                    ((Player)fixB.getUserData()).spikeHit();
+                    ((Rocket)fixA.getUserData()).deleteBullet();
+                }
+                break;
         }
     }
 

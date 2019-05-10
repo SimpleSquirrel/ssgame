@@ -28,7 +28,7 @@ public abstract class InteractiveSensorObject {
 
         shape.setAsBox((rectangle.getWidth()/2)/PPM, (rectangle.getHeight()/2)/PPM);
         fdef.filter.categoryBits = GROUND_BIT;
-        fdef.filter.maskBits = WALKING_ENEMY_BIT | ENEMY_BIT | WONDER_BIT;
+        fdef.filter.maskBits = ENEMY_BIT | WONDER_BIT | PIE_BIT;
         fdef.shape = shape;
         body.createFixture(fdef);
         fixture = body.createFixture(fdef);

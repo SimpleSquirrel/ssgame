@@ -28,7 +28,7 @@ public abstract class InteractiveTileObject {
 
         shape.setAsBox((rectangle.getWidth()/2)/PPM, (rectangle.getHeight()/2)/PPM);
         fdef.filter.categoryBits = GROUND_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | WALKING_ENEMY_BIT | WONDER_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | WONDER_BIT;
         fdef.shape = shape;
         body.createFixture(fdef);
         fixture = body.createFixture(fdef);

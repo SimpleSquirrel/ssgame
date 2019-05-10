@@ -120,8 +120,8 @@ public class Cactus extends Enemy {
         shape1.set(vertice);
         fixtureDef.shape = shape1;
         fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
-        fixtureDef.filter.maskBits = GROUND_BIT | PLAYER_BIT;
+        fixtureDef.filter.categoryBits = ENEMY_BIT;
+        fixtureDef.filter.maskBits = PLAYER_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape weapon1 = new PolygonShape();
         Vector2[] weaponVector = new Vector2[4];
@@ -131,8 +131,7 @@ public class Cactus extends Enemy {
         weaponVector[3] = new Vector2(0, 25).scl(1/PPM);
         weapon1.set(weaponVector);
         fixtureDef.shape = weapon1;
-        fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.categoryBits = ENEMY_BIT;
         fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape weapon2 = new PolygonShape();
@@ -143,8 +142,7 @@ public class Cactus extends Enemy {
         weapon2Vector[3] = new Vector2(0, -16).scl(1/PPM);
         weapon2.set(weapon2Vector);
         fixtureDef.shape = weapon2;
-        fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.categoryBits = ENEMY_BIT;
         fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
         PolygonShape body1 = new PolygonShape();
@@ -155,7 +153,6 @@ public class Cactus extends Enemy {
         body1Vector[3] = new Vector2(0, 25).scl(1/PPM);
         body1.set(body1Vector);
         fixtureDef.shape = body1;
-        fixtureDef.isSensor = true;
         fixtureDef.filter.categoryBits = ENEMY_BIT;
         fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
@@ -167,8 +164,7 @@ public class Cactus extends Enemy {
         body2Vector[3] = new Vector2(0, -16).scl(1/PPM);
         body2.set(body2Vector);
         fixtureDef.shape = body2;
-        fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.categoryBits = ENEMY_BIT;
         fixtureDef.filter.maskBits = PLAYER_BIT | SWORD_BIT | BULLET_BIT;
         b2body.createFixture(fixtureDef).setUserData(this);
     }

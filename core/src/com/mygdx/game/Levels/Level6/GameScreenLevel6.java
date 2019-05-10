@@ -80,7 +80,6 @@ public class GameScreenLevel6 implements Screen {
         bgmusic.loop(0.05f);
 
         hud.SCORE = game.preferences.getInteger("score");
-        game.preferences.putString("weapon", "ultraFastGun");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 2);
         game.preferences.flush();

@@ -214,7 +214,7 @@ public class Player extends Sprite {
                 fSwordDef.shape = sword;
                 fSwordDef.isSensor = true;
                 fSwordDef.filter.categoryBits = SWORD_BIT;
-                fSwordDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | ENEMY_BIT | WEAK_POINT_BIT;
+                fSwordDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | ENEMY_BIT | PIE_BIT | ROCKET_BIT;
                 b2body.createFixture(fSwordDef).setUserData(this);
                 swordTimer = 0;
                 swordAttack = false;
@@ -230,7 +230,7 @@ public class Player extends Sprite {
                 fSwordDef.shape = sword1;
                 fSwordDef.isSensor = true;
                 fSwordDef.filter.categoryBits = SWORD_BIT;
-                fSwordDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | ENEMY_BIT | WEAK_POINT_BIT;
+                fSwordDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | ENEMY_BIT | PIE_BIT | ROCKET_BIT;
                 b2body.createFixture(fSwordDef).setUserData(this);
                 swordTimer = 0;
                 swordAttack = false;
@@ -379,7 +379,7 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(9/PPM, 27/PPM);
         fdef.filter.categoryBits = PLAYER_BIT;
-        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | WALKING_ENEMY_BIT | LUXURY_CHEST_BIT | BOSS_BIT | WONDER_BIT;
+        fdef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT | ENEMY_BIT | CHEST_BIT | SENSOR_BIT | PORTAL_BIT | SPIKE_BIT | ROCKET_BIT | LUXURY_CHEST_BIT | BOSS_BIT | WONDER_BIT | PIE_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }

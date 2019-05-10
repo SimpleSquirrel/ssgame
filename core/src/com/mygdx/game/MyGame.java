@@ -10,6 +10,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Objects.Bullet;
 import com.mygdx.game.Screens.DialogScreens.FirstMeet;
+import com.mygdx.game.Screens.DialogScreens.SecondBoss;
 import com.mygdx.game.Screens.MenuScreen;
 import com.mygdx.game.Screens.WeaponScreen;
 
@@ -25,8 +26,8 @@ public class MyGame extends Game {
 	public static Array<DefendedCannon> defendedCannons = new Array<DefendedCannon>();
 	public static Array<Biter> biters = new Array<Biter>();
 	public static Array<Wonder> wonders = new Array<Wonder>();
+	public static Array<Cupcake> cupcakes = new Array<Cupcake>();
 	public static Preferences preferences;
-	public static final short ROCKET_BIT = -1;
 	public static final short GROUND_BIT = 1;
 	public static final short PLAYER_BIT = 2;
 	public static final short BULLET_BIT = 4;
@@ -35,10 +36,10 @@ public class MyGame extends Game {
 	public static final short WONDER_BIT = 32;
 	public static final short SENSOR_BIT = 64;
 	public static final short SWORD_BIT = 128;
-	public static final short WEAK_POINT_BIT = 256;
+	public static final short PIE_BIT = 256;
 	public static final short PORTAL_BIT = 512;
 	public static final short SPIKE_BIT = 1024;
-	public static final short WALKING_ENEMY_BIT = 2048;
+	public static final short ROCKET_BIT = 2048;
 	public static final short SHIELD_BIT = 4096;
 	public static final short LUXURY_CHEST_BIT = 8192;
 	public static final short BOSS_BIT = 16384;

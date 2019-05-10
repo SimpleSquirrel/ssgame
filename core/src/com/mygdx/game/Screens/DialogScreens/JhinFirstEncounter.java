@@ -134,7 +134,7 @@ public class JhinFirstEncounter implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(Assets.spriteDialogBg, 0, 0, 1600, 900);
-        setScene(0, "Тихо! Навіть не бумай щось говорити!", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(0, "Тихо! Навіть не думай щось говорити!", Assets.spriteRobotInactive, Assets.spriteCatActive);
         setScene(1, "Але як же інформація про четверту локацію?!", Assets.spriteRobotActive, Assets.spriteCatInactive);
         setScene(2, "О ні, ти розбудив Джина! Тепер він вічно буде повторювати цифру...", Assets.spriteRobotInactive, Assets.spriteCatActive);
         setScene(3, "Забудь. Пора вже йти.", Assets.spriteRobotInactive, Assets.spriteCatActive);

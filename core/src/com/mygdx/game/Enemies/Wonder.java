@@ -159,18 +159,10 @@ public class Wonder extends Enemy {
         b2body = world.createBody(bodyDef);
 
         FixtureDef fixtureDef = new FixtureDef();
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(12/PPM, 12/PPM);
-        fixtureDef.filter.categoryBits = ENEMY_BIT;
-        fixtureDef.filter.maskBits = SENSOR_BIT | BULLET_BIT | SWORD_BIT | GROUND_BIT;
-        fixtureDef.shape = polygonShape;
-        b2body.createFixture(fixtureDef).setUserData(this);
-
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(12/PPM, 12/PPM);
         fixtureDef.filter.categoryBits = WONDER_BIT;
         fixtureDef.filter.maskBits = PLAYER_BIT | GROUND_BIT;
-        fixtureDef.isSensor = true;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
     }

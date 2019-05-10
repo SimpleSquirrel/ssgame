@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,7 +27,8 @@ public class FirstMeet implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
     private NovelScreen novelScreen;
-
+    private Texture textureEnter;
+    private Sprite spriteEnter;
     private Sprite sprite;
     private SpriteBatch batch;
 
@@ -79,6 +81,9 @@ public class FirstMeet implements Screen {
 
         camera = new OrthographicCamera(); //Initialising camera
         camera.setToOrtho(false, 1600, 900); //setting sizes for camera
+
+        textureEnter = new Texture("Game/Enter.png");
+        spriteEnter = new Sprite(textureEnter);
     }
 
     private void spLeft(Sprite sprite) { game.batch.draw(sprite, 0, 0, 1600, 900);}
@@ -91,7 +96,7 @@ public class FirstMeet implements Screen {
     private void iter()
     {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY))a++;
-        if(a > 22){
+        if(a > 23){
             dialogmusic.stop();
             game.setScreen(new LoadScreen(game));
         }
@@ -121,30 +126,35 @@ public class FirstMeet implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.batch.draw(Assets.spriteDialogBg, 0, 0, 1600, 900);
-        setScene(0, "Ти все ж прокинувся? Хахаха, не даремно я стільки деталей витратив!", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(1, "Ти про що? Де ми? І хто ти?", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(2, "Я Кіт-Механік! Це я тебе полагодив!\n\nА тепер, раз я тобі допоміг, допоможи й ти мені!", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(3, "Ні.", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(4, "Що ти тільки що сказав? Я тебе полагодив, я тебе і зламаю!", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(5, "Та я жартую! Що треба зробити?", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(6, "Да так, дрібниці. Просто здійснити державний переворот,\n\nперемогти СС-Робота і стати головним, щоб такі, як я, перестали ховатися!", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(7, "Супер. А не занадто ти хочеш за простий ремонт?", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(8, "Що зробиш, інфляція, долар росте, такі тепер ціни.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(9, "Ехх, чому в мене відчуття, що мене обманули?", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(10, "Так, немає часу на балачки, час вирушати.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(11, "Але, напевно, треба тобі пояснити, що да як.\n\nВ тебе є два вида атаки - постріл на Q, удар мечем на W\n\nПостріл наносить ворогам невелику кількість ушкоджень.\n\nА меч відразу їх убиває.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(12, "Але не думай, що підійти на достатню для удару відстань просто.\n\nЯкщо можеш вбити ворога з пістолета, краще не ризикуй.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(13, "І ще я можу тебе трохи відремонтувати, якщо що.\n\nЩоб отримати ремонт, просто натисни клавішу E.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(14, "А тепер про ворогів. За даними розвідки...", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(15, "Якої розвідки?.", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(16, "Не перебивай! Так от, в нас на шляху стануть лише пушки.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(17, "Вони починяють стріляти відразу як побачать тебе.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(18, "Є три види пушок: звичайна, захищена і вертикальна.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(19, "Захищену можна вбити лише ударивши по ній мечем ззаду.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(20, "А вертикальна завжди стіляє вгору.", Assets.spriteRobotInactive, Assets.spriteCatActive);
-        setScene(21, "Навіщо?", Assets.spriteRobotActive, Assets.spriteCatInactive);
-        setScene(22, "Птахів відстрілює. А тепер вже точно, час вирушати!", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        if(a == 0) {
+            game.batch.draw(spriteEnter, 0, 0, 1600, 900);
+        }
+        else {
+            game.batch.draw(Assets.spriteDialogBg, 0, 0, 1600, 900);
+        }
+        setScene(1, "Ти все ж прокинувся? Хахаха, не даремно я стільки деталей витратив!", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(2, "Ти про що? Де ми? І хто ти?", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(3, "Я Кіт-Механік! Це я тебе полагодив!\n\nА тепер, раз я тобі допоміг, допоможи й ти мені!", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(4, "Ні.", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(5, "Що ти тільки що сказав? Я тебе полагодив, я тебе і зламаю!", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(6, "Та я жартую! Що треба зробити?", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(7, "Да так, дрібниці. Просто здійснити державний переворот,\n\nперемогти СС-Робота і стати головним, щоб такі, як я, перестали ховатися!", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(8, "Супер. А не занадто ти хочеш за простий ремонт?", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(9, "Що зробиш, інфляція, долар росте, такі тепер ціни.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(10, "Ехх, чому в мене відчуття, що мене обманули?", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(11, "Так, немає часу на балачки, час вирушати.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(12, "Але, напевно, треба тобі пояснити, що да як.\n\nВ тебе є два вида атаки - постріл на Q, удар мечем на W\n\nПостріл наносить ворогам невелику кількість ушкоджень.\n\nА меч відразу їх убиває.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(13, "Але не думай, що підійти на достатню для удару відстань просто.\n\nЯкщо можеш вбити ворога з пістолета, краще не ризикуй.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(14, "І ще я можу тебе трохи відремонтувати, якщо що.\n\nЩоб отримати ремонт, просто натисни клавішу E.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(15, "А тепер про ворогів. За даними розвідки...", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(16, "Якої розвідки?.", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(17, "Не перебивай! Так от, в нас на шляху стануть лише пушки.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(18, "Вони починяють стріляти відразу як побачать тебе.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(19, "Є три види пушок: звичайна, захищена і вертикальна.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(20, "Захищену можна вбити лише ударивши по ній мечем ззаду.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(21, "А вертикальна завжди стіляє вгору.", Assets.spriteRobotInactive, Assets.spriteCatActive);
+        setScene(22, "Навіщо?", Assets.spriteRobotActive, Assets.spriteCatInactive);
+        setScene(23, "Птахів відстрілює. А тепер вже точно, час вирушати!", Assets.spriteRobotInactive, Assets.spriteCatActive);
         game.batch.end();
     }
 

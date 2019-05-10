@@ -168,7 +168,7 @@ public class ArmoredBiter extends Enemy {
         fixtureDef.filter.maskBits = PLAYER_BIT | BULLET_BIT | GROUND_BIT | CHEST_BIT | PORTAL_BIT | SWORD_BIT | SHIELD_BIT;
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
-        PolygonShape shape1 = new PolygonShape();
+        /*PolygonShape shape1 = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
         vertice[0] = new Vector2(-20, 34).scl(1/PPM);
         vertice[1] = new Vector2(20, 34).scl(1/PPM);
@@ -177,9 +177,9 @@ public class ArmoredBiter extends Enemy {
         shape1.set(vertice);
         fixtureDef.shape = shape1;
         fixtureDef.isSensor = true;
-        fixtureDef.filter.categoryBits = WALKING_ENEMY_BIT;
+        fixtureDef.filter.categoryBits = ENEMY_BIT;
         fixtureDef.filter.maskBits = GROUND_BIT | PLAYER_BIT | BULLET_BIT;
-        b2body.createFixture(fixtureDef).setUserData(this);
+        b2body.createFixture(fixtureDef).setUserData(this);*/
         PolygonShape sensor = new PolygonShape();
         Vector2[] vertice1 = new Vector2[4];
         vertice1[0] = new Vector2(-100, 12).scl(1/PPM);

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
+import com.mygdx.game.Levels.Level10.GameScreenLevel10;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.Levels.Level3.GameScreenLevel3;
 import com.mygdx.game.Levels.Level4.GameScreenLevel4;
@@ -125,7 +126,7 @@ public class LoadScreen implements Screen
                             game.setScreen(new GameScreenLevel9(game));
                             break;
                         case 5:
-                            game.setScreen(new GameScreenLevel7(game));
+                            game.setScreen(new GameScreenLevel10(game));
                             break;
                     }
                     break;

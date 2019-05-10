@@ -39,6 +39,7 @@ public class Chest extends Sprite {
         atlas = new TextureAtlas("Objects/WoodenChest.txt");
         chestClosed = atlas.createSprite("ChestClosed");
         chestOpened = atlas.createSprite("ChestOpen");
+
         if(isFlip){
             chestClosed.flip(true, false);
             chestOpened.flip(true, false);
