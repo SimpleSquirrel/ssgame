@@ -53,6 +53,7 @@ public class WeaponScreen implements Screen {
     private Stage stage;
     String[] disc = new String[13];
     String[][] keys = new String[13][4];
+    int high = -1;
     private static int h ;
     int score;
     private boolean size;
@@ -322,7 +323,8 @@ public class WeaponScreen implements Screen {
                         labelDiscriptionWeaponName.setText(keys[whoIsTouched-1][1]);
                         labelDiscription.setText(disc[whoIsTouched-1]);
 
-
+                        if(high < whoIsTouched - 1)
+                            high = whoIsTouched - 1;
                     }
                 }
             }
@@ -352,6 +354,24 @@ public class WeaponScreen implements Screen {
             }
         }
     }
+
+    private String expen()
+    {
+        String line = "";
+        int highest = 0;
+        for(int i = 0; i < 13; i++)
+        {
+            if(game.preferences.getBoolean(keys[i][3]) == true)
+            {
+                if (highest < Integer.parseInt(keys[i][2]))
+                {
+                    line = keys[i][0];
+                }
+            }
+        }
+        return line;
+    }
+
     private void checkers()
     {
         if (Gdx.input.getX() <  1100 && Gdx.input.getX() >  675 &&
@@ -359,6 +379,9 @@ public class WeaponScreen implements Screen {
         {
             if (Gdx.input.isTouched())
             {
+                game.preferences.putString("weapon", expen());
+                game.preferences.flush();
+                System.out.println(expen());
                 game.setScreen(new LoadScreen(this.game));
             }
         }
