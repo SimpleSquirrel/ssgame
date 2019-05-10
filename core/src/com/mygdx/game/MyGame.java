@@ -51,7 +51,7 @@ public class MyGame extends Game {
 		Assets.load();
 		batch = new SpriteBatch();
 		preferences = Gdx.app.getPreferences("SaveData");
-		this.setScreen(new WeaponScreen(this));
+		this.setScreen(new MenuScreen(this));
 
 	}
 	public void render(){

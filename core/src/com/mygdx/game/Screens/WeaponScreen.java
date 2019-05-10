@@ -1,6 +1,5 @@
 package com.mygdx.game.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -17,22 +16,15 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.Objects.Chest;
-import com.mygdx.game.Graphics.HUD;
 
 
 public class WeaponScreen implements Screen {
 
-    MyGame game;
-    private Sprite sprite;
-    private OrthographicCamera camera;
+    private MyGame game;
     private SpriteBatch batch;
     private Viewport viewport;
 
-    final String ukr = "абвгдеєжзиіїйклмнопрстуфхцчшщьюяabcdefghijklmnopqrstuvwxyzАБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
-    Label.LabelStyle labelStyle;
-
-    Label   labelWeapon1,
+    private Label   labelWeapon1,
             labelWeapon2,
             labelWeapon3,
             labelWeapon4,
@@ -50,34 +42,28 @@ public class WeaponScreen implements Screen {
     private Label labelWeaponCost;
     private Label labelBuy;
     private Label labelMoney;
-    private Stage stage;
-    String[] disc = new String[13];
-    String[][] keys = new String[13][4];
-    int high = -1;
+    private String[] disc = new String[13];
+    private String[][] keys = new String[13][4];
+    private int high = -1;
     private static int h ;
-    int score;
+    private int score;
     private boolean size;
 
     private String unknown = "???";
 
     public WeaponScreen(MyGame game)
     {
-        sprite = new Sprite();
-        stage = new Stage(new ScreenViewport());
+        Sprite sprite = new Sprite();
         this.game = game;
-        camera = new OrthographicCamera(); //Initialising camera
+        OrthographicCamera camera = new OrthographicCamera(); //Initialising camera
         camera.setToOrtho(false, 1600, 900); //setting sizes for camera
         batch = new SpriteBatch();
-        viewport= new FitViewport(1600,900,camera);
-        if(Gdx.graphics.getHeight()>800){
-            size=true;
-        }
-        else {
-            size=false;
-        }
+        viewport= new FitViewport(1600,900, camera);
+        size= Gdx.graphics.getHeight() > 800;
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("test.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        String ukr = "абвгдеєжзиіїйклмнопрстуфхцчшщьюяabcdefghijklmnopqrstuvwxyzАБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
         parameter.characters = ukr;
         parameter.borderWidth = 1;
         parameter.size = 12;
@@ -88,7 +74,7 @@ public class WeaponScreen implements Screen {
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
 
-        labelStyle = new Label.LabelStyle();
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
 
         //Оружия
@@ -115,7 +101,7 @@ public class WeaponScreen implements Screen {
         labelWeapon13.setName("13");
 
         //Шаблонные характеристики 1600*900
-        score = game.preferences.getInteger("score");
+        score = MyGame.preferences.getInteger("score");
         if(size) {
             h=900;
             defaults(labelWeapon1, 100, 700);
@@ -136,16 +122,16 @@ public class WeaponScreen implements Screen {
             defaults(labelDiscriptionWeaponName, 1250,700);
             labelDiscriptionWeaponName.setFontScale(2);
             //Описание
-            labelDiscription = new Label("",labelStyle);
+            labelDiscription = new Label("", labelStyle);
             labelDiscription.setPosition(1150,550);
-            labelWeaponCost = new Label("",labelStyle);
+            labelWeaponCost = new Label("", labelStyle);
             labelWeaponCost.setPosition(1150,250);
             labelWeaponCost.setSize(75,0);
             //
             labelBuy = new Label("Купити", labelStyle);
             defaults(labelBuy, 1275,150);
             //
-            labelMoney = new Label("Запас детальок: " + score,labelStyle);
+            labelMoney = new Label("Запас детальок: " + score, labelStyle);
             labelMoney.setPosition(1150,275);
             labelMoney.setSize(75,0);
         }
@@ -170,16 +156,16 @@ public class WeaponScreen implements Screen {
             defaults(labelDiscriptionWeaponName, 1050,700);
             labelDiscriptionWeaponName.setFontScale(2);
             //Описание
-            labelDiscription = new Label("",labelStyle);
+            labelDiscription = new Label("", labelStyle);
             labelDiscription.setPosition(950,550);
-            labelWeaponCost = new Label("",labelStyle);
+            labelWeaponCost = new Label("", labelStyle);
             labelWeaponCost.setPosition(950,250);
             labelWeaponCost.setSize(75,0);
 
             labelBuy = new Label("Купити", labelStyle);
             defaults(labelBuy, 1075,150);
 
-            labelMoney = new Label("Запас детальок: " + score,labelStyle);
+            labelMoney = new Label("Запас детальок: " + score, labelStyle);
             labelMoney.setPosition(950,275);
             labelMoney.setSize(75,0);
         }
@@ -291,7 +277,7 @@ public class WeaponScreen implements Screen {
 
 
         //Описание
-        if(anyWeaponPressed == true)
+        if(anyWeaponPressed)
         {
             if(size) {
                 batch.draw(Assets.spritePaper, 1000, 100, 600, 700);
@@ -309,16 +295,16 @@ public class WeaponScreen implements Screen {
             if (Gdx.input.getX() < labelBuy.getX() + 100 && Gdx.input.getX() > labelBuy.getX() - 100 &&
                     Gdx.input.getY() < h - labelBuy.getY() + 25  && Gdx.input.getY() > h - labelBuy.getY() - 25) {
                 if (Gdx.input.isTouched()) {
-                    if ((game.preferences.getBoolean(keys[whoIsTouched-1][0]) &&
+                    if ((MyGame.preferences.getBoolean(keys[whoIsTouched-1][0]) &&
                             score >= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Ціна: ", "")))) &&
                             score > 0 &&
-                            game.preferences.getBoolean(keys[whoIsTouched-1][3]) == false)
+                            !MyGame.preferences.getBoolean(keys[whoIsTouched - 1][3]))
                     {
                         score -= Integer.parseInt(String.valueOf(labelWeaponCost.getText().replace("Ціна: ", "")));
-                        game.preferences.putInteger("score", score);
+                        MyGame.preferences.putInteger("score", score);
                         labelMoney.setText("Всього детальок: " + score);
-                        game.preferences.putBoolean(keys[whoIsTouched-1][3], true);
-                        game.preferences.flush();
+                        MyGame.preferences.putBoolean(keys[whoIsTouched-1][3], true);
+                        MyGame.preferences.flush();
                         //System.out.println(keys[whoIsTouched-1][3] + " = " + game.preferences.getBoolean(keys[whoIsTouched-1][3]));
                         labelDiscriptionWeaponName.setText(keys[whoIsTouched-1][1]);
                         labelDiscription.setText(disc[whoIsTouched-1]);
@@ -331,14 +317,14 @@ public class WeaponScreen implements Screen {
 
         }
     }
-    int whoIsTouched;
-    boolean anyWeaponPressed = false;
+    private int whoIsTouched;
+    private boolean anyWeaponPressed = false;
     private void weaponPress(Label label, String line, String key) {
         if (Gdx.input.getX() < label.getX() + 150 && Gdx.input.getX() > label.getX() - 25 &&
                 Gdx.input.getY() < h - label.getY() + 25 && Gdx.input.getY() > h - label.getY() - 100) {
             if (Gdx.input.isTouched()) {
                 whoIsTouched = Integer.parseInt(label.getName());
-                if (game.preferences.getBoolean(key)) {
+                if (MyGame.preferences.getBoolean(key)) {
 
                     labelDiscription.setText(line);
                     labelDiscriptionWeaponName.setText(keys[Integer.parseInt(label.getName()) - 1][1]);
@@ -361,7 +347,7 @@ public class WeaponScreen implements Screen {
         int highest = 0;
         for(int i = 0; i < 13; i++)
         {
-            if(game.preferences.getBoolean(keys[i][3]) == true)
+            if(MyGame.preferences.getBoolean(keys[i][3]))
             {
                 if (highest < Integer.parseInt(keys[i][2]))
                 {
@@ -379,8 +365,8 @@ public class WeaponScreen implements Screen {
         {
             if (Gdx.input.isTouched())
             {
-                game.preferences.putString("weapon", expen());
-                game.preferences.flush();
+                MyGame.preferences.putString("weapon", expen());
+                MyGame.preferences.flush();
                 System.out.println(expen());
                 game.setScreen(new LoadScreen(this.game));
             }
@@ -401,19 +387,19 @@ public class WeaponScreen implements Screen {
         weaponPress(labelWeapon12, disc[11], keys[11][0]);
         weaponPress(labelWeapon13, disc[12], keys[12][0]);
 
-        if(game.preferences.getBoolean(keys[0][0])) labelWeapon1.setText(keys[0][0]);
-        if(game.preferences.getBoolean(keys[1][0])) labelWeapon2.setText(keys[1][0]);
-        if(game.preferences.getBoolean(keys[2][0])) labelWeapon3.setText(keys[2][0]);
-        if(game.preferences.getBoolean(keys[3][0])) labelWeapon4.setText(keys[3][0]);
-        if(game.preferences.getBoolean(keys[4][0])) labelWeapon5.setText(keys[4][0]);
-        if(game.preferences.getBoolean(keys[5][0])) labelWeapon6.setText(keys[5][0]);
-        if(game.preferences.getBoolean(keys[6][0])) labelWeapon7.setText(keys[6][0]);
-        if(game.preferences.getBoolean(keys[7][0])) labelWeapon8.setText(keys[7][0]);
-        if(game.preferences.getBoolean(keys[8][0])) labelWeapon9.setText(keys[8][0]);
-        if(game.preferences.getBoolean(keys[9][0])) labelWeapon10.setText(keys[9][0]);
-        if(game.preferences.getBoolean(keys[10][0])) labelWeapon11.setText(keys[10][0]);
-        if(game.preferences.getBoolean(keys[11][0])) labelWeapon12.setText(keys[11][0]);
-        if(game.preferences.getBoolean(keys[12][0])) labelWeapon13.setText(keys[12][0]);
+        if(MyGame.preferences.getBoolean(keys[0][0])) labelWeapon1.setText(keys[0][0]);
+        if(MyGame.preferences.getBoolean(keys[1][0])) labelWeapon2.setText(keys[1][0]);
+        if(MyGame.preferences.getBoolean(keys[2][0])) labelWeapon3.setText(keys[2][0]);
+        if(MyGame.preferences.getBoolean(keys[3][0])) labelWeapon4.setText(keys[3][0]);
+        if(MyGame.preferences.getBoolean(keys[4][0])) labelWeapon5.setText(keys[4][0]);
+        if(MyGame.preferences.getBoolean(keys[5][0])) labelWeapon6.setText(keys[5][0]);
+        if(MyGame.preferences.getBoolean(keys[6][0])) labelWeapon7.setText(keys[6][0]);
+        if(MyGame.preferences.getBoolean(keys[7][0])) labelWeapon8.setText(keys[7][0]);
+        if(MyGame.preferences.getBoolean(keys[8][0])) labelWeapon9.setText(keys[8][0]);
+        if(MyGame.preferences.getBoolean(keys[9][0])) labelWeapon10.setText(keys[9][0]);
+        if(MyGame.preferences.getBoolean(keys[10][0])) labelWeapon11.setText(keys[10][0]);
+        if(MyGame.preferences.getBoolean(keys[11][0])) labelWeapon12.setText(keys[11][0]);
+        if(MyGame.preferences.getBoolean(keys[12][0])) labelWeapon13.setText(keys[12][0]);
     }
 
     @Override
