@@ -3,11 +3,13 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level2.GameScreenLevel2;
 import com.mygdx.game.MyGame;
@@ -24,11 +26,12 @@ public class MenuScreen implements Screen {
     private AnimatedSprite AnimatedSesternya4;
     private  int testX;
     private  int testY;
+    Labels labels;
 
 
     public MenuScreen(MyGame game){ //constructor
         this.game = game;
-
+labels=new Labels(game);
         camera = new OrthographicCamera();
 
         camera.setToOrtho(true, 1600, 900); //setting sizes for camera
@@ -70,6 +73,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
             testX=Gdx.input.getX();
             testY=Gdx.input.getY();
@@ -96,6 +100,7 @@ public class MenuScreen implements Screen {
             AnimatedSesternya4.update();
             AnimatedSesternya4.draw(game.batch);
         if(Gdx.input.getX() < 839 && Gdx.input.getX() > 674 && Gdx.input.getY() < 320 && Gdx.input.getY() > 82) {
+            Labels.newGame.setColor(Color.YELLOW);
             AnimatedSesternya2.rotate(-2f);
 
                 if (Gdx.input.isTouched()) { //creating an event
@@ -127,33 +132,54 @@ public class MenuScreen implements Screen {
                     }
                 }
             }
+        else {
+            Labels.newGame.setColor(Color.WHITE);
+        }
             if(Gdx.input.getX() < 1250 && Gdx.input.getX() > 1023 && Gdx.input.getY() < 330 && Gdx.input.getY() > 80) {
+                Labels.continie.setColor(Color.YELLOW);
                 AnimatedSesternya4.rotate(-2f);
                 if (Gdx.input.isTouched()) {
                         this.dispose();
                         game.setScreen(new LoadScreen(game));
                     }
                 }
+            else {
+                Labels.continie.setColor(Color.WHITE);
+            }
 
 
                 if(Gdx.input.getX() < 886 && Gdx.input.getX() > 659 && Gdx.input.getY() < 689 && Gdx.input.getY() > 425) {//setting bounds of NewGameButton
                     AnimatedSesternya1.rotate(-2f);
+                    Labels.nastr.setColor(Color.YELLOW);
                 if (Gdx.input.isTouched()) {
                     this.dispose();
                     game.setScreen(new PreferencesScreen(game));
                 }
             }
+                else {
+                    Labels.nastr.setColor(Color.WHITE);
+                }
 
 
                 if(Gdx.input.getX() < 1227 && Gdx.input.getX() > 1020 && Gdx.input.getY() < 689 && Gdx.input.getY() > 425) {
                     AnimatedSesternya3.rotate(-2f);
+                    Labels.exit.setColor(Color.YELLOW);
                 if (Gdx.input.isTouched()) {
                     Gdx.app.exit();
                 }
             }
+                else {
+                    Labels.exit.setColor(Color.WHITE);
+                }
+
 
 
         game.batch.end(); //ending of rendering
+
+        Labels.drawLabel(delta,11);
+        Labels.drawLabel(delta,12);
+        Labels.drawLabel(delta,13);
+        Labels.drawLabel(delta,14);
     }
 
     @Override

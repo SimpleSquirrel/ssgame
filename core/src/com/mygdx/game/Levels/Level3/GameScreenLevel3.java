@@ -20,6 +20,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.WorldContactListener;
 import com.mygdx.game.MyGame;
@@ -67,11 +68,13 @@ public class GameScreenLevel3 implements Screen {
     private Cactus cactus4;
     private Cactus cactus5;
     private Portal portal;
+    private Labels labels;
     private Chest chest;
     public static float destroyTimer;
     private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Music/04AllofUs.mp3"));
     public GameScreenLevel3(MyGame game){
         this.game = game;
+        labels=new Labels(game);
         bgmusic.loop(0.05f);
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
@@ -346,9 +349,16 @@ public class GameScreenLevel3 implements Screen {
                     game.batch.draw(cactus.spriteCactus(delta), cactus.b2body.getPosition().x - 37/PPM, cactus.b2body.getPosition().y - 45/PPM, 80/PPM, 80/PPM);
                 }
             }
+
             chest.draw(game.batch);
             portal.draw(game.batch);
+
             game.batch.end();
+            if(chest.isTouched){
+                Labels.drawLabel(delta,9);
+            }
+            Labels.drawLabel(delta,3);
+            Labels.drawLabel(delta,5);
             stage.act();
             stage.draw();
 

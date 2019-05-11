@@ -21,6 +21,7 @@ import com.mygdx.game.Enemies.DefendedCannon;
 import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.WorldContactListener;
 import com.mygdx.game.Graphics.HUD;
 import com.mygdx.game.MyGame;
@@ -34,6 +35,8 @@ import com.mygdx.game.Screens.DialogScreens.TurtleFirstEncounter;
 import com.mygdx.game.Screens.LoadScreen;
 import com.mygdx.game.Screens.MenuScreen;
 
+import java.awt.*;
+
 import static com.mygdx.game.Graphics.HUD.*;
 import static com.mygdx.game.MyGame.*;
 
@@ -44,7 +47,7 @@ public class GameScreenLevel1 implements Screen {
     private static Stage stage;
     private Familiar familiar;
     private Weapon weapon;
-
+    private static Labels labels;
     private Player player;
 
     public static boolean isPaused;
@@ -103,7 +106,7 @@ public class GameScreenLevel1 implements Screen {
 
 
         stage = new Stage(new ScreenViewport());
-
+        labels= new Labels(game);
         camera = new OrthographicCamera();
 
         camera.setToOrtho(false, 1600 / PPM, 900 / PPM);
@@ -362,10 +365,12 @@ public class GameScreenLevel1 implements Screen {
                 game.batch.begin();
                 game.batch.draw(Assets.spriteHeadGG, 30 / PPM, 840 / PPM, 40 / PPM, 40 / PPM);
                 game.batch.draw(Assets.spriteDetal, 42 / PPM, 813 / PPM, 30 / PPM, 30 / PPM);
+
                 hud.render();
                 stage.addActor(score);
                 stage.addActor(timer1);
                 stage.addActor(timer2);
+
 
                 //Health bar
                 if(HUD.hp()>0&&HUD.hp()<=10){
@@ -416,9 +421,15 @@ public class GameScreenLevel1 implements Screen {
                     verticalCannon.draw(game.batch);
                     game.batch.draw(verticalCannon.babax(), verticalCannon.b2body.getPosition().x - 25/PPM, verticalCannon.b2body.getPosition().y - 29/PPM, 32/PPM, 64/PPM);
                 }
+
                 chest.draw(game.batch);
                 portal.draw(game.batch);
                 game.batch.end();
+                if(chest.isTouched){
+                    Labels.drawLabel(delta,9);
+                }
+                Labels.drawLabel(delta,1);
+                Labels.drawLabel(delta,5);
                 stage.act();
                 stage.draw();
 

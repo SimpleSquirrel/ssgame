@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.MyGame;
 
 import static com.mygdx.game.MyGame.*;

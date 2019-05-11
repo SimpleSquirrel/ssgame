@@ -45,6 +45,9 @@ public class Assets {
         //Textures
     public static Texture textureNoActive;
     public static Texture textureExitScreenBack;
+
+    public static Texture textureDeathScreenYouDied;
+    public static Texture textureDeathScreenOneMore;
     //New Game Screen
         //BackGround
     public static Sprite spriteNewGameScreenBack;
@@ -533,5 +536,11 @@ public class Assets {
         textureDialogBg = new Texture("Dialog/DialogBG.jpg");
         textureDialogBg.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spriteDialogBg = new Sprite(textureDialogBg);
+
+        textureDeathScreenYouDied= new Texture(Gdx.files.internal("DeathScreen/ти умер .png"));
+        textureDeathScreenYouDied.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        textureDeathScreenOneMore= new Texture(Gdx.files.internal("DeathScreen/ще разок .png"));
+        textureDeathScreenOneMore.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 }

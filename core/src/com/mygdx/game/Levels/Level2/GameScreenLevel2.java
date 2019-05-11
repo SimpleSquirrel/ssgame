@@ -23,6 +23,7 @@ import com.mygdx.game.Enemies.VerticalCannon;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.WorldContactListener;
 import com.mygdx.game.MyGame;
@@ -74,12 +75,13 @@ public class GameScreenLevel2 implements Screen {
     private Biter biter7;
     private Biter biter8;
     private Portal portal;
+    private Labels labels;
     private Chest chest;
     public static float destroyTimer;
     private Sound bgmusic = Gdx.audio.newSound(Gdx.files.internal("Music/03ChibiNinja.mp3"));
     public GameScreenLevel2(MyGame game){
         this.game = game;
-
+        labels= new Labels(game);
         bgmusic.loop(0.05f);
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
@@ -399,9 +401,16 @@ public class GameScreenLevel2 implements Screen {
                     game.batch.draw(biter.spriteBiter(delta), biter.b2body.getPosition().x - 30/PPM, biter.b2body.getPosition().y - 45/PPM, 60/PPM, 80/PPM);
                 }
             }
+
             chest.draw(game.batch);
             portal.draw(game.batch);
+
             game.batch.end();
+            if(chest.isTouched){
+                Labels.drawLabel(delta,9);
+            }
+            Labels.drawLabel(delta,2);
+            Labels.drawLabel(delta,5);
             stage.act();
             stage.draw();
 

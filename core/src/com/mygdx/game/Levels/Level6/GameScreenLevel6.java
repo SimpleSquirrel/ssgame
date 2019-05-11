@@ -20,6 +20,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level4.WorldCreatorLevel4;
 import com.mygdx.game.Levels.WorldContactListener;
@@ -36,6 +37,7 @@ import static com.mygdx.game.MyGame.*;
 public class GameScreenLevel6 implements Screen {
     private MyGame game;
     private static HUD hud;
+    private Labels labels;
     private static Stage stage;
     private Familiar familiar;
 
@@ -78,7 +80,7 @@ public class GameScreenLevel6 implements Screen {
     public GameScreenLevel6(MyGame game){
         this.game = game;
         bgmusic.loop(0.05f);
-
+labels=new Labels(game);
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 2);
@@ -505,6 +507,11 @@ public class GameScreenLevel6 implements Screen {
             chest.draw(game.batch);
             portal.draw(game.batch);
             game.batch.end();
+            if(chest.isTouched){
+                Labels.drawLabel(delta,9);
+            }
+            Labels.drawLabel(delta,1);
+            Labels.drawLabel(delta,6);
             stage.act();
             stage.draw();
 

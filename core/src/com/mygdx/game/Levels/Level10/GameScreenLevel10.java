@@ -20,6 +20,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level3.WorldCreatorLevel3;
 import com.mygdx.game.Levels.Level7.WorldCreatorLevel7;
@@ -38,7 +39,7 @@ public class GameScreenLevel10 implements Screen {
     private MyGame game;
     private static HUD hud;
     private static Stage stage;
-
+private Labels labels;
     private Player player;
     private Weapon weapon;
 
@@ -65,7 +66,7 @@ public class GameScreenLevel10 implements Screen {
         this.game = game;
         bgmusic.loop(0.05f);
         counter = 0;
-
+labels=new Labels(game);
         hud.SCORE = game.preferences.getInteger("score");
         stage = new Stage(new ScreenViewport());
 
@@ -275,6 +276,8 @@ public class GameScreenLevel10 implements Screen {
             }
             weapon.drawBullet();
             game.batch.end();
+            Labels.drawLabel(delta,8);
+            Labels.drawLabel(delta,10);
             stage.act();
             stage.draw();
 

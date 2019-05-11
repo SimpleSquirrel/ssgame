@@ -63,6 +63,8 @@ public class DeathScreen implements Screen {
             this.dispose();
             game.setScreen(new MenuScreen(game)); //changing screen
         }
+        batch.draw(Assets.textureDeathScreenYouDied, 500, 700);
+        batch.draw(Assets.textureDeathScreenOneMore, 500, 600);//Drawing Active
         if(!size) {
             if (Gdx.input.getX() < 568 && Gdx.input.getX() > 287 && Gdx.input.getY() >Gdx.graphics.getHeight()- 309 && Gdx.input.getY() <Gdx.graphics.getHeight()- 179) { //setting bounds of NewGameButton
                 batch.draw(Assets.spriteDeathScreenDaActive, 300, 200, 400, 200); //Drawing Active

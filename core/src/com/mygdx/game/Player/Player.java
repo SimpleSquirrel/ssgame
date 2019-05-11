@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
+import com.mygdx.game.Graphics.HUD;
 
 import static com.mygdx.game.MyGame.*;
 
@@ -422,6 +423,9 @@ public class Player extends Sprite {
     }
     public void heal(){
         HP += 10;
+        if(preferences.getInteger("level")!=1){
+            HUD.SCORE-=50;
+        }
     }
     public void shield(){
         shield = true;

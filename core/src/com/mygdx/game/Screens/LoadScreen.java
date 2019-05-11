@@ -81,7 +81,7 @@ public class LoadScreen implements Screen
 
         animatedSprite = new AnimatedSprite(animation);
         animatedSprite.setAutoUpdate(true);
-        animatedSprite.setPosition(550,200);
+        animatedSprite.setPosition(Gdx.graphics.getWidth()/2-230,Gdx.graphics.getHeight()/2-230);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class LoadScreen implements Screen
     {
         update(delta);
         timer+=delta;
-        if(timer > 1f){
+        if(timer > 0.5f){
             this.dispose();
             switch (game.preferences.getInteger("level")){
                 case 1:
@@ -136,7 +136,7 @@ public class LoadScreen implements Screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(back, 0, 0);
+        batch.draw(back, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
         animatedSprite.update();
         animatedSprite.draw(batch);

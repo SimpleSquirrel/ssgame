@@ -177,7 +177,7 @@ public class WeaponScreen implements Screen {
         disc[3] = "Пентакілл! Кхм. П'ять пуль за раз.";
         disc[4] = "Пулька одна, але летить в два рази швидше.";
         disc[5] = "Дві пулі з подвійною швидкістю.";
-        disc[6] = "Три пулі з подійною швидкістю.";
+        disc[6] = "Три пулі з подвійною швидкістю.";
         disc[7] = "Чотири пулі з подвійною швидкістю.\nДжин одобрює.";
         disc[8] = "Одна пуля з потрійною швидкістю.";
         disc[9] = "Дві пулі з потрійною швидкістю.";
@@ -424,7 +424,7 @@ public class WeaponScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+    viewport.update(width,height);
     }
 
     @Override

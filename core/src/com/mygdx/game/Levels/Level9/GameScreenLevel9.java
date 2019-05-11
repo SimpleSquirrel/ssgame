@@ -20,6 +20,7 @@ import com.mygdx.game.Enemies.*;
 import com.mygdx.game.Familiars.Familiar;
 import com.mygdx.game.Graphics.Assets;
 import com.mygdx.game.Graphics.HUD;
+import com.mygdx.game.Graphics.Labels;
 import com.mygdx.game.Levels.Level1.GameScreenLevel1;
 import com.mygdx.game.Levels.Level3.WorldCreatorLevel3;
 import com.mygdx.game.Levels.Level7.WorldCreatorLevel7;
@@ -50,7 +51,7 @@ public class GameScreenLevel9 implements Screen {
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-
+private Labels labels;
     private World world;
     private Box2DDebugRenderer b2dr;
     private Viewport viewPort;
@@ -89,7 +90,7 @@ public class GameScreenLevel9 implements Screen {
     public GameScreenLevel9(MyGame game){
         this.game = game;
         bgmusic.loop(0.05f);
-
+labels=new Labels(game);
         hud.SCORE = game.preferences.getInteger("score");
         game.preferences.putInteger("familiar1", 1);
         game.preferences.putInteger("familiar2", 4);
@@ -473,6 +474,11 @@ public class GameScreenLevel9 implements Screen {
             luxuryChest.draw(game.batch);
             portal.draw(game.batch);
             game.batch.end();
+            if(luxuryChest.thisChestIsOpened()){
+                Labels.drawLabel(delta,9);
+            }
+            Labels.drawLabel(delta,4);
+            Labels.drawLabel(delta,6);
             stage.act();
             stage.draw();
 
