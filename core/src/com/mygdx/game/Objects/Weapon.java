@@ -36,7 +36,7 @@ public class Weapon {
         getGun();
     }
 
-    public void update(float delta, Vector2 position){
+    public void update(float delta, Vector2 position) {
         timer += delta;
         this.position = position;
         input();
@@ -50,91 +50,82 @@ public class Weapon {
             bulletCounter = 1;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("doubleGun")){
+        } else if (currentGun.equals("doubleGun")) {
             bulletSpeed = new Vector2(4f, 0);
             bulletSpeedLeft = new Vector2(-4f, 0);
             bulletCounter = 2;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("tripleGun")){
+        } else if (currentGun.equals("tripleGun")) {
             bulletSpeed = new Vector2(4f, 0);
             bulletSpeedLeft = new Vector2(-4f, 0);
             bulletCounter = 3;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("quadraGun")){
+        } else if (currentGun.equals("quadraGun")) {
             bulletSpeed = new Vector2(4f, 0);
             bulletSpeedLeft = new Vector2(-4f, 0);
             bulletCounter = 4;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("pentaGun")){
+        } else if (currentGun.equals("pentaGun")) {
             bulletSpeed = new Vector2(4f, 0);
             bulletSpeedLeft = new Vector2(-4f, 0);
             bulletCounter = 5;
             bulletReload = 0.1f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("fastGun")){
+        } else if (currentGun.equals("fastGun")) {
             bulletSpeed = new Vector2(8f, 0);
             bulletSpeedLeft = new Vector2(-8f, 0);
             bulletCounter = 1;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("doubleFastGun")){
+        } else if (currentGun.equals("doubleFastGun")) {
             bulletSpeed = new Vector2(8f, 0);
             bulletSpeedLeft = new Vector2(-8f, 0);
             bulletCounter = 2;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("tripleFastGun")){
+        } else if (currentGun.equals("tripleFastGun")) {
             bulletSpeed = new Vector2(8f, 0);
             bulletSpeedLeft = new Vector2(-8f, 0);
             bulletCounter = 3;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("quadraFastGun")){
+        } else if (currentGun.equals("quadraFastGun")) {
             bulletSpeed = new Vector2(8f, 0);
             bulletSpeedLeft = new Vector2(-8f, 0);
             bulletCounter = 4;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("shotgun")){
+        } else if (currentGun.equals("shotgun")) {
             bulletSpeed = new Vector2(4f, 0);
             bulletSpeedLeft = new Vector2(-4f, 0);
             bulletCounter = 7;
@@ -147,38 +138,34 @@ public class Weapon {
             yVelocity[4] = 1f;
             yVelocity[5] = 2f;
             yVelocity[6] = 3f;
-        }
-        else if(currentGun.equals("veryFastGun")){
+        } else if (currentGun.equals("veryFastGun")) {
             bulletSpeed = new Vector2(12f, 0);
             bulletSpeedLeft = new Vector2(-12f, 0);
             bulletCounter = 1;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("veryFastDoubleGun")){
+        } else if (currentGun.equals("veryFastDoubleGun")) {
             bulletSpeed = new Vector2(12f, 0);
             bulletSpeedLeft = new Vector2(-12f, 0);
             bulletCounter = 2;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("ultraFastGun")){
+        } else if (currentGun.equals("ultraFastGun")) {
             bulletSpeed = new Vector2(16f, 0);
             bulletSpeedLeft = new Vector2(-16f, 0);
             bulletCounter = 1;
             bulletReload = 0f;
             yVelocity = new float[bulletCounter];
-            for (int i = 0; i < bulletCounter; i++){
+            for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }
-        }
-        else if(currentGun.equals("fastShotgun")){
+        } else if (currentGun.equals("fastShotgun")) {
             bulletSpeed = new Vector2(8f, 0);
             bulletSpeedLeft = new Vector2(-8f, 0);
             bulletCounter = 7;
@@ -191,8 +178,18 @@ public class Weapon {
             yVelocity[4] = 1f;
             yVelocity[5] = 2f;
             yVelocity[6] = 3f;
+        } else {
+            currentGun.equals("gun");
+            bulletSpeed = new Vector2(4f, 0);
+            bulletSpeedLeft = new Vector2(-4f, 0);
+            bulletCounter = 1;
+            bulletReload = 0f;
+            for (int i = 0; i < bulletCounter; i++) {
+                yVelocity[i] = 0;
+            }
         }
     }
+
 
     private void input(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){

@@ -81,7 +81,7 @@ public class Player extends Sprite {
     private Sound bulletHit = Gdx.audio.newSound(Gdx.files.internal("Sound/playerBulletHit.wav"));
 
     public Player(World world, float x, float y){
-        HP = 25000;
+        HP = 25;
         MAX_HP = HP;
         this.x = x;
         this.y = y;

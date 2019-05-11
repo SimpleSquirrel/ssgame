@@ -212,6 +212,14 @@ public class WorldContactListener implements ContactListener {
                     ((Rocket)fixA.getUserData()).deleteBullet();
                 }
                 break;
+            case PIE_BIT | PLAYER_BIT:
+                if(fixA.getFilterData().categoryBits == PLAYER_BIT){
+                    ((Player)fixA.getUserData()).spikeHit();
+                }
+                else {
+                    ((Player)fixB.getUserData()).spikeHit();
+                }
+                break;
         }
     }
 

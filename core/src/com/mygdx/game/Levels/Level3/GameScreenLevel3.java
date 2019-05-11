@@ -274,7 +274,7 @@ public class GameScreenLevel3 implements Screen {
 
             renderer.render();
 
-            b2dr.render(world, camera.combined);
+            //b2dr.render(world, camera.combined);
 
             camera.update();
             game.batch.setProjectionMatrix(camera.combined);
