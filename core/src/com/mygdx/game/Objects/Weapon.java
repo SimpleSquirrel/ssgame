@@ -184,6 +184,7 @@ public class Weapon {
             bulletSpeedLeft = new Vector2(-4f, 0);
             bulletCounter = 1;
             bulletReload = 0f;
+            yVelocity = new float[bulletCounter];
             for (int i = 0; i < bulletCounter; i++) {
                 yVelocity[i] = 0;
             }

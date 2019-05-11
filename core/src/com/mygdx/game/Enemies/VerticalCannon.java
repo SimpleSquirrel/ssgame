@@ -113,7 +113,7 @@ public class VerticalCannon extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(8/PPM, 25/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
-        fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT | PLAYER_BIT;
+        fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
     }

@@ -112,7 +112,7 @@ public class Cannon extends Enemy {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(14/PPM, 16/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
-        fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT | PLAYER_BIT;
+        fdef.filter.maskBits = GROUND_BIT | BULLET_BIT | SWORD_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
         PolygonShape sensor = new PolygonShape();
